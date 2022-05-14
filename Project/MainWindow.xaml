@@ -7,6 +7,54 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="1.8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="Back" Grid.Column="0" Grid.Row="0" Background="Gray">
+            <Image Source="Images/back.png"></Image>
+        </Button>
+        <Button Name="Forward" Grid.Column="1" Grid.Row="0" Background="Gray">
+            <Image Source="Images/forward.png"></Image>
+        </Button>
+        <Label Grid.Column="2" Grid.ColumnSpan="5" Background="Gray"></Label>
+        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="#3299d1">
+            <Image Source="Images/TrainLogo.png"></Image>
+        </Label>
+
+        <Label Grid.Column="3" Grid.Row="1" Background="#3299d1"></Label>
+        <Button Name="Home" Grid.Column="4" Grid.Row="1" Background="#3299d1" Padding="12">
+            <Image Source="Images/home.png" Stretch="Uniform"></Image>
+        </Button>
+        <Button Name="Login" Grid.Column="5" Grid.Row="1" Background="#3299d1" Padding="12">
+            <Image Source="Images/login.png" Stretch="Uniform"></Image>
+        </Button>
+        <Button Name="Register" Grid.Column="6" Grid.Row="1" Background="#3299d1" Padding="12">
+            <Image Source="Images/register.png" Stretch="Uniform"></Image>
+        </Button>
+        <Label Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="Images/train1.jpg" Stretch="Fill"></Image>
+        </Label>
+        <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="Images/train2.jpg" Stretch="Fill"></Image>
+        </Label>
+        <Label Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="Images/train4.jpg" Stretch="Fill"></Image>
+        </Label>
+        <Viewbox  Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="2">
+            <Label FontFamily="Arial Black"  VerticalAlignment="Center" HorizontalAlignment="Center"> Dobro došli! Registrujte/ulogujte se kako biste koristili naše usluge!</Label>
+        </Viewbox>
     </Grid>
 </Window>

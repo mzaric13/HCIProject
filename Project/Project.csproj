@@ -99,34 +99,27 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\forward.png" />
+    <Resource Include="Images\desno.png" />
+    <Resource Include="Images\loginwhite.png" />
+    <Resource Include="Images\homewhite.png" />
+    <Resource Include="Images\invoice.png" />
+    <Resource Include="Images\levo.png" />
+    <Resource Include="Images\logout.png" />
+    <Resource Include="Images\map.png" />
+    <Resource Include="Images\personal.png" />
+    <Resource Include="Images\platforms.png" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\ticket.png" />
+    <Resource Include="Images\timetable.png" />
+    <Resource Include="Images\train.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\register.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\login.png" />
+    <Resource Include="Images\rail.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\train1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\train2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\train3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\train4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TrainLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

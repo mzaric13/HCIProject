@@ -24,25 +24,25 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Button Name="Back" Grid.Column="0" Grid.Row="0" Background="Gray">
-            <Image Source="Images/back.png"></Image>
+            <Image Source="Images/levo.png"></Image>
         </Button>
         <Button Name="Forward" Grid.Column="1" Grid.Row="0" Background="Gray">
-            <Image Source="Images/forward.png"></Image>
+            <Image Source="Images/desno.png"></Image>
         </Button>
         <Label Grid.Column="2" Grid.ColumnSpan="5" Background="Gray"></Label>
-        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="#3299d1">
-            <Image Source="Images/TrainLogo.png"></Image>
+        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="#191c4f">
+            <Image Source="Images/rail.png"></Image>
         </Label>
 
-        <Label Grid.Column="3" Grid.Row="1" Background="#3299d1"></Label>
-        <Button Name="Home" Grid.Column="4" Grid.Row="1" Background="#3299d1" Padding="12">
-            <Image Source="Images/home.png" Stretch="Uniform"></Image>
+        <Label Grid.Column="3" Grid.Row="1" Background="#191c4f"></Label>
+        <Button Name="Home" Grid.Column="4" Grid.Row="1" Background="#191c4f" Padding="12">
+            <Image Source="Images/homewhite.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Login" Grid.Column="5" Grid.Row="1" Background="#3299d1" Padding="12">
-            <Image Source="Images/login.png" Stretch="Uniform"></Image>
+        <Button Name="Login" Grid.Column="5" Grid.Row="1" Background="#191c4f" Padding="12">
+            <Image Source="Images/loginwhite.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Register" Grid.Column="6" Grid.Row="1" Background="#3299d1" Padding="12">
-            <Image Source="Images/register.png" Stretch="Uniform"></Image>
+        <Button Name="Register" Grid.Column="6" Grid.Row="1" Background="#191c4f" Padding="12">
+            <Image Source="Images/personal.png" Stretch="Uniform"></Image>
         </Button>
         <Label Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="Images/train1.jpg" Stretch="Fill"></Image>

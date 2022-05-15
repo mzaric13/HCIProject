@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace Project
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Users users { get; set; }
         public MainWindow()
         {
+            users = new Users();
             InitializeComponent();
         }
 

@@ -45,7 +45,7 @@
         </Viewbox>
 
         <Viewbox Grid.Row="8" Grid.Column="4">
-            <Button x:Name="confirmLogin" Content="Prijava" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="115">
+            <Button x:Name="confirmLogin" Click="LoginClick" Content="Prijava" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="115">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>

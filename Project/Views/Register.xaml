@@ -82,7 +82,7 @@
             <RadioButton x:Name="manager" Margin="0,0,7,0" GroupName="registrationType" Content="Menadžer" FontFamily="Arial black" FontSize="15" Width="102"></RadioButton>
         </Viewbox>
         <Viewbox Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2">
-            <Button x:Name="confirmRegistration" Content="Registracija" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="132">
+            <Button x:Name="confirmRegistration" Click="RegistrationClick" Content="Registracija" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="132">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>

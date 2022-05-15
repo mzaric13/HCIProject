@@ -31,9 +31,6 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Visible;
             window.loginPage.Visibility = Visibility.Hidden;
             window.registrationPage.Visibility = Visibility.Hidden;
-
-            DeleteRegistrationInfo(window);
-            DeleteLoginInfo(window);
         }
 
         public void LoginClick(object sender, RoutedEventArgs e)
@@ -43,7 +40,7 @@ namespace Project.Views
             window.loginPage.Visibility = Visibility.Visible;
             window.registrationPage.Visibility= Visibility.Hidden;
 
-            DeleteRegistrationInfo(window);
+            DeleteLoginInfo(window);
 
         }
 
@@ -55,7 +52,7 @@ namespace Project.Views
             window.loginPage.Visibility = Visibility.Hidden;
             window.registrationPage.Visibility = Visibility.Visible;
 
-            DeleteLoginInfo(window);
+            DeleteRegistrationInfo(window);
         }
 
         public void DeleteRegistrationInfo(MainWindow window)

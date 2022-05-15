@@ -31,6 +31,9 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Visible;
             window.loginPage.Visibility = Visibility.Hidden;
             window.registrationPage.Visibility = Visibility.Hidden;
+
+            DeleteRegistrationInfo(window);
+            DeleteLoginInfo(window);
         }
 
         public void LoginClick(object sender, RoutedEventArgs e)
@@ -39,14 +42,37 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Hidden;
             window.loginPage.Visibility = Visibility.Visible;
             window.registrationPage.Visibility= Visibility.Hidden;
+
+            DeleteRegistrationInfo(window);
+
         }
 
         public void RegisterClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
+
             window.homePage.Visibility = Visibility.Hidden;
             window.loginPage.Visibility = Visibility.Hidden;
             window.registrationPage.Visibility = Visibility.Visible;
+
+            DeleteLoginInfo(window);
+        }
+
+        public void DeleteRegistrationInfo(MainWindow window)
+        {
+            window.registrationPage.name.Text = "";
+            window.registrationPage.surname.Text = "";
+            window.registrationPage.email.Text = "";
+            window.registrationPage.password.Password = "";
+            window.registrationPage.confirmPassword.Password = "";
+            window.registrationPage.client.IsChecked = false;
+            window.registrationPage.manager.IsChecked = false;
+        }
+
+        public void DeleteLoginInfo(MainWindow window)
+        {
+            window.loginPage.email.Text = "";
+            window.loginPage.password.Password = "";
         }
     }
 }

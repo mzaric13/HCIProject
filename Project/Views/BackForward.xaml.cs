@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Project
+namespace Project.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BackForward.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BackForward : UserControl
     {
-        public MainWindow()
+        public BackForward()
         {
             InitializeComponent();
         }
-
     }
 }

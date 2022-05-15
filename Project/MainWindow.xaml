@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project"
+        xmlns:uc="clr-namespace:Project.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -23,38 +24,13 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="Back" Grid.Column="0" Grid.Row="0" Background="Gray">
-            <Image Source="Images/levo.png"></Image>
-        </Button>
-        <Button Name="Forward" Grid.Column="1" Grid.Row="0" Background="Gray">
-            <Image Source="Images/desno.png"></Image>
-        </Button>
-        <Label Grid.Column="2" Grid.ColumnSpan="5" Background="Gray"></Label>
-        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="#191c4f">
-            <Image Source="Images/rail.png"></Image>
-        </Label>
 
-        <Label Grid.Column="3" Grid.Row="1" Background="#191c4f"></Label>
-        <Button Name="Home" Grid.Column="4" Grid.Row="1" Background="#191c4f" Padding="12">
-            <Image Source="Images/homewhite.png" Stretch="Uniform"></Image>
-        </Button>
-        <Button Name="Login" Grid.Column="5" Grid.Row="1" Background="#191c4f" Padding="12">
-            <Image Source="Images/loginwhite.png" Stretch="Uniform"></Image>
-        </Button>
-        <Button Name="Register" Grid.Column="6" Grid.Row="1" Background="#191c4f" Padding="12">
-            <Image Source="Images/personal.png" Stretch="Uniform"></Image>
-        </Button>
-        <Label Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="Images/train1.jpg" Stretch="Fill"></Image>
-        </Label>
-        <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="Images/train2.jpg" Stretch="Fill"></Image>
-        </Label>
-        <Label Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="Images/train4.jpg" Stretch="Fill"></Image>
-        </Label>
-        <Viewbox  Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="2">
-            <Label FontFamily="Arial Black"  VerticalAlignment="Center" HorizontalAlignment="Center"> Dobro došli! Registrujte/ulogujte se kako biste koristili naše usluge!</Label>
-        </Viewbox>
+        <uc:BackForward Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="4"></uc:BackForward>
+
+        <uc:NavbarNotLoggedIn Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4"/>
+
+        <uc:HomePage x:Name="homePage" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3" Grid.Row="1" Visibility="Visible"/>
+        <uc:Login x:Name="loginPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:Register x:Name="registrationPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
     </Grid>
 </Window>

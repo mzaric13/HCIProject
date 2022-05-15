@@ -24,5 +24,10 @@ namespace Project
         {
             InitializeComponent();
         }
+
+        private void loginClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

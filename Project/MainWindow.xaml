@@ -35,5 +35,7 @@
         <uc:HomePage x:Name="homePage" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3" Grid.Row="1" Visibility="Visible"/>
         <uc:Login x:Name="loginPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
         <uc:Register x:Name="registrationPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+
+        <uc:TrainCrud x:Name="trainCrudPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
     </Grid>
 </Window>

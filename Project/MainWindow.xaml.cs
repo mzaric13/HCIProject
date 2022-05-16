@@ -21,10 +21,10 @@ namespace Project
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Users users { get; set; }
+        public Entities systemEntities { get; set; }
         public MainWindow()
         {
-            users = new Users();
+            systemEntities = new Entities();
             InitializeComponent();
         }
 

@@ -37,7 +37,8 @@ namespace Project.Views
 
         public void TrainsClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.trainCrudPage.Visibility = Visibility.Visible;
         }
 
         public void TimetableClick(object sender, RoutedEventArgs e)
@@ -48,7 +49,7 @@ namespace Project.Views
         public void LogoutClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            window.users.loggedUser = null;
+            window.systemEntities.loggedUser = null;
             window.notLoggedIn.Visibility = Visibility.Visible;
             window.manager.Visibility = Visibility.Hidden;
             //sve ostale prozore u manageru staviti na hidden

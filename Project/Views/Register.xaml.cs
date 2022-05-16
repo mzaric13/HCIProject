@@ -55,14 +55,14 @@ namespace Project.Views
                 }
                 
                 MainWindow window = (MainWindow)Window.GetWindow(this);
-                if (window.users.systemUsers.ContainsKey(this.email.Text))
+                if (window.systemEntities.systemUsers.ContainsKey(this.email.Text))
                 {
                     Error error = new Error("Korisnik sa unetom e-mail adresom već postoji u sistemu.");
                     error.ShowDialog();
                 }
                 else
                 {
-                    window.users.systemUsers.Add(this.email.Text,
+                    window.systemEntities.systemUsers.Add(this.email.Text,
                     new User(this.name.Text, this.surname.Text, this.email.Text, this.password.Password, userType));
 
                     Success success = new Success("Uspešno ste kreirali nalog.");

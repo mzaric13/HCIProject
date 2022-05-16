@@ -48,7 +48,7 @@ namespace Project.Views
         public void LogoutClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            window.users.loggedUser = null;
+            window.systemEntities.loggedUser = null;
             window.notLoggedIn.Visibility = Visibility.Visible;
             window.client.Visibility = Visibility.Hidden;
             //sve ostale prozore u clientu staviti na hidden

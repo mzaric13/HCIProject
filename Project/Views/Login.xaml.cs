@@ -36,14 +36,14 @@ namespace Project.Views
             else
             {
                 MainWindow window = (MainWindow)Window.GetWindow(this);
-                if (!window.users.systemUsers.ContainsKey(this.email.Text))
+                if (!window.systemEntities.systemUsers.ContainsKey(this.email.Text))
                 {
                     Error error = new Error("Nepostojeća kombinacija kredencijala. Pokušajte ponovo.");
                     error.ShowDialog();
                 }
                 else
                 {
-                    if (!window.users.systemUsers[this.email.Text].password.Equals(this.password.Password))
+                    if (!window.systemEntities.systemUsers[this.email.Text].password.Equals(this.password.Password))
                     {
                         Error error = new Error("Nepostojeća kombinacija kredencijala. Pokušajte ponovo.");
                         error.ShowDialog();
@@ -52,14 +52,14 @@ namespace Project.Views
                     {
                         Success success = new Success("Uspešna prijava, dobrodošli!");
                         success.ShowDialog();
-                        window.users.loggedUser = window.users.systemUsers[this.email.Text];
-                        if (window.users.systemUsers[this.email.Text].userType == Model.UserType.Client)
+                        window.systemEntities.loggedUser = window.systemEntities.systemUsers[this.email.Text];
+                        if (window.systemEntities.systemUsers[this.email.Text].userType == Model.UserType.Client)
                         {
                             window.notLoggedIn.Visibility = Visibility.Hidden;
                             window.client.Visibility = Visibility.Visible;
                             window.loginPage.Visibility = Visibility.Hidden;
                         }
-                        else if (window.users.systemUsers[this.email.Text].userType == Model.UserType.Manager)
+                        else if (window.systemEntities.systemUsers[this.email.Text].userType == Model.UserType.Manager)
                         {
                             window.notLoggedIn.Visibility = Visibility.Hidden;
                             window.manager.Visibility = Visibility.Visible;

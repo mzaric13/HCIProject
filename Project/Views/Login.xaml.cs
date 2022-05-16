@@ -28,14 +28,15 @@ namespace Project.Views
 
         public void LoginClick(object sender, RoutedEventArgs e)
         {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
             if (this.email.Text.Length == 0 || this.password.Password.Length == 0)
             {
                 Error error = new Error("Potrebno je popuniti sva polja, kako bi prijava bila uspešna.");
                 error.ShowDialog();
+                errorNotFilledIn.Visibility = Visibility.Visible;
             }
             else
-            {
-                MainWindow window = (MainWindow)Window.GetWindow(this);
+            {     
                 if (!window.systemEntities.systemUsers.ContainsKey(this.email.Text))
                 {
                     Error error = new Error("Nepostojeća kombinacija kredencijala. Pokušajte ponovo.");

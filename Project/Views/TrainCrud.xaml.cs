@@ -21,6 +21,7 @@ namespace Project.Views
     /// </summary>
     public partial class TrainCrud : UserControl
     {
+        
         public TrainCrud()
         {
             InitializeComponent();

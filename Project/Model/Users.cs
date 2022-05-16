@@ -9,6 +9,7 @@ namespace Project.Model
     public class Users
     {
         public Dictionary<string, User> systemUsers { get; set; }
+        public User loggedUser { get; set; }
 
         public Users()
         {

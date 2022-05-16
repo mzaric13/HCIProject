@@ -52,7 +52,19 @@ namespace Project.Views
                     {
                         Success success = new Success("Uspešna prijava, dobrodošli!");
                         success.ShowDialog();
-                        //TODO: u zavisnosti koji je korisnik ulogovan, baciti ga na njegovu stranicu (klijent, menadzer)
+                        window.users.loggedUser = window.users.systemUsers[this.email.Text];
+                        if (window.users.systemUsers[this.email.Text].userType == Model.UserType.Client)
+                        {
+                            window.notLoggedIn.Visibility = Visibility.Hidden;
+                            window.client.Visibility = Visibility.Visible;
+                            window.loginPage.Visibility = Visibility.Hidden;
+                        }
+                        else if (window.users.systemUsers[this.email.Text].userType == Model.UserType.Manager)
+                        {
+                            window.notLoggedIn.Visibility = Visibility.Hidden;
+                            window.manager.Visibility = Visibility.Visible;
+                            window.loginPage.Visibility = Visibility.Hidden;
+                        }
                     }
                 }
             }

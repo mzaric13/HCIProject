@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Project"
         xmlns:uc="clr-namespace:Project.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="BrzePruge" Height="450" Width="800"
+        Icon="Icons/rail.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.7*"/>
@@ -27,7 +28,9 @@
 
         <uc:BackForward Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="4"></uc:BackForward>
 
-        <uc:NavbarNotLoggedIn Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4"/>
+        <uc:NavbarNotLoggedIn x:Name="notLoggedIn" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4"/>
+        <uc:NavbarClient x:Name="client" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4" Visibility="Hidden"/>
+        <uc:NavbarManager x:Name="manager" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4" Visibility="Hidden"/>
 
         <uc:HomePage x:Name="homePage" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3" Grid.Row="1" Visibility="Visible"/>
         <uc:Login x:Name="loginPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>

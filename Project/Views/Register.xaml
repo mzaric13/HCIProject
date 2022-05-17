@@ -8,7 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*"/>
             <RowDefinition Height="1.8*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.5"/>
@@ -38,50 +37,50 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3">
+        <Viewbox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3">
             <Label FontFamily="Arial Black" FontSize="30">Registracija na sistem</Label>
         </Viewbox>
-        <Viewbox Grid.Row="5" Grid.Column="3">
+        <Viewbox Grid.Row="4" Grid.Column="3">
             <Label Content="Ime:" FontFamily="Arial black" FontSize="15" HorizontalContentAlignment="Right" Width="194"></Label>
         </Viewbox>
-        <Viewbox Grid.Row="7" Grid.Column="3">
+        <Viewbox Grid.Row="6" Grid.Column="3">
             <Label Content="Prezime:" FontFamily="Arial black" FontSize="15" HorizontalContentAlignment="Right" Width="194"></Label>
         </Viewbox>
-        <Viewbox Grid.Row="9" Grid.Column="3">
+        <Viewbox Grid.Row="8" Grid.Column="3">
             <Label Content="E-mail adresa:" FontFamily="Arial black" FontSize="15" HorizontalContentAlignment="Right" Width="194"></Label>
         </Viewbox>
-        <Viewbox Grid.Row="11" Grid.Column="3">
+        <Viewbox Grid.Row="10" Grid.Column="3">
             <Label Content="Šifra:" FontFamily="Arial black" FontSize="15" HorizontalContentAlignment="Right" Width="194"></Label>
         </Viewbox>
-        <Viewbox Grid.Row="13" Grid.Column="3">
+        <Viewbox Grid.Row="12" Grid.Column="3">
             <Label Content="Potvrda šifre:" FontFamily="Arial black" FontSize="15" HorizontalContentAlignment="Right" Width="194"></Label>
         </Viewbox>
-        <Viewbox Grid.Row="15" Grid.Column="3">
+        <Viewbox Grid.Row="14" Grid.Column="3">
             <Label Content="Tip korisnika:" FontFamily="Arial black" FontSize="15" HorizontalContentAlignment="Right" Width="194"></Label>
         </Viewbox>
-        <Viewbox Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2">
+        <Viewbox Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2">
             <TextBox x:Name="name" FontSize="15" VerticalContentAlignment="Center" Width="160"></TextBox>
         </Viewbox>
-        <Viewbox Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2">
+        <Viewbox Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2">
             <TextBox x:Name="surname" Grid.Row="7" FontSize="15" VerticalContentAlignment="Center" Width="160"></TextBox>
         </Viewbox>
-        <Viewbox Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2">
+        <Viewbox Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2">
             <TextBox x:Name="email" FontSize="15" VerticalContentAlignment="Center" Width="160"></TextBox>
         </Viewbox>
-        <Viewbox Grid.Row="11" Grid.Column="4" Grid.ColumnSpan="2">
+        <Viewbox Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2">
             <PasswordBox x:Name="password" FontSize="15" VerticalContentAlignment="Center" Width="160"></PasswordBox>
         </Viewbox>
-        <Viewbox Grid.Row="13" Grid.Column="4" Grid.ColumnSpan="2">
+        <Viewbox Grid.Row="12" Grid.Column="4" Grid.ColumnSpan="2">
             <PasswordBox x:Name="confirmPassword" FontSize="15" VerticalContentAlignment="Center" Width="160"></PasswordBox>    
         </Viewbox>
         
-        <Viewbox Grid.Row="15" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left">
+        <Viewbox Grid.Row="14" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left">
             <RadioButton x:Name="client" Margin="8,0,0,0" GroupName="registrationType" Content="Klijent" FontFamily="Arial black" FontSize="15" Width="101"></RadioButton>    
         </Viewbox>
-        <Viewbox Grid.Row="15" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left">
+        <Viewbox Grid.Row="14" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left">
             <RadioButton x:Name="manager" Margin="0,0,7,0" GroupName="registrationType" Content="Menadžer" FontFamily="Arial black" FontSize="15" Width="102"></RadioButton>
         </Viewbox>
-        <Viewbox Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2">
+        <Viewbox Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2">
             <Button x:Name="confirmRegistration" Click="RegistrationClick" Content="Registracija" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="132">
                 <Button.Resources>
                     <Style TargetType="Border">

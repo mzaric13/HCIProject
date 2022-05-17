@@ -10,7 +10,6 @@
         Icon="Icons/rail.ico">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*"/>
             <RowDefinition Height="1.8*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="6*"/>
@@ -25,8 +24,6 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-
-        <uc:BackForward Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="4"></uc:BackForward>
 
         <uc:NavbarNotLoggedIn x:Name="notLoggedIn" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4"/>
         <uc:NavbarClient x:Name="client" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4" Visibility="Hidden"/>

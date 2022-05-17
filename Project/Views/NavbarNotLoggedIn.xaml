@@ -8,7 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*"/>
             <RowDefinition Height="1.8*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="6*"/>
@@ -23,18 +22,18 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="#191c4f">
+        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Background="#191c4f">
             <Image Source="../Images/rail.png"></Image>
         </Label>
 
-        <Label Grid.Column="3" Grid.Row="1" Background="#191c4f"></Label>
-        <Button Name="Home" Click="HomeClick" Grid.Column="4" Grid.Row="1" Background="#191c4f" Padding="12">
+        <Label Grid.Column="3" Grid.Row="0" Background="#191c4f"></Label>
+        <Button Name="Home" Click="HomeClick" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/homewhite.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Login" Click="LoginClick" Grid.Column="5" Grid.Row="1" Background="#191c4f" Padding="12">
+        <Button Name="Login" Click="LoginClick" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/loginwhite.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Register" Click="RegisterClick" Grid.Column="6" Grid.Row="1" Background="#191c4f" Padding="12">
+        <Button Name="Register" Click="RegisterClick" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/personal.png" Stretch="Uniform"></Image>
         </Button>
     </Grid>

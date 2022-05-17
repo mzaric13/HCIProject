@@ -27,7 +27,8 @@ namespace Project.Views
 
         public void TrainLinesClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.trainCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TicketsClick(object sender, RoutedEventArgs e)

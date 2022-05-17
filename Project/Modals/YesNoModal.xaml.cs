@@ -15,13 +15,16 @@ using System.Windows.Shapes;
 namespace Project.Modals
 {
     /// <summary>
-    /// Interaction logic for Success.xaml
+    /// Interaction logic for YesNoModal.xaml
     /// </summary>
-    public partial class Success : Window
+    /// 
+    public partial class YesNoModal : Window
     {
+        public bool response { get; set; } 
+
         private readonly double screenWidth = SystemParameters.PrimaryScreenWidth;
         private readonly double screenHeight = SystemParameters.PrimaryScreenHeight;
-        public Success(string message)
+        public YesNoModal(string message)
         {
             InitializeComponent();
             Left = screenWidth / 2 - Width / 2;
@@ -29,8 +32,15 @@ namespace Project.Modals
 
             Message.Text = message;
         }
-        private void SuccessClick(object sender, RoutedEventArgs e)
+
+        private void AcceptClick(object sender, RoutedEventArgs e)
         {
+            response = true;
+            Close();
+        }
+        private void DeclineClick(object sender, RoutedEventArgs e)
+        {
+            response = false;
             Close();
         }
     }

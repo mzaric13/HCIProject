@@ -70,6 +70,9 @@
     <Compile Include="Modals\Success.xaml.cs">
       <DependentUpon>Success.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modals\YesNoModal.xaml.cs">
+      <DependentUpon>YesNoModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Train.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Entities.cs" />
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modals\Success.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modals\YesNoModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,5 +208,9 @@
   <ItemGroup>
     <Resource Include="Icons\error.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search_table.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

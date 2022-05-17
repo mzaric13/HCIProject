@@ -33,7 +33,8 @@ namespace Project.Views
 
         public void TicketsClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.trainCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TrainsClick(object sender, RoutedEventArgs e)
@@ -44,7 +45,8 @@ namespace Project.Views
 
         public void TimetableClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.trainCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)
@@ -55,6 +57,7 @@ namespace Project.Views
             window.manager.Visibility = Visibility.Hidden;
             //sve ostale prozore u manageru staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
+            window.trainCrudPage.Visibility = Visibility.Hidden;
         }
     }
 }

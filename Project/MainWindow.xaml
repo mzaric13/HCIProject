@@ -34,5 +34,6 @@
         <uc:Register x:Name="registrationPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
 
         <uc:TrainCrud x:Name="trainCrudPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:TimetableCrud x:Name="timetableCrudPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
     </Grid>
 </Window>

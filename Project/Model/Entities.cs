@@ -13,6 +13,7 @@ namespace Project.Model
 
         public string currentError { get; set; }
         public List<Train> systemTrains { get; set; }
+        public List<Timetable> systemTimetables { get; set; }
 
         public Entities()
         {
@@ -24,14 +25,27 @@ namespace Project.Model
 
             systemTrains = new List<Train>
             {
-                new Train(001, "BrzaPtica"),
-                new Train(002, "BrzaPtica"),
-                new Train(003, "BrzaPtica"),
-                new Train(004, "BrzaPtica"),
-                new Train(005, "SamoVozovi"),
-                new Train(006, "SamoVozovi"),
-                new Train(007, "SamoVozovi"),
-                new Train(008, "SamoVozovi")
+                new Train(1, "BrzaPtica"),
+                new Train(2, "BrzaPtica"),
+                new Train(3, "BrzaPtica"),
+                new Train(4, "BrzaPtica"),
+                new Train(5, "SamoVozovi"),
+                new Train(6, "SamoVozovi"),
+                new Train(7, "SamoVozovi"),
+                new Train(8, "SamoVozovi")
+            };
+
+            systemTimetables = new List<Timetable>
+            {
+                new Timetable(1, "12:00", "25.05.2022.", "14:00", "25.05.2022", new Train(001, "BrzaPtica")),
+                new Timetable(2, "12:00", "26.05.2022.", "14:00", "26.05.2022", new Train(001, "BrzaPtica")),
+                new Timetable(3, "11:00", "27.05.2022.", "13:00", "27.05.2022", new Train(001, "BrzaPtica")),
+                new Timetable(4, "12:00", "25.05.2022.", "14:00", "25.05.2022", new Train(002, "BrzaPtica")),
+                new Timetable(5, "12:00", "30.05.2022.", "14:00", "30.05.2022", new Train(002, "BrzaPtica")),
+                new Timetable(6, "15:00", "31.05.2022.", "17:00", "31.05.2022", new Train(002, "BrzaPtica")),
+                new Timetable(7, "20:00", "25.05.2022.", "23:30", "25.05.2022", new Train(005, "SamoVozovi")),
+                new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022", new Train(006, "SamoVozovi")),
+                new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022", new Train(007, "SamoVozovi")),
             };
         }
          

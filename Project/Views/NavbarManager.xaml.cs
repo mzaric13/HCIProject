@@ -29,24 +29,28 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Hidden;
+            window.timetableCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TicketsClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Hidden;
+            window.timetableCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TrainsClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Visible;
+            window.timetableCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TimetableClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Hidden;
+            window.timetableCrudPage.Visibility = Visibility.Visible;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)
@@ -58,6 +62,7 @@ namespace Project.Views
             //sve ostale prozore u manageru staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
             window.trainCrudPage.Visibility = Visibility.Hidden;
+            window.timetableCrudPage.Visibility = Visibility.Hidden;
         }
     }
 }

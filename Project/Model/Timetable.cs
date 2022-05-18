@@ -17,6 +17,8 @@ namespace Project.Model
         public int trainNumber {get; set;}
         public string trainOperator { get; set; }
 
+        public Route Route { get; set; }
+
         public Timetable()
         {
 

@@ -73,8 +73,10 @@
     <Compile Include="Modals\YesNoModal.xaml.cs">
       <DependentUpon>YesNoModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Timetable.cs" />
     <Compile Include="Model\Train.cs" />
+    <Compile Include="Model\TrainStation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Entities.cs" />
     <Compile Include="Views\HomePage.xaml.cs">

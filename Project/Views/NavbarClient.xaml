@@ -23,25 +23,29 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Background="#191c4f">
             <Image Source="../Images/rail.png"></Image>
         </Label>
 
         <Label Grid.Column="3" Grid.Row="0" Background="#191c4f"></Label>
-        <Button Name="Map" Click="MapClick" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
-            <Image Source="../Images/map.png" Stretch="Uniform"></Image>
-        </Button>
         <Button Name="BuyTicket" Click="BuyTicketClick" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/invoice.png" Stretch="Uniform"></Image>
         </Button>
         <Button Name="MyTickets" Click="MyTicketsClick" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/ticket.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Timetable" Click="TimetableClick" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="RoutesView" Click="ClickRoutesView" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
+            <Image Source="../Images/platforms.png" Stretch="Uniform"></Image>
+        </Button>
+        <Button Name="WebRoutesView" Click="ClickWebRoutesView" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12">
+            <Image Source="../Images/map.png" Stretch="Uniform"></Image>
+        </Button>
+        <Button Name="Timetable" Click="TimetableClick" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/timetable.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Logout" Click="LogoutClick" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Logout" Click="LogoutClick" Grid.Column="9" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/logout.png" Stretch="Uniform"></Image>
         </Button>
     </Grid>

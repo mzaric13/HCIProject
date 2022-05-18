@@ -73,6 +73,7 @@
     <Compile Include="Modals\YesNoModal.xaml.cs">
       <DependentUpon>YesNoModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\BoardingCard.cs" />
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Timetable.cs" />
     <Compile Include="Model\Train.cs" />
@@ -96,6 +97,9 @@
     </Compile>
     <Compile Include="Views\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoutesReview.xaml.cs">
+      <DependentUpon>RoutesReview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimetableCrud.xaml.cs">
       <DependentUpon>TimetableCrud.xaml</DependentUpon>
@@ -148,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoutesReview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

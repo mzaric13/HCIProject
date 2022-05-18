@@ -15,6 +15,10 @@ namespace Project.Model
         public List<Train> systemTrains { get; set; }
         public List<Timetable> systemTimetables { get; set; }
 
+        public List<TrainStation> systemTrainStations { get; set; }
+
+        public List<Route> systemRoutes { get; set; }
+
         public Entities()
         {
             systemUsers = new Dictionary<string, User>
@@ -46,6 +50,27 @@ namespace Project.Model
                 new Timetable(7, "20:00", "25.05.2022.", "23:30", "25.05.2022", new Train(005, "SamoVozovi")),
                 new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022", new Train(006, "SamoVozovi")),
                 new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022", new Train(007, "SamoVozovi")),
+            };
+
+            TrainStation ts1 = new TrainStation(1, "Beograd");
+            TrainStation ts2 = new TrainStation(2, "Zemun");
+            TrainStation ts3 = new TrainStation(3, "Stara Pazova");
+            TrainStation ts4 = new TrainStation(4, "Indjija");
+            TrainStation ts5 = new TrainStation(5, "Beska");
+            TrainStation ts6 = new TrainStation(6, "Sremski Karlovci");
+            TrainStation ts7 = new TrainStation(7, "Petrovaradin");
+            TrainStation ts8 = new TrainStation(8, "Novi Sad");
+            TrainStation ts9 = new TrainStation(9, "Vrbas");
+            TrainStation ts10 = new TrainStation(10, "Subotica");
+
+            systemRoutes = new List<Route>
+            {
+                new Route(ts1, ts8, new List<TrainStation>{ts2, ts3, ts4, ts5, ts6, ts7}),
+                new Route(ts8, ts1, new List<TrainStation>{ts2, ts3, ts4, ts5, ts6, ts7}),
+                new Route(ts1, ts8, new List<TrainStation> { }),
+                new Route(ts8, ts1, new List<TrainStation>{ }),
+                new Route(ts8, ts10, new List<TrainStation>{ts9}),
+                new Route(ts10, ts8, new List<TrainStation>{ts9})
             };
         }
          

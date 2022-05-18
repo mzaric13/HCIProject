@@ -25,9 +25,15 @@ namespace Project.Views
             InitializeComponent();
         }
 
-        public void MapClick(object sender, RoutedEventArgs e)
+        public void ClickWebRoutesView(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void ClickRoutesView(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.routesReviewPage.Visibility = Visibility.Visible;
         }
 
         public void BuyTicketClick(object sender, RoutedEventArgs e)
@@ -51,6 +57,7 @@ namespace Project.Views
             window.systemEntities.loggedUser = null;
             window.notLoggedIn.Visibility = Visibility.Visible;
             window.client.Visibility = Visibility.Hidden;
+            window.routesReviewPage.Visibility = Visibility.Hidden;
             //sve ostale prozore u clientu staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
         }

@@ -30,6 +30,7 @@ namespace Project.Views
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
+            window.routeCrudPage.Visibility = Visibility.Visible;
         }
 
         public void TicketsClick(object sender, RoutedEventArgs e)
@@ -37,6 +38,7 @@ namespace Project.Views
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
+            window.routeCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TrainsClick(object sender, RoutedEventArgs e)
@@ -44,6 +46,7 @@ namespace Project.Views
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Visible;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
+            window.routeCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void TimetableClick(object sender, RoutedEventArgs e)
@@ -51,6 +54,7 @@ namespace Project.Views
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Visible;
+            window.routeCrudPage.Visibility = Visibility.Hidden;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)
@@ -63,6 +67,7 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Visible;
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
+            window.routeCrudPage.Visibility = Visibility.Hidden;
         }
     }
 }

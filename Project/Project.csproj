@@ -97,6 +97,9 @@
     <Compile Include="Views\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RouteCrud.xaml.cs">
+      <DependentUpon>RouteCrud.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TimetableCrud.xaml.cs">
       <DependentUpon>TimetableCrud.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RouteCrud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

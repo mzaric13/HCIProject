@@ -14,7 +14,9 @@ namespace Project.Model
         public string currentError { get; set; }
         public List<Train> systemTrains { get; set; }
         public List<Timetable> systemTimetables { get; set; }
+        public List<Route> systemRoutes { get; set; }
 
+        public List<TrainStation> systemStations { get; set; }
         public Entities()
         {
             systemUsers = new Dictionary<string, User>
@@ -46,6 +48,41 @@ namespace Project.Model
                 new Timetable(7, "20:00", "25.05.2022.", "23:30", "25.05.2022", new Train(005, "SamoVozovi")),
                 new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022", new Train(006, "SamoVozovi")),
                 new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022", new Train(007, "SamoVozovi")),
+            };
+
+            TrainStation ts1 = new TrainStation(1, "Beograd");
+            TrainStation ts2 = new TrainStation(2, "Zemun");
+            TrainStation ts3 = new TrainStation(3, "Stara Pazova");
+            TrainStation ts4 = new TrainStation(4, "Indjija");
+            TrainStation ts5 = new TrainStation(5, "Beska");
+            TrainStation ts6 = new TrainStation(6, "Sremski Karlovci");
+            TrainStation ts7 = new TrainStation(7, "Petrovaradin");
+            TrainStation ts8 = new TrainStation(8, "Novi Sad");
+            TrainStation ts9 = new TrainStation(9, "Vrbas");
+            TrainStation ts10 = new TrainStation(10, "Subotica");
+
+            systemStations = new List<TrainStation>
+            {
+                ts1,
+                ts2,
+                ts3,
+                ts4,
+                ts5,
+                ts6,
+                ts7,
+                ts8,
+                ts9,
+                ts10
+            };
+
+            systemRoutes = new List<Route>
+            {
+                new Route(1, ts1, ts8, new List<TrainStation>{ts2, ts3, ts4, ts5, ts6, ts7}),
+                new Route(2, ts8, ts1, new List<TrainStation>{ts2, ts3, ts4, ts5, ts6, ts7}),
+                new Route(3, ts1, ts8, new List<TrainStation> { }),
+                new Route(4, ts8, ts1, new List<TrainStation>{ }),
+                new Route(5, ts8, ts10, new List<TrainStation>{ts9}),
+                new Route(6, ts10, ts8, new List<TrainStation>{ts9})
             };
         }
          

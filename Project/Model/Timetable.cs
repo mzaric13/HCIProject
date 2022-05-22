@@ -13,9 +13,7 @@ namespace Project.Model
         public string startDate { get; set; }
         public string endTime { get; set; }
         public string endDate { get; set; }
-        private Train train { get; set; }
-        public int trainNumber {get; set;}
-        public string trainOperator { get; set; }
+        public Train train { get; set; }
 
         public Route Route { get; set; }
 
@@ -24,7 +22,7 @@ namespace Project.Model
 
         }
 
-        public Timetable(int id, string startTime, string startDate, string endTime, string endDate, Train train)
+        public Timetable(int id, string startTime, string startDate, string endTime, string endDate, Train train, Route route)
         {
             this.id = id;
             this.startTime = startTime;
@@ -32,8 +30,7 @@ namespace Project.Model
             this.endTime = endTime;
             this.endDate = endDate;
             this.train = train;
-            this.trainNumber = train.Number;
-            this.trainOperator = train.Operator;
+            this.Route = route;
         }
     }
 }

@@ -104,6 +104,9 @@
     <Compile Include="Views\TimetableCrud.xaml.cs">
       <DependentUpon>TimetableCrud.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TimetableReview.xaml.cs">
+      <DependentUpon>TimetableReview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TrainCrud.xaml.cs">
       <DependentUpon>TrainCrud.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TimetableCrud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimetableReview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

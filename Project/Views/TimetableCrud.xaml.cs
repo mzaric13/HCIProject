@@ -45,8 +45,8 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemTimetables.Max(t => t.id);
-            timetables.Add(new Timetable(maxIndex + 1, DateTime.Now.ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), (DateTime.Now + new TimeSpan(2, 0, 0)).ToString("hh:mm") , DateTime.Now.ToString("dd.MM.yyyy"), new Train(001, "BrzaPtica")));
-            window.systemEntities.systemTimetables.Add(new Timetable(maxIndex + 1, DateTime.Now.ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), (DateTime.Now + new TimeSpan(2, 0, 0)).ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), new Train(001, "BrzaPtica")));
+            timetables.Add(new Timetable(maxIndex + 1, DateTime.Now.ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), (DateTime.Now + new TimeSpan(2, 0, 0)).ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), window.systemEntities.systemTrains[0], window.systemEntities.systemRoutes[0]));
+            window.systemEntities.systemTimetables.Add(new Timetable(maxIndex + 1, DateTime.Now.ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), (DateTime.Now + new TimeSpan(2, 0, 0)).ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), window.systemEntities.systemTrains[0], window.systemEntities.systemRoutes[0]));
             Success success = new Success("Uspešno dodat novi red vožnje.");
             success.ShowDialog();
         }
@@ -71,15 +71,16 @@ namespace Project.Views
             }
             if (e.Column.Header.ToString() == "id")
             {
+                e.Column.Header = "Broj reda vožnje ";
+                e.Column.IsReadOnly = true;
+            }
+            if (e.Column.Header.ToString() == "Route")
+            {
+                e.Column.Header = "Broj linije ";
+            }
+            if (e.Column.Header.ToString() == "train")
+            {
                 e.Column.Visibility = Visibility.Hidden;
-            }
-            if (e.Column.Header.ToString() == "trainNumber")
-            {
-                e.Column.Header = "Broj voza  ";
-            }
-            if (e.Column.Header.ToString() == "trainOperator")
-            {
-                e.Column.Header = "Prevoznik ";
             }
         }
 
@@ -136,8 +137,7 @@ namespace Project.Views
                 foreach (Timetable timetable in window.systemEntities.systemTimetables)
                 {
                     if (timetable.startDate.Contains(searchText.Text) || timetable.startTime.Contains(searchText.Text) ||
-                        timetable.endDate.Contains(searchText.Text) || timetable.endTime.Contains(searchText.Text) ||
-                        timetable.trainNumber.ToString().ToLower().Contains(searchText.Text.ToLower()) || timetable.trainOperator.ToString().ToLower().Contains(searchText.Text.ToLower()))
+                        timetable.endDate.Contains(searchText.Text) || timetable.endTime.Contains(searchText.Text))
                     {
                         searchedTimetables.Add(timetable);
                     }

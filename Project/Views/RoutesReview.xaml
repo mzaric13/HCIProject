@@ -25,7 +25,7 @@
         </Grid.ColumnDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5">
-            <Label Content="Redovi vožnje" FontSize="20" FontFamily="Arial black"></Label>
+            <Label Content="Vozne linije" FontSize="20" FontFamily="Arial black"></Label>
         </Viewbox>
 
         <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">

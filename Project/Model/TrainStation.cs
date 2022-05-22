@@ -24,5 +24,21 @@ namespace Project.Model
         public override string ToString() { 
             return Name;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj is TrainStation)
+            {
+                TrainStation ts = (TrainStation)obj;
+                return Id == ts.Id && Name == ts.Name;
+            }
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

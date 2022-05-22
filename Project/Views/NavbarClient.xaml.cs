@@ -48,7 +48,8 @@ namespace Project.Views
 
         public void TimetableClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
+            mainWindow.timetableReviewPage.Visibility = Visibility.Visible;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)
@@ -58,6 +59,7 @@ namespace Project.Views
             window.notLoggedIn.Visibility = Visibility.Visible;
             window.client.Visibility = Visibility.Hidden;
             window.routesReviewPage.Visibility = Visibility.Hidden;
+            window.timetableReviewPage.Visibility = Visibility.Hidden;
             //sve ostale prozore u clientu staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
         }

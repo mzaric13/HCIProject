@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.Modals"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Greška" Height="230" Width="400"
+        Title="Greška" Height="300" Width="600"
         Icon="../Icons/error.ico">
     <Grid>
         <Grid.RowDefinitions>

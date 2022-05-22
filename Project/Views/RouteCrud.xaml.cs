@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -23,9 +25,15 @@ namespace Project.Views
     /// </summary>
     public partial class RouteCrud : UserControl
     {
-        ObservableCollection<Route> routes = new ObservableCollection<Route>();
+        private ObservableCollection<Route> routes = new ObservableCollection<Route>();
+        public ObservableCollection<Route> Routes
+        {
+            get { return routes; }
+            set { routes = value; }
+        }
 
         private ObservableCollection<TrainStation> currentStations = new ObservableCollection<TrainStation>();
+        private Route currentRouteCell;
 
         public Route CurrentRoute;
 
@@ -42,8 +50,8 @@ namespace Project.Views
         public void fillRouteTable()
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            routes = new ObservableCollection<Route>(window.systemEntities.systemRoutes);
-            tableRoutes.ItemsSource = routes;
+            Routes = new ObservableCollection<Route>(window.systemEntities.systemRoutes);
+            tableRoutes.ItemsSource = Routes;
         }
 
         private void RouteCrudLoaded(object sender, RoutedEventArgs e)
@@ -56,8 +64,8 @@ namespace Project.Views
             int maxIndex = window.systemEntities.systemRoutes.Max(t => t.Id);
             TrainStation ts1 = new TrainStation(1, "Beograd");
             TrainStation ts8 = new TrainStation(8, "Novi Sad");
-            routes.Add(new Route(maxIndex, ts8, ts1, new List<TrainStation> { }));
-            window.systemEntities.systemRoutes.Add(new Route(maxIndex, ts8, ts1, new List<TrainStation> { }));
+            window.systemEntities.systemRoutes.Add(new Route(maxIndex + 1, ts8, ts1, new List<TrainStation> { }));
+            fillRouteTable();
             Success success = new Success("Uspešno dodata nova linija Novi Sad - Beograd. Dodajte međustanice i izmenite" +
                 "početnu i krajnju stanicu, ako je to potrebno.");
             success.ShowDialog();
@@ -102,8 +110,12 @@ namespace Project.Views
             }
             if (e.Column.Header.ToString() == "Id")
             {
-                e.Column.Visibility = Visibility.Hidden;
+                e.Column.Header = "Broj linije";
+                e.Column.IsReadOnly = true;
             }
+            if (e.Column is DataGridTextColumn textColumn)
+                textColumn.Binding = new Binding(e.PropertyName) { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+
         }
 
         public void DeleteRoute(object sender, RoutedEventArgs e)
@@ -118,8 +130,8 @@ namespace Project.Views
                 {
                     if (route.Id == r.Id)
                     {
-                        routes.Remove(route);
                         window.systemEntities.systemRoutes.Remove(r);
+                        fillRouteTable();
                         break;
                     }
                 }
@@ -171,8 +183,8 @@ namespace Project.Views
                         searchedRoutes.Add(route);
                     }
                 }
-                routes = new ObservableCollection<Route>(searchedRoutes);
-                tableRoutes.ItemsSource = routes;
+                Routes = new ObservableCollection<Route>(searchedRoutes);
+                tableRoutes.ItemsSource = Routes;
             }
 
         }
@@ -201,10 +213,10 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemStations.Max(t => t.Id);
-            currentStations.Add(new TrainStation(maxIndex, "Beograd_" + maxIndex.ToString()));
-            CurrentRoute.Stations.Add(new TrainStation(maxIndex, "Beograd_" + maxIndex.ToString()));
-            window.systemEntities.systemStations.Add(new TrainStation(maxIndex, "Beogar_"+maxIndex.ToString()));
-            Success success = new Success("Uspešno dodata nova stanica Beograd_" + maxIndex.ToString() + ". Izmenite" +
+            currentStations.Add(new TrainStation(maxIndex+1, "Beograd_" + maxIndex.ToString()));
+            CurrentRoute.Stations.Add(new TrainStation(maxIndex+1, "Beograd_" + maxIndex.ToString()));
+            window.systemEntities.systemStations.Add(new TrainStation(maxIndex+1, "Beograd_"+maxIndex.ToString()));
+            Success success = new Success("Uspešno dodata nova stanica Beograd_" + (maxIndex+1).ToString() + ". Izmenite" +
                 " naziv stanice ako je to potrebno.");
             success.ShowDialog();
         }
@@ -279,6 +291,87 @@ namespace Project.Views
             searchStations.Visibility = Visibility.Hidden;
             showAllStations.Visibility = Visibility.Hidden;
             back.Visibility = Visibility.Hidden;
+        }
+
+        private void tableRoutes_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            string columnName = e.Column.Header.ToString();
+            if (columnName == "Početna stanica" || columnName == "Krajnja stanica")
+            {
+                int index = e.Row.GetIndex();
+                var element = e.EditingElement as TextBox;
+                string s = (((TextBox)e.EditingElement).Text);
+                MainWindow window = (MainWindow)Window.GetWindow(this);
+                bool exists = false;
+                foreach (TrainStation trainStation in window.systemEntities.systemStations)
+                {
+                    if (columnName == "Početna stanica")
+                    {
+                        if (s == trainStation.Name)
+                        {
+                            exists = true;
+                        }
+                    }
+                    if (columnName == "Krajnja stanica")
+                    {
+                        if (s == trainStation.Name)
+                        {
+                            exists = true;
+                        }
+                    }
+                    if (exists)
+                    {
+                        break;
+                    }
+                }
+                if (!exists)
+                {
+                    string stations = "";
+                    foreach (TrainStation trainStation in window.systemEntities.systemStations)
+                    {
+                        stations += trainStation.Name + ", ";
+                    }
+                    stations = stations.Substring(0, stations.Length - 2);
+                    Error error = new Error("Ne postoji stanica sa datim nazivom! Validne stanice: " + stations);
+                    error.ShowDialog();
+                }
+                else
+                {
+                    TrainStation trainStation = null; 
+                    foreach (TrainStation station in window.systemEntities.systemStations)
+                    {
+                        if (station.Name == s)
+                        {
+                            trainStation = station;
+                        }
+                    }
+                    if (columnName == "Početna stanica")
+                    {
+                        window.systemEntities.systemRoutes[index].StartingStation = trainStation;
+                        Success success = new Success("Uspešno promenjena početna stanica!");
+                        success.ShowDialog();
+                    }
+                    else if (columnName == "Krajnja stanica")
+                    {
+                        window.systemEntities.systemRoutes[index].EndingStation = trainStation;
+                        Success success = new Success("Uspešno promenjena krajnja stanica!");
+                        success.ShowDialog();
+                    }
+                }
+            }
+            ButtonAutomationPeer peer = new ButtonAutomationPeer(showAllRoutes);
+            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            invokeProv.Invoke();
+        }
+
+        private void tableRoutes_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "Početna stanica" || e.Column.Header.ToString() == "Krajnja stanica")
+            {
+                TextBlock tb = (TextBlock)e.Column.GetCellContent(e.Row);
+                Route item = (Route)tb.DataContext;
+                currentRouteCell = item;
+            }
         }
     }
 }

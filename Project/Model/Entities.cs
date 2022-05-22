@@ -10,8 +10,6 @@ namespace Project.Model
     {
         public Dictionary<string, User> systemUsers { get; set; }
         public User loggedUser { get; set; }
-
-        public string currentError { get; set; }
         public List<Train> systemTrains { get; set; }
         public List<Timetable> systemTimetables { get; set; }
         public List<Route> systemRoutes { get; set; }

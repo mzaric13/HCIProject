@@ -33,7 +33,6 @@ namespace Project.Views
             {
                 Error error = new Error("Potrebno je popuniti sva polja, kako bi prijava bila uspešna.");
                 error.ShowDialog();
-                errorNotFilledIn.Visibility = Visibility.Visible;
             }
             else
             {     

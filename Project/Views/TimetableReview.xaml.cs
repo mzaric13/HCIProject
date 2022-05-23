@@ -96,7 +96,7 @@ namespace Project.Views
                 if (lastStation.SelectedItem != null)
                     foreach (Timetable t in Timetables)
                     {
-                        if (!t.Route.EndingStation.Equals(lastStation.SelectedItem) && !notMade.Contains(t)) notMade.Add(t);
+                        if (!t.Route.EndingStation.Equals(lastStation.SelectedItem) && !t.Route.Stations.Contains(lastStation.SelectedItem) && !notMade.Contains(t)) notMade.Add(t);
                     }
                 if (datePick.SelectedDate != null)
                     foreach (Timetable t in Timetables)

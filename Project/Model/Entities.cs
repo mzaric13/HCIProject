@@ -74,7 +74,7 @@ namespace Project.Model
             };
 
             Route r1 = new Route(1, ts1, ts8, new List<TrainStation> { ts2, ts3, ts4, ts5, ts6, ts7 });
-            Route r2 = new Route(2, ts8, ts1, new List<TrainStation> { ts2, ts3, ts4, ts5, ts6, ts7 });
+            Route r2 = new Route(2, ts8, ts1, new List<TrainStation> { ts7, ts6, ts5, ts4, ts3, ts2 });
             Route r3 = new Route(3, ts1, ts8, new List<TrainStation> { });
             Route r4 = new Route(4, ts8, ts1, new List<TrainStation> { });
             Route r5 = new Route(5, ts8, ts10, new List<TrainStation> { ts9 });

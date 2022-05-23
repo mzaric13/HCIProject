@@ -1,4 +1,5 @@
-﻿using Project.Model;
+﻿using Project.Modals;
+using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +26,8 @@ namespace Project.Views
 
         ObservableCollection<Route> Routes = new ObservableCollection<Route>();
 
+        ObservableCollection<TrainStation> Stations = new ObservableCollection<TrainStation>();
+
         public RoutesReview()
         {
             InitializeComponent();
@@ -40,6 +43,9 @@ namespace Project.Views
             MainWindow window = (MainWindow)Window.GetWindow(this);
             Routes = new ObservableCollection<Route>(window.systemEntities.systemRoutes);
             tableRoutes.ItemsSource = Routes;
+            Stations = new ObservableCollection<TrainStation>(window.systemEntities.systemTrainStations);
+            startingStation.ItemsSource = Stations;
+            endingStation.ItemsSource = Stations;
         }
 
         private void tableRoutes_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -53,6 +59,10 @@ namespace Project.Views
                 e.Column.Header = "Krajnja stanica ";
             }
             if (e.Column.Header.ToString() == "Stations")
+            {
+                e.Column.Visibility = Visibility.Hidden;
+            }
+            if (e.Column.Header.ToString() == "Id")
             {
                 e.Column.Visibility = Visibility.Hidden;
             }
@@ -76,18 +86,70 @@ namespace Project.Views
             }
         }
 
+        public void tableStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "Name")
+            {
+                e.Column.Header = "Stanice";
+            }
+            if (e.Column.Header.ToString() == "Id")
+            {
+                e.Column.Visibility = Visibility.Hidden;
+            }
+        }
+
         public void ShowDetailsForRoute(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             Route selectedRoute = ((FrameworkElement)sender).DataContext as Route;
-            startingStation.Text = selectedRoute.StartingStation.ToString();
-            endingStation.Text = selectedRoute.EndingStation.ToString();
-            stations.Text = selectedRoute.StartingStation.ToString();
-            foreach (TrainStation station in selectedRoute.Stations)
+            ObservableCollection<TrainStation> trainStations = new ObservableCollection<TrainStation>();
+            trainStations.Add(selectedRoute.StartingStation);
+            foreach (TrainStation trainStation in selectedRoute.Stations) trainStations.Add(trainStation);
+            trainStations.Add(selectedRoute.EndingStation);
+            stations.ItemsSource = trainStations;
+            stations.Visibility = Visibility.Visible;
+            tableRoutes.Visibility = Visibility.Hidden;
+            back.Visibility = Visibility.Visible;
+        }
+
+        public void SearchRoutes(object sender, RoutedEventArgs e)
+        {
+            if (startingStation.SelectedItem != null || endingStation.SelectedItem != null)
             {
-                stations.Text += " - " + station.ToString();
+                ObservableCollection<Route> notMade = new ObservableCollection<Route>();
+                if (startingStation.SelectedItem != null)
+                    foreach (Route route in Routes)
+                    {
+                        if (!route.StartingStation.Equals(startingStation.SelectedItem) && !notMade.Contains(route)) notMade.Add(route);
+                    }
+                if (endingStation.SelectedItem != null)
+                    foreach (Route route in Routes)
+                    {
+                        if (!route.EndingStation.Equals(endingStation.SelectedItem) && !route.Stations.Contains(endingStation.SelectedItem) && !notMade.Contains(route)) notMade.Add(route);
+                    }
+                foreach (Route route in notMade) Routes.Remove(route);
             }
-            stations.Text += " - " + selectedRoute.EndingStation.ToString();
+            else
+            {
+                Error error = new Error("Niste uneli nijedan kriterijum za pretraživanje!");
+                error.ShowDialog();
+            }
+        }
+
+        public void ResetSearch(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Routes = new ObservableCollection<Route>(window.systemEntities.systemRoutes);
+            tableRoutes.ItemsSource = Routes;
+            startingStation.SelectedItem = null;
+            endingStation.SelectedItem = null;
+        }
+
+        public void BackOnSearch(object sender, RoutedEventArgs e)
+        {
+            stations.Visibility = Visibility.Hidden;
+            tableRoutes.Visibility = Visibility.Visible;
+            back.Visibility = Visibility.Hidden;
         }
     }
 }

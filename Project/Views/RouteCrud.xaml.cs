@@ -33,9 +33,9 @@ namespace Project.Views
         }
 
         private ObservableCollection<TrainStation> currentStations = new ObservableCollection<TrainStation>();
-        private Route currentRouteCell;
 
         public Route CurrentRoute;
+        public TrainStation CurrentStation;
 
         public ObservableCollection<TrainStation> CurrentStations
         {
@@ -197,15 +197,24 @@ namespace Project.Views
             {
                 MainWindow window = (MainWindow)Window.GetWindow(this);
                 TrainStation trainStation = ((FrameworkElement)sender).DataContext as TrainStation;
-                foreach (TrainStation station in currentStations)
+                foreach(Route route in window.systemEntities.systemRoutes)
                 {
-                    if (trainStation.Id == station.Id)
+                    if (route.Id == CurrentRoute.Id)
                     {
-                        currentStations.Remove(station);
-                        CurrentRoute.Stations.Remove(station);
-                        break;
+                        foreach (TrainStation ts in route.Stations)
+                        {
+                            if (ts.Id == trainStation.Id)
+                            {
+                                route.Stations.Remove(ts);
+                                break;
+                            }
+                        }
                     }
                 }
+                fillRouteTable();
+                ButtonAutomationPeer peer = new ButtonAutomationPeer(showAllStations);
+                IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                invokeProv.Invoke();
             }
         }
 
@@ -213,12 +222,50 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemStations.Max(t => t.Id);
-            currentStations.Add(new TrainStation(maxIndex+1, "Beograd_" + maxIndex.ToString()));
-            CurrentRoute.Stations.Add(new TrainStation(maxIndex+1, "Beograd_" + maxIndex.ToString()));
-            window.systemEntities.systemStations.Add(new TrainStation(maxIndex+1, "Beograd_"+maxIndex.ToString()));
-            Success success = new Success("Uspešno dodata nova stanica Beograd_" + (maxIndex+1).ToString() + ". Izmenite" +
-                " naziv stanice ako je to potrebno.");
-            success.ShowDialog();
+            foreach (Route route in window.systemEntities.systemRoutes)
+            {
+                if (route.Id == CurrentRoute.Id)
+                {
+                    List<TrainStation> allStations = new List<TrainStation>();
+                    allStations.Add(CurrentRoute.StartingStation);
+                    allStations.Add(CurrentRoute.EndingStation);
+                    foreach (TrainStation ts in CurrentRoute.Stations)
+                    {
+                        allStations.Add(ts);
+                    }
+                    foreach (TrainStation ts in window.systemEntities.systemStations)
+                    {
+                        bool exists = false;
+                        foreach (TrainStation myStation in allStations)
+                        {
+                            if (ts.Id == myStation.Id)
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                        {
+                            for (int i = 0; i < window.systemEntities.systemRoutes.Count; i++)
+                            {
+                                if (route.Id == window.systemEntities.systemRoutes[i].Id)
+                                {
+                                    window.systemEntities.systemRoutes[i].Stations.Add(ts);
+                                    CurrentStations.Add(ts);
+                                    fillRouteTable();
+                                    ButtonAutomationPeer peer = new ButtonAutomationPeer(showAllStations);
+                                    IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                                    Success success = new Success("Uspešno dodata nova stanica " + ts.Name + "!");
+                                    success.ShowDialog();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Error error = new Error("Ne postoji više stanica u sistemu!");
+            error.ShowDialog();
         }
 
         public void SearchStations(object sender, RoutedEventArgs e)
@@ -299,7 +346,6 @@ namespace Project.Views
             if (columnName == "Početna stanica" || columnName == "Krajnja stanica")
             {
                 int index = e.Row.GetIndex();
-                var element = e.EditingElement as TextBox;
                 string s = (((TextBox)e.EditingElement).Text);
                 MainWindow window = (MainWindow)Window.GetWindow(this);
                 bool exists = false;
@@ -364,13 +410,93 @@ namespace Project.Views
             invokeProv.Invoke();
         }
 
-        private void tableRoutes_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        private void tableStations_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if (e.Column.Header.ToString() == "Početna stanica" || e.Column.Header.ToString() == "Krajnja stanica")
+            string columnName = e.Column.Header.ToString();
+            if (columnName == "Naziv stanice")
+            {
+                bool exists = false;
+                int index = e.Row.GetIndex();
+                var element = e.EditingElement as TextBox;
+                string s = (((TextBox)e.EditingElement).Text);
+                MainWindow window = (MainWindow)Window.GetWindow(this);
+                TrainStation stationForChange = null;
+                if (CurrentRoute.StartingStation.Name == s)
+                {
+                    exists = true;
+                }
+                else if (CurrentRoute.EndingStation.Name == s)
+                {
+                    exists = true;
+                }
+                else
+                {
+                    foreach (TrainStation station in CurrentRoute.Stations)
+                    {
+                        if (station.Name == s)
+                        {
+                            exists = true;
+                            break;
+                        }
+                    }
+                }
+                if (!exists)
+                {
+                    bool isValid = false;
+                    foreach (TrainStation trainStation in window.systemEntities.systemStations)
+                    {
+                        if (trainStation.Name == s)
+                        {
+                            isValid = true;
+                            stationForChange = trainStation;
+                            break;
+                        }
+                    }
+                    if (!isValid)
+                    {
+                        string stations = "";
+                        foreach (TrainStation trainStation in window.systemEntities.systemStations)
+                        {
+                            stations += trainStation.Name + ", ";
+                        }
+                        stations = stations.Substring(0, stations.Length - 2);
+                        element.Text = CurrentStation.Name;
+                        Error error = new Error("Uneta stanica nije postojana! Postojane stanice: " + stations);
+                        error.ShowDialog();
+                    }
+                    else
+                    {
+                        foreach (Route route in window.systemEntities.systemRoutes)
+                        {
+                            if (CurrentRoute.Id == route.Id)
+                            {
+                                route.Stations[index] = stationForChange;
+                                break;
+                            }
+                        }
+                        Success success = new Success("Uspešno izmenjena međustanica!");
+                        success.ShowDialog();
+                    }
+                }
+                else
+                {
+                    element.Text = CurrentStation.Name;
+                    Error error = new Error("Uneta stanica već postoji u redu vožnje!");
+                    error.ShowDialog();
+                }
+            }
+            ButtonAutomationPeer peer = new ButtonAutomationPeer(showAllStations);
+            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            invokeProv.Invoke();
+        }
+
+        private void tableStations_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "Naziv stanice")
             {
                 TextBlock tb = (TextBlock)e.Column.GetCellContent(e.Row);
-                Route item = (Route)tb.DataContext;
-                currentRouteCell = item;
+                TrainStation item = (TrainStation)tb.DataContext;
+                CurrentStation = item;
             }
         }
     }

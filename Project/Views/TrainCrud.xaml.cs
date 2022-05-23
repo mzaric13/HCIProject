@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -27,6 +29,7 @@ namespace Project.Views
         ObservableCollection<Train> trains = new ObservableCollection<Train>();
 
         private ObservableCollection<Timetable> currentTimetables = new ObservableCollection<Timetable>();
+        private Train currentTrain;
 
         public ObservableCollection<Timetable> CurrentTimetables
         {
@@ -34,7 +37,7 @@ namespace Project.Views
             set { currentTimetables = value; }
         }
 
-        public Train currentTrain;
+        public Train currentTrainCell;
         public TrainCrud()
         {
             InitializeComponent();
@@ -55,8 +58,8 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemTrains.Max(t => t.Number);
-            trains.Add(new Train(maxIndex + 1, "BrzaPtica"));
             window.systemEntities.systemTrains.Add(new Train(maxIndex + 1, "BrzaPtica"));
+            fillTrainTable();
             Success success = new Success("Uspešno dodat voz broj " + (maxIndex + 1).ToString() + " prevoznika BrzaPtica.");
             success.ShowDialog();
         }
@@ -86,8 +89,8 @@ namespace Project.Views
                 {
                     if (t.Number == train.Number && t.Operator == train.Operator)
                     {
-                        trains.Remove(train);
                         window.systemEntities.systemTrains.Remove(t);
+                        fillTrainTable();
                         break;
                     }
                 }
@@ -223,6 +226,8 @@ namespace Project.Views
             {
                 e.Column.Visibility = Visibility.Hidden;
             }
+            if (e.Column is DataGridTextColumn textColumn)
+                textColumn.Binding = new Binding(e.PropertyName) { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
         }
 
         public void DeleteTimetable(object sender, RoutedEventArgs e)
@@ -249,34 +254,13 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemTimetables.Max(t => t.id);
-            foreach (Timetable timetable in window.systemEntities.systemTimetables)
-            {
-                if (timetable.train.Number != currentTrain.Number)
-                {
-                    bool exists = false;
-                    foreach(Timetable currTimetable in currentTimetables)
-                    {
-                        if (currTimetable.startTime == timetable.startTime && currTimetable.startDate == timetable.startDate &&
-                            currTimetable.endTime == timetable.endTime && currTimetable.endDate == timetable.endDate)
-                        {
-                            exists = true;
-                        }
-                    }
-                    if (!exists)
-                    {
-                        window.systemEntities.systemTimetables.Add(new Timetable(maxIndex + 1, timetable.startTime, timetable.startDate, timetable.endTime, timetable.endDate, currentTrain, timetable.Route));
-                        currentTimetables.Add(new Timetable(maxIndex + 1, timetable.startTime, timetable.startDate, timetable.endTime, timetable.endDate, currentTrain, timetable.Route));
-                        Success success = new Success("Uspešno dodat novi red vožnje.");
-                        success.ShowDialog();
-                        return;
-                    }
-                }
-            }
-            currentTimetables.Add(new Timetable(maxIndex + 1, DateTime.Now.ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), (DateTime.Now + new TimeSpan(2, 0, 0)).ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), currentTrain, window.systemEntities.systemRoutes[0]));
-            window.systemEntities.systemTimetables.Add(new Timetable(maxIndex + 1, DateTime.Now.ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), (DateTime.Now + new TimeSpan(2, 0, 0)).ToString("hh:mm"), DateTime.Now.ToString("dd.MM.yyyy"), currentTrain, window.systemEntities.systemRoutes[0]));
-            Success success1 = new Success("Uspešno dodat novi red vožnje.");
-            success1.ShowDialog();
-
+            DateTime nextDay = DateTime.
+                ParseExact(window.systemEntities.systemTimetables[maxIndex - 1].endDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat).AddDays(1);
+            string nextDayString = nextDay.ToString("dd.MM.yyyy.");
+            window.systemEntities.systemTimetables.Add(new Timetable(maxIndex + 1, "10:00", nextDayString, "12:00", nextDayString, currentTrain, window.systemEntities.systemRoutes[0]));
+            currentTimetables.Add(new Timetable(maxIndex + 1, "10:00", nextDayString, "12:00", nextDayString, currentTrain, window.systemEntities.systemRoutes[0]));
+            Success success = new Success("Uspešno dodat novi red vožnje!");
+            success.ShowDialog();
         }
 
         public void SearchTimetables(object sender, RoutedEventArgs e)
@@ -334,6 +318,43 @@ namespace Project.Views
             searchTimetables.Visibility = Visibility.Hidden;
             showAllTimetables.Visibility = Visibility.Hidden;
             back.Visibility = Visibility.Hidden;
+        }
+
+        private void tableTrains_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            string columnName = e.Column.Header.ToString();
+            if (columnName == "Prevoznik")
+            {
+                int index = e.Row.GetIndex();
+                var element = e.EditingElement as TextBox;
+                string s = (((TextBox)e.EditingElement).Text);
+                if (s.Length != 0)
+                {
+                    MainWindow window = (MainWindow)Window.GetWindow(this);
+                    window.systemEntities.systemTrains[index].Operator = s;
+                    Success success = new Success("Uspešno izmenjen prevoznik!");
+                    success.Show();
+                }
+                else
+                {
+                    element.Text = currentTrainCell.Operator;
+                    Error error = new Error("Nije unet nijedan karakter!");
+                    error.ShowDialog();
+                }
+            }
+            ButtonAutomationPeer peer = new ButtonAutomationPeer(showAllTrains);
+            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            invokeProv.Invoke();
+        }
+
+        private void tableTrains_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "Prevoznik")
+            {
+                TextBlock tb = (TextBlock)e.Column.GetCellContent(e.Row);
+                Train item = (Train)tb.DataContext;
+                currentTrainCell = item;
+            }
         }
     }
 }

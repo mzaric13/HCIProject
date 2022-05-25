@@ -113,5 +113,12 @@ namespace Project.Views
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Hidden;
         }
+
+        public void HelpClick(object sender, RoutedEventArgs e)
+        {
+            //MainWindow window = (MainWindow)Window.GetWindow(this);
+            //help 
+
+        }
     }
 }

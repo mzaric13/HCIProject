@@ -17,7 +17,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -41,8 +42,11 @@
         <Button Name="Timetable" Click="TimetableClick" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/timetable.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Logout" Click="LogoutClick" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Logout" Click="LogoutClick" Grid.Column="9" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/logout.png" Stretch="Uniform"></Image>
+        </Button>
+        <Button Name="Help" Click="HelpClick" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12">
+            <Image Source="../Images/question.png" Stretch="Uniform"></Image>
         </Button>
     </Grid>
 </UserControl>

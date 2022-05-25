@@ -17,7 +17,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -30,11 +31,14 @@
         <Button Name="Home" Click="HomeClick" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/homewhite.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Login" Click="LoginClick" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Login" Click="LoginClick" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/loginwhite.png" Stretch="Uniform"></Image>
         </Button>
-        <Button Name="Register" Click="RegisterClick" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Register" Click="RegisterClick" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12">
             <Image Source="../Images/personal.png" Stretch="Uniform"></Image>
+        </Button>
+        <Button Name="Help" Click="HelpClick" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
+            <Image Source="../Images/question.png" Stretch="Uniform"></Image>
         </Button>
     </Grid>
 </UserControl>

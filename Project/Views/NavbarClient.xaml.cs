@@ -65,5 +65,11 @@ namespace Project.Views
             //sve ostale prozore u clientu staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
         }
+
+        public void HelpClick(object sender, RoutedEventArgs e)
+        {
+            //MainWindow window = (MainWindow)Window.GetWindow(this);
+            //help = visible
+        }
     }
 }

@@ -174,57 +174,21 @@ namespace Project.Views
                 var element = e.EditingElement as TextBox;
                 string s = (((TextBox)e.EditingElement).Text);
                 if (columnName == "Broj linije ")
-                {
-                    bool exists = false;
-                    foreach (Route route in window.systemEntities.systemRoutes)
+                {                   
+                    if (!doesRouteExist(window, s))
                     {
-                        if (route.Id.ToString() == s)
-                        {
-                            exists = true;
-                            break;
-                        }
-                    }
-                    if (!exists)
-                    {
-                        string routeNumbers = "";
-                        foreach (Route route in window.systemEntities.systemRoutes)
-                        {
-                            routeNumbers += route.Id + ", ";
-                        }
-                        routeNumbers = routeNumbers.Substring(0, routeNumbers.Length - 2);
-                        element.Text = CurrentTimeTable.Route.Id.ToString();
-                        Error error = new Error("Nepostojeći broj linije! Postojeće linije su: " + routeNumbers + ".");
-                        error.ShowDialog();
+                        showRouteDoesntExistError(window, element);
                     }
                     else
                     {
-                        for (int i=0; i<window.systemEntities.systemTimetables.Count; i++)
-                        {
-                            if (window.systemEntities.systemTimetables[i].id == CurrentTimeTable.id)
-                            {
-                                window.systemEntities.systemTimetables[i].Route = window.systemEntities.systemRoutes[index];
-                                break;
-                            }
-                        }
-                        Success success = new Success("Uspešno izmenjena linija reda vožnje!");
-                        success.ShowDialog();
+                        showSuccessfullyChangedRoute(window, index);
                     }
                 }
                 else if (columnName == "Polazak " || columnName == "Dolazak ")
                 {
                     if (s.Length != 5)
                     {
-                        Error error = new Error("Format polaska i dolaska je HH:mm, gde HH predstavlja sate (00 - 24)," +
-                            " a mm minute (00 - 60).");
-                        error.ShowDialog();
-                        if (columnName == "Polazak ")
-                        {
-                            element.Text = CurrentTimeTable.startTime;
-                        }
-                        else if (columnName == "Dolazak ")
-                        {
-                            element.Text = CurrentTimeTable.endTime;
-                        }
+                        showNotCorrectFormatTimeError(columnName, element);
                     }
                     else
                     {
@@ -233,72 +197,31 @@ namespace Project.Views
                         {
                             DateTime startDate = DateTime.ParseExact(CurrentTimeTable.startDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
                             DateTime endDate = DateTime.ParseExact(CurrentTimeTable.endDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+
                             if (columnName == "Polazak " && startDate == endDate && TimeSpan.Parse(s) >= TimeSpan.Parse(CurrentTimeTable.endTime))
                             {
-                                Error error = new Error("Vreme polaska ne može biti veće od vremena dolaska!");
-                                error.ShowDialog();
-                                element.Text = CurrentTimeTable.startTime;
+                                showStartAfterEndTimeError(element);
                             }
                             else if (columnName == "Dolazak " && startDate == endDate && TimeSpan.Parse(s) <= TimeSpan.Parse(CurrentTimeTable.startTime))
                             {
-                                Error error = new Error("Vreme dolaska ne može biti manje od vremena dolaska!");
-                                error.ShowDialog();
-                                element.Text = CurrentTimeTable.endTime;
+                                showEndBeforeStartTimeError(element);
                             }
                             else
                             {
-                                bool inUse = false;
-                                foreach (Timetable timetable in window.systemEntities.systemTimetables)
+                                
+                                if (isTimePeriodAlreadyInUse(window, columnName, s))
                                 {
-                                    if (timetable.train.Number == CurrentTimeTable.train.Number && timetable.id != CurrentTimeTable.id
-                                        && timetable.startDate == CurrentTimeTable.startDate && timetable.endDate == CurrentTimeTable.endDate)
-                                    {
-                                        if ( (timetable.startDate == timetable.endDate) && (TimeSpan.Parse(s) >= TimeSpan.Parse(timetable.startTime) && 
-                                            TimeSpan.Parse(s) <= TimeSpan.Parse(timetable.endTime)))
-                                        {
-                                            inUse = true;
-                                            break;
-                                        }
-                                        else if ( (columnName == "Polazak " && timetable.startDate != timetable.endDate && TimeSpan.Parse(s) >= TimeSpan.Parse(timetable.startDate))
-                                            ||  (columnName == "Dolazak " && timetable.startDate != timetable.endDate && TimeSpan.Parse(s) <= TimeSpan.Parse(timetable.endDate)) )
-                                        {
-                                            inUse = true;
-                                            break;
-                                        }
-                                        else if ( (columnName == "Polazak " && TimeSpan.Parse(s) <= TimeSpan.Parse(timetable.startTime)) && 
-                                            TimeSpan.Parse(CurrentTimeTable.endTime) >= TimeSpan.Parse(timetable.endTime))
-                                        {
-                                            inUse = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (inUse)
-                                {
-                                    Error error = new Error("Voz je već zauzet u izmenjenom vremenu.");
-                                    error.ShowDialog();
-                                    if (columnName == "Polazak ")
-                                    {
-                                        element.Text = CurrentTimeTable.startTime;
-                                    }
-                                    else if (columnName == "Dolazak ")
-                                    {
-                                        element.Text = CurrentTimeTable.endTime;
-                                    }
+                                    showTrainAlreadyInUse(columnName, element);
                                 }
                                 else
                                 {
                                     if (columnName == "Polazak ")
                                     {
-                                        window.systemEntities.systemTimetables[index].startTime = s;
-                                        Success success = new Success("Uspešno promenjeno vreme polaska odabranog reda vožnje.");
-                                        success.ShowDialog();                      
+                                        showSuccessfullyChangedStartTime(window, index, s);                   
                                     }
                                     else if (columnName == "Dolazak ")
                                     {
-                                        window.systemEntities.systemTimetables[index].endTime = s;
-                                        Success success = new Success("Uspešno promenjeno vreme dolaska odabranog reda vožnje.");
-                                        success.ShowDialog();
+                                        showSuccessfullyChangedEndTime(window, index, s);
                                     }
                                     
                                 }
@@ -306,17 +229,7 @@ namespace Project.Views
                         }
                         else
                         {
-                            Error error = new Error("Format polaska i dolaska je HH:mm, gde HH predstavlja sate (00 - 24)," +
-                                " a mm minute (00 - 60).");
-                            error.ShowDialog();
-                            if (columnName == "Polazak ")
-                            {
-                                element.Text = CurrentTimeTable.startTime;
-                            }
-                            else if (columnName == "Dolazak ")
-                            {
-                                element.Text = CurrentTimeTable.endTime;
-                            }
+                            showNotCorrectFormatTimeError(columnName, element);
                         }
                     }
                 }
@@ -324,31 +237,11 @@ namespace Project.Views
                 {
                     if (s.Length != 11)
                     {
-                        Error error = new Error("Format datuma polaska i dolaska je dd.MM.yyyy., " +
-                            "gde dd predstavlja dan u mesecu (01-{28-31}), MM predstavlja mesec (01-12)," +
-                            "a yyyy predstavlja godinu.");
-                        error.ShowDialog();
-                        if (columnName == "Datum polaska ")
-                        {
-                            element.Text = CurrentTimeTable.startDate;
-                        }
-                        else if (columnName == "Datum dolaska ")
-                        {
-                            element.Text = CurrentTimeTable.endDate;
-                        }
+                        showNotCorrectFormatDateError(columnName, element);
                     }
                     else if (DateTime.ParseExact(s, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat) <= DateTime.Now)
                     {
-                        Error error = new Error("Promenjeni datum mora biti posle današnjeg!");
-                        error.ShowDialog();
-                        if (columnName == "Datum polaska ")
-                        {
-                            element.Text = CurrentTimeTable.startDate;
-                        }
-                        else if (columnName == "Datum dolaska ")
-                        {
-                            element.Text = CurrentTimeTable.endDate;
-                        }
+                        showDateNotAfterTodaysDateError(columnName, element);
                     }
                     else
                     {
@@ -359,118 +252,47 @@ namespace Project.Views
                             TimeSpan endTimespan = TimeSpan.Parse(CurrentTimeTable.endTime);
                             DateTime date = DateTime.ParseExact(s, "dd.MM.yyyy.",
                                 System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+
                             if (columnName == "Datum polaska " && date > DateTime.ParseExact(CurrentTimeTable.endDate, "dd.MM.yyyy.",
                                 System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat))
                             {
-                                Error error = new Error("Datum polaska ne može biti posle datuma dolaska!");
-                                error.ShowDialog();
-                                element.Text = CurrentTimeTable.startDate;
+                                showStartDateAfterEndDateError(element);
                             }
                             else if (columnName == "Datum dolaska " && date < DateTime.ParseExact(CurrentTimeTable.startDate, "dd.MM.yyyy.",
                                 System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat))
                             {
-                                Error error = new Error("Datum dolaska ne može biti pre datuma polaska!");
-                                error.ShowDialog();
-                                element.Text = CurrentTimeTable.endDate;
+                                showEndDateBeforeStartDate(element);
                             }
                             else if ((columnName == "Datum polaska " && date == DateTime.ParseExact(CurrentTimeTable.endDate, "dd.MM.yyyy.",
                                 System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat) && (startTimespan >= endTimespan))
                                 || (columnName == "Datum dolaska " && date == DateTime.ParseExact(CurrentTimeTable.startDate, "dd.MM.yyyy.",
                                 System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat)) && (startTimespan >= endTimespan))
                             {
-                                Error error = new Error("Vreme dolaska je nakon vremena polaska. Molimo Vas da prvo izmenite jedno od vremena, a zatim datume.");
-                                error.ShowDialog();
-                                if (columnName == "Datum polaska ")
-                                {
-                                    element.Text = CurrentTimeTable.startDate;
-                                }
-                                else if (columnName == "Datum dolaska ")
-                                {
-                                    element.Text = CurrentTimeTable.endDate;
-                                } 
+                                showStartTimeIsAfterEndTime(columnName, element);
                             }
                             else
                             {
-                                bool inUse = false;
-                                DateTime changedDate = DateTime.ParseExact(s, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
-                                DateTime startDateCurrent = DateTime.ParseExact(CurrentTimeTable.startDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
-                                DateTime endDateCurrent = DateTime.ParseExact(CurrentTimeTable.endDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
-                                TimeSpan startTimeCurrent = TimeSpan.Parse(CurrentTimeTable.startTime);
-                                TimeSpan endTimeCurrent = TimeSpan.Parse(CurrentTimeTable.endTime);
-                                foreach (Timetable timetable in window.systemEntities.systemTimetables)
+                                
+                                if (isTrainInUse(window, columnName, s))
                                 {
-                                    
-                                    DateTime startDateTimetable = DateTime.ParseExact(timetable.startDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
-                                    DateTime endDateTimetable = DateTime.ParseExact(timetable.endDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
-                                    TimeSpan startTimeTimetable = TimeSpan.Parse(timetable.startTime);
-                                    TimeSpan endTimeTimetable = TimeSpan.Parse(timetable.endTime);
-                                    if (timetable.train.Number == CurrentTimeTable.train.Number && timetable.id != CurrentTimeTable.id)
-                                    {
-
-                                        if ((columnName == "Datum polaska " && changedDate <= startDateTimetable && endDateCurrent >= endDateTimetable) ||
-                                            (columnName == "Datum dolaska " && startDateCurrent <= startDateTimetable && changedDate >= endDateTimetable))
-                                        {
-                                            inUse = true;
-                                            break;
-                                        }
-                                        if ((columnName == "Datum polaska " && changedDate >= startDateTimetable && endDateCurrent <= endDateTimetable) ||
-                                            (columnName == "Datum dolaska " && startDateCurrent >= startDateTimetable && changedDate <= endDateTimetable))
-                                        {
-                                            inUse = true;
-                                            break;
-                                        }
-                                        if (columnName == "Datum polaska " && changedDate == startDateTimetable && endDateCurrent == endDateTimetable &&
-                                            ((startTimeCurrent >= startTimeTimetable || endTimeCurrent <= endTimeTimetable) || (startTimeCurrent <= startTimeTimetable && endTimeCurrent >= endTimeTimetable)))
-                                        {
-                                            inUse = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (inUse)
-                                {
-                                    Error error = new Error("Voz je već zauzet u izmenjenom ospegu datuma.");
-                                    error.ShowDialog();
-                                    if (columnName == "Datum polaska ")
-                                    {
-                                        element.Text = CurrentTimeTable.startDate;
-                                    }
-                                    else if (columnName == "Datum dolaska ")
-                                    {
-                                        element.Text = CurrentTimeTable.endDate;
-                                    }
+                                    showTrainAlreadyInUseDates(columnName, element);
                                 }
                                 else
                                 {
                                     if (columnName == "Datum polaska ")
                                     {
-                                        window.systemEntities.systemTimetables[index].startDate = s;
-                                        Success success = new Success("Uspešno promenjen datum polaska odabranog reda vožnje.");
-                                        success.ShowDialog();
+                                        showSuccessfullyChangedStartDate(window, index, s);
                                     }
                                     else if (columnName == "Datum dolaska ")
                                     {
-                                        window.systemEntities.systemTimetables[index].endDate = s;
-                                        Success success = new Success("Uspešno promenjen datum dolaska odabranog reda vožnje.");
-                                        success.ShowDialog();
+                                        showSuccessfullyChangedEndDate(window, index, s);
                                     }
                                 }
                             }
                         }
                         else
                         {
-                            Error error = new Error("Format datuma polaska i dolaska je dd.MM.yyyy., " +
-                                "gde dd predstavlja dan u mesecu (01-{28-31}), MM predstavlja mesec (01-12)," +
-                                "a yyyy predstavlja godinu.");
-                            error.ShowDialog();
-                            if (columnName == "Datum polaska ")
-                            {
-                                element.Text = CurrentTimeTable.startDate;
-                            }
-                            else if (columnName == "Datum dolaska ")
-                            {
-                                element.Text = CurrentTimeTable.endDate;
-                            }
+                            showNotCorrectFormatDateError(columnName, element);
                         }
                     }
                 }
@@ -479,6 +301,257 @@ namespace Project.Views
             IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
             invokeProv.Invoke();
 
+        }
+
+        private void showSuccessfullyChangedEndDate(MainWindow window, int index, string s)
+        {
+            window.systemEntities.systemTimetables[index].endDate = s;
+            Success success = new Success("Uspešno promenjen datum dolaska odabranog reda vožnje.");
+            success.ShowDialog();
+        }
+
+        private void showSuccessfullyChangedStartDate(MainWindow window, int index, string s)
+        {
+            window.systemEntities.systemTimetables[index].startDate = s;
+            Success success = new Success("Uspešno promenjen datum polaska odabranog reda vožnje.");
+            success.ShowDialog();
+        }
+
+        private void showTrainAlreadyInUseDates(string columnName, TextBox element)
+        {
+            Error error = new Error("Voz je već zauzet u izmenjenom ospegu datuma.");
+            error.ShowDialog();
+            if (columnName == "Datum polaska ")
+            {
+                element.Text = CurrentTimeTable.startDate;
+            }
+            else if (columnName == "Datum dolaska ")
+            {
+                element.Text = CurrentTimeTable.endDate;
+            }
+        }
+
+        private bool isTrainInUse(MainWindow window, string columnName, string s)
+        {
+            DateTime changedDate = DateTime.ParseExact(s, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+            DateTime startDateCurrent = DateTime.ParseExact(CurrentTimeTable.startDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+            DateTime endDateCurrent = DateTime.ParseExact(CurrentTimeTable.endDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+            TimeSpan startTimeCurrent = TimeSpan.Parse(CurrentTimeTable.startTime);
+            TimeSpan endTimeCurrent = TimeSpan.Parse(CurrentTimeTable.endTime);
+
+            foreach (Timetable timetable in window.systemEntities.systemTimetables)
+            {
+
+                DateTime startDateTimetable = DateTime.ParseExact(timetable.startDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+                DateTime endDateTimetable = DateTime.ParseExact(timetable.endDate, "dd.MM.yyyy.", System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat);
+                TimeSpan startTimeTimetable = TimeSpan.Parse(timetable.startTime);
+                TimeSpan endTimeTimetable = TimeSpan.Parse(timetable.endTime);
+
+                if (timetable.train.Number == CurrentTimeTable.train.Number && timetable.id != CurrentTimeTable.id)
+                {
+
+                    if ((columnName == "Datum polaska " && changedDate <= startDateTimetable && endDateCurrent >= endDateTimetable) ||
+                        (columnName == "Datum dolaska " && startDateCurrent <= startDateTimetable && changedDate >= endDateTimetable))
+                    {
+                        return true;
+                    }
+                    if ((columnName == "Datum polaska " && changedDate >= startDateTimetable && endDateCurrent <= endDateTimetable) ||
+                        (columnName == "Datum dolaska " && startDateCurrent >= startDateTimetable && changedDate <= endDateTimetable))
+                    {
+                        return true;
+                    }
+                    if (columnName == "Datum polaska " && changedDate == startDateTimetable && endDateCurrent == endDateTimetable &&
+                        ((startTimeCurrent >= startTimeTimetable || endTimeCurrent <= endTimeTimetable) || (startTimeCurrent <= startTimeTimetable && endTimeCurrent >= endTimeTimetable)))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void showStartTimeIsAfterEndTime(string columnName, TextBox element)
+        {
+            Error error = new Error("Vreme dolaska je nakon vremena polaska. Molimo Vas da prvo izmenite jedno od vremena, a zatim datume.");
+            error.ShowDialog();
+            if (columnName == "Datum polaska ")
+            {
+                element.Text = CurrentTimeTable.startDate;
+            }
+            else if (columnName == "Datum dolaska ")
+            {
+                element.Text = CurrentTimeTable.endDate;
+            }
+        }
+
+        private void showEndDateBeforeStartDate(TextBox element)
+        {
+            Error error = new Error("Datum dolaska ne može biti pre datuma polaska!");
+            error.ShowDialog();
+            element.Text = CurrentTimeTable.endDate;
+        }
+
+        private void showStartDateAfterEndDateError(TextBox element)
+        {
+            Error error = new Error("Datum polaska ne može biti posle datuma dolaska!");
+            error.ShowDialog();
+            element.Text = CurrentTimeTable.startDate;
+        }
+
+        private void showDateNotAfterTodaysDateError(string columnName, TextBox element)
+        {
+            Error error = new Error("Promenjeni datum mora biti posle današnjeg!");
+            error.ShowDialog();
+            if (columnName == "Datum polaska ")
+            {
+                element.Text = CurrentTimeTable.startDate;
+            }
+            else if (columnName == "Datum dolaska ")
+            {
+                element.Text = CurrentTimeTable.endDate;
+            }
+        }
+
+        private void showNotCorrectFormatDateError(string columnName, TextBox element)
+        {
+            Error error = new Error("Format datuma polaska i dolaska je dd.MM.yyyy., " +
+                "gde dd predstavlja dan u mesecu (01-{28-31}), MM predstavlja mesec (01-12)," +
+                "a yyyy predstavlja godinu.");
+            error.ShowDialog();
+            if (columnName == "Datum polaska ")
+            {
+                element.Text = CurrentTimeTable.startDate;
+            }
+            else if (columnName == "Datum dolaska ")
+            {
+                element.Text = CurrentTimeTable.endDate;
+            }
+        }
+
+        private void showSuccessfullyChangedEndTime(MainWindow window, int index, string s)
+        {
+            window.systemEntities.systemTimetables[index].endTime = s;
+            Success success = new Success("Uspešno promenjeno vreme dolaska odabranog reda vožnje.");
+            success.ShowDialog();
+        }
+
+        private void showSuccessfullyChangedStartTime(MainWindow window, int index, string s)
+        {
+            window.systemEntities.systemTimetables[index].startTime = s;
+            Success success = new Success("Uspešno promenjeno vreme polaska odabranog reda vožnje.");
+            success.ShowDialog();
+        }
+
+        private void showTrainAlreadyInUse(string columnName, TextBox element)
+        {
+            Error error = new Error("Voz je već zauzet u izmenjenom vremenu.");
+            error.ShowDialog();
+            if (columnName == "Polazak ")
+            {
+                element.Text = CurrentTimeTable.startTime;
+            }
+            else if (columnName == "Dolazak ")
+            {
+                element.Text = CurrentTimeTable.endTime;
+            }
+        }
+
+        private bool isTimePeriodAlreadyInUse(MainWindow window, string columnName, string s)
+        {
+            foreach (Timetable timetable in window.systemEntities.systemTimetables)
+            {
+                if (timetable.train.Number == CurrentTimeTable.train.Number && timetable.id != CurrentTimeTable.id
+                    && timetable.startDate == CurrentTimeTable.startDate && timetable.endDate == CurrentTimeTable.endDate)
+                {
+                    if ((timetable.startDate == timetable.endDate) && (TimeSpan.Parse(s) >= TimeSpan.Parse(timetable.startTime) &&
+                        TimeSpan.Parse(s) <= TimeSpan.Parse(timetable.endTime)))
+                    {
+                        return true;
+                    }
+                    else if ((columnName == "Polazak " && timetable.startDate != timetable.endDate && TimeSpan.Parse(s) >= TimeSpan.Parse(timetable.startDate))
+                        || (columnName == "Dolazak " && timetable.startDate != timetable.endDate && TimeSpan.Parse(s) <= TimeSpan.Parse(timetable.endDate)))
+                    {
+                        return true;
+                    }
+                    else if ((columnName == "Polazak " && TimeSpan.Parse(s) <= TimeSpan.Parse(timetable.startTime)) &&
+                        TimeSpan.Parse(CurrentTimeTable.endTime) >= TimeSpan.Parse(timetable.endTime))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+
+
+        private void showEndBeforeStartTimeError(TextBox element)
+        {
+            Error error = new Error("Vreme dolaska ne može biti manje od vremena dolaska!");
+            error.ShowDialog();
+            element.Text = CurrentTimeTable.endTime;
+        }
+
+        private void showStartAfterEndTimeError(TextBox element)
+        {
+            Error error = new Error("Vreme polaska ne može biti veće od vremena dolaska!");
+            error.ShowDialog();
+            element.Text = CurrentTimeTable.startTime;
+        }
+
+        private void showNotCorrectFormatTimeError(string columnName, TextBox element)
+        {
+            Error error = new Error("Format polaska i dolaska je HH:mm, gde HH predstavlja sate (00 - 24)," +
+                " a mm minute (00 - 60).");
+            error.ShowDialog();
+            if (columnName == "Polazak ")
+            {
+                element.Text = CurrentTimeTable.startTime;
+            }
+            else if (columnName == "Dolazak ")
+            {
+                element.Text = CurrentTimeTable.endTime;
+            }
+        }
+
+        private void showSuccessfullyChangedRoute(MainWindow window, int index)
+        {
+            for (int i = 0; i < window.systemEntities.systemTimetables.Count; i++)
+            {
+                if (window.systemEntities.systemTimetables[i].id == CurrentTimeTable.id)
+                {
+                    window.systemEntities.systemTimetables[i].Route = window.systemEntities.systemRoutes[index];
+                    break;
+                }
+            }
+            Success success = new Success("Uspešno izmenjena linija reda vožnje!");
+            success.ShowDialog();
+        }
+
+        private void showRouteDoesntExistError(MainWindow window, TextBox element)
+        {
+            string routeNumbers = "";
+            foreach (Route route in window.systemEntities.systemRoutes)
+            {
+                routeNumbers += route.Id + ", ";
+            }
+            routeNumbers = routeNumbers.Substring(0, routeNumbers.Length - 2);
+            element.Text = CurrentTimeTable.Route.Id.ToString();
+            Error error = new Error("Nepostojeći broj linije! Postojeće linije su: " + routeNumbers + ".");
+            error.ShowDialog();
+        }
+
+        private bool doesRouteExist(MainWindow window, string s)
+        {
+            foreach (Route route in window.systemEntities.systemRoutes)
+            {
+                if (route.Id.ToString() == s)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

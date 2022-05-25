@@ -34,6 +34,7 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.routesReviewPage.Visibility = Visibility.Visible;
+            window.timetableReviewPage.Visibility = Visibility.Hidden;
         }
 
         public void BuyTicketClick(object sender, RoutedEventArgs e)
@@ -50,6 +51,7 @@ namespace Project.Views
         {
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
             mainWindow.timetableReviewPage.Visibility = Visibility.Visible;
+            mainWindow.routesReviewPage.Visibility= Visibility.Hidden;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)

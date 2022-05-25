@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.Modals"
         mc:Ignorable="d"
-        Title="Uspeh" Height="230" Width="400"
+        Title="Uspeh" Height="300" Width="600"
         Icon="../Icons/success.ico">
     <Grid>
         <Grid.RowDefinitions>

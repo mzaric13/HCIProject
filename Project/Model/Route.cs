@@ -1,20 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Project.Model
 {
-    public class Route
+    public class Route : INotifyPropertyChanged  
     {
+        private int id;
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
-        public int Id { get; set; }
-        public TrainStation StartingStation { get; set; }
+        private TrainStation startingStation;
+        public TrainStation StartingStation
+        {
+            get { return startingStation; }
+            set
+            {
+                if (value != startingStation)
+                {
+                    startingStation = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
-        public TrainStation EndingStation { get; set; }
+        private TrainStation endingStation;
+        public TrainStation EndingStation
+        {
+            get { return endingStation; }
+            set
+            {
+                if (value != endingStation)
+                {
+                    endingStation = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
-        public List<TrainStation> Stations { get; set; }
+        private List<TrainStation> stations;
+        public List<TrainStation> Stations
+        {
+            get { return stations; }
+            set 
+            { 
+                if (value != stations)
+                {
+                    stations = value;
+                    NotifyPropertyChanged();
+                }   
+            }
+        }
 
         public Route() { }
 
@@ -24,6 +74,18 @@ namespace Project.Model
             StartingStation = startingStation;      
             EndingStation = endingStation;
             Stations = stations;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

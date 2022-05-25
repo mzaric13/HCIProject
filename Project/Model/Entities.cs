@@ -10,14 +10,11 @@ namespace Project.Model
     {
         public Dictionary<string, User> systemUsers { get; set; }
         public User loggedUser { get; set; }
-
-        public string currentError { get; set; }
         public List<Train> systemTrains { get; set; }
         public List<Timetable> systemTimetables { get; set; }
-
+        public List<Route> systemRoutes { get; set; }
         public List<TrainStation> systemTrainStations { get; set; }
 
-        public List<Route> systemRoutes { get; set; }
 
         public Entities()
         {
@@ -90,15 +87,16 @@ namespace Project.Model
                 r6
             };
 
-            Timetable tt1 = new Timetable(1, "12:00", "25.05.2022.", "14:00", "25.05.2022", t1, r1);
-            Timetable tt2 = new Timetable(2, "12:00", "26.05.2022.", "14:00", "26.05.2022", t1, r1);
-            Timetable tt3 = new Timetable(3, "11:00", "27.05.2022.", "13:00", "27.05.2022", t1, r2);
-            Timetable tt4 = new Timetable(4, "12:00", "25.05.2022.", "14:00", "25.05.2022", t2, r1);
-            Timetable tt5 = new Timetable(5, "12:00", "30.05.2022.", "14:00", "30.05.2022", t2, r1);
-            Timetable tt6 = new Timetable(6, "15:00", "31.05.2022.", "17:00", "31.05.2022", t2, r3);
-            Timetable tt7 = new Timetable(7, "20:00", "25.05.2022.", "23:30", "25.05.2022", t5, r5);
-            Timetable tt8 = new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022", t6, r4);
-            Timetable tt9 = new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022", t7, r6);
+            Timetable tt1 = new Timetable(1, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t1, r1);
+            Timetable tt2 = new Timetable(2, "12:00", "26.05.2022.", "14:00", "26.05.2022.", t1, r1);
+            Timetable tt3 = new Timetable(3, "11:00", "27.05.2022.", "13:00", "27.05.2022.", t2, r2);
+            Timetable tt4 = new Timetable(4, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t2, r1);
+            Timetable tt5 = new Timetable(5, "12:00", "30.05.2022.", "14:00", "30.05.2022.", t2, r1);
+            Timetable tt6 = new Timetable(6, "15:00", "31.05.2022.", "17:00", "31.05.2022.", t2, r3);
+            Timetable tt7 = new Timetable(7, "20:00", "25.05.2022.", "23:30", "25.05.2022.", t5, r5);
+            Timetable tt8 = new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022.", t6, r4);
+            Timetable tt9 = new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t7, r6);
+            Timetable tt10 = new Timetable(10, "15:00", "14.06.2022.", "17:30", "14.06.2022.", t3, r2);
 
             systemTimetables = new List<Timetable>
             {
@@ -110,7 +108,8 @@ namespace Project.Model
                 tt6,
                 tt7,
                 tt8,
-                tt9
+                tt9,
+                tt10
             };
 
         }

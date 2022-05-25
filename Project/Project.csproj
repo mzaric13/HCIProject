@@ -55,6 +55,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -100,6 +101,9 @@
     </Compile>
     <Compile Include="Views\RoutesReview.xaml.cs">
       <DependentUpon>RoutesReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RouteCrud.xaml.cs">
+      <DependentUpon>RouteCrud.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimetableCrud.xaml.cs">
       <DependentUpon>TimetableCrud.xaml</DependentUpon>
@@ -159,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RoutesReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RouteCrud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

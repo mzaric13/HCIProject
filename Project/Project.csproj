@@ -87,6 +87,9 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManagerBoardingCards.xaml.cs">
+      <DependentUpon>ManagerBoardingCards.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NavbarClient.xaml.cs">
       <DependentUpon>NavbarClient.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagerBoardingCards.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

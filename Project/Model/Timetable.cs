@@ -124,5 +124,10 @@ namespace Project.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public override string ToString()
+        {
+            return startDate + " " + startTime + " --> " + endDate + " " + endTime + " Voz: " + train.Operator + " " + train.Number;
+        }
     }
 }

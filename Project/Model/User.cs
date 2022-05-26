@@ -34,5 +34,9 @@ namespace Project.Model
             this.userType = userType;
         }
 
+        public override string ToString()
+        {
+            return name + " " + surname;
+        }
     }
 }

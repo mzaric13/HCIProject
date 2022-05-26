@@ -33,6 +33,7 @@ namespace Project.Views
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Visible;
+            window.boardingCarsViewManager.Visibility = Visibility.Hidden;
 
             window.routeCrudPage.tableRoutes.Visibility = Visibility.Visible;
             window.routeCrudPage.nameRoute.Visibility = Visibility.Visible;
@@ -60,6 +61,7 @@ namespace Project.Views
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Hidden;
+            window.boardingCarsViewManager.Visibility = Visibility.Visible;
         }
 
         public void TrainsClick(object sender, RoutedEventArgs e)
@@ -68,6 +70,7 @@ namespace Project.Views
             window.trainCrudPage.Visibility = Visibility.Visible;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Hidden;
+            window.boardingCarsViewManager.Visibility = Visibility.Hidden;
 
             window.trainCrudPage.tableTrains.Visibility = Visibility.Visible;
             window.trainCrudPage.nameTrain.Visibility = Visibility.Visible;
@@ -112,6 +115,7 @@ namespace Project.Views
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Hidden;
+            window.boardingCarsViewManager.Visibility = Visibility.Hidden;
         }
 
         public void HelpClick(object sender, RoutedEventArgs e)

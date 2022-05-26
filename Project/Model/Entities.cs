@@ -14,14 +14,48 @@ namespace Project.Model
         public List<Timetable> systemTimetables { get; set; }
         public List<Route> systemRoutes { get; set; }
         public List<TrainStation> systemTrainStations { get; set; }
-
+        public List<BoardingCard> systemBoardingCards { get; set; }
+        public List<string> months { get; set; }
+        public Dictionary<string, string> monthNumbers { get; set; }
 
         public Entities()
         {
+            months = new List<string>
+            {
+                "Januar",
+                "Februar",
+                "Mart",
+                "April",
+                "Maj",
+                "Jun",
+                "Jul",
+                "Avgust",
+                "Septembar",
+                "Oktobar",
+                "Novembar",
+                "Decembar"
+            };
+
+            monthNumbers = new Dictionary<string, string>();
+            monthNumbers.Add("Januar", "01");
+            monthNumbers.Add("Februar", "02");
+            monthNumbers.Add("Mart", "03");
+            monthNumbers.Add("April", "04");
+            monthNumbers.Add("Maj", "05");
+            monthNumbers.Add("Jun", "06");
+            monthNumbers.Add("Jul", "07");
+            monthNumbers.Add("Avgust", "08");
+            monthNumbers.Add("Septembar", "09");
+            monthNumbers.Add("Oktobar", "10");
+            monthNumbers.Add("Novembar", "11");
+            monthNumbers.Add("Decembar", "12");
+
+            User u1 = new User("Marko", "Markovic", "marko@gmail.com", "sifra123", UserType.Client);
+            User u2 = new User("Jovan", "Jovanovic", "jovan@gmail.com", "sifra123", UserType.Manager);
             systemUsers = new Dictionary<string, User>
             {
-                { "marko@gmail.com", new User("Marko", "Markovic", "marko@gmail.com", "sifra123", UserType.Client) },
-                { "jovan@gmail.com", new User("Jovan", "Jovanovic", "jovan@gmail.com", "sifra123", UserType.Manager) }
+                { "marko@gmail.com", u1 },
+                { "jovan@gmail.com", u2 }
             };
 
             Train t1 = new Train(1, "BrzaPtica");
@@ -112,6 +146,18 @@ namespace Project.Model
                 tt10
             };
 
+            BoardingCard bc1 = new BoardingCard(u1, tt1, "22.05.2022.", BoardingCardState.BOUGHT);
+            BoardingCard bc2 = new BoardingCard(u1, tt2, "23.05.2022.", BoardingCardState.RESERVED);
+            BoardingCard bc3 = new BoardingCard(u1, tt10, "10.06.2022.", BoardingCardState.BOUGHT);
+            BoardingCard bc4 = new BoardingCard(u1, tt10, "11.06.2022.", BoardingCardState.BOUGHT);
+
+            systemBoardingCards = new List<BoardingCard>
+            {
+                bc1,
+                bc2,
+                bc3,
+                bc4
+            };
         }
 
     }

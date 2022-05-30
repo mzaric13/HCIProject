@@ -26,7 +26,15 @@ namespace Project
         {
             systemEntities = new Entities();
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(Window_Loaded);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+            this.MoveFocus(tRequest);
+
+            this.Loaded -= Window_Loaded;
+        }
     }
 }

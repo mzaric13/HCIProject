@@ -6,6 +6,41 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="BuyTicketsCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="MyTicketsCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="RoutesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="WebRoutesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="TimetablesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="LogoutCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="HelpPageCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource BuyTicketsCommand}"
+                        Executed="BuyTicketClick"/>
+        <CommandBinding Command="{StaticResource MyTicketsCommand}"
+                        Executed="MyTicketsClick"/>
+        <CommandBinding Command="{StaticResource RoutesCommand}"
+                        Executed="ClickRoutesView"/>
+        <CommandBinding Command="{StaticResource WebRoutesCommand}"
+                        Executed="ClickWebRoutesView"/>
+        <CommandBinding Command="{StaticResource TimetablesCommand}"
+                        Executed="TimetableClick"/>
+        <CommandBinding Command="{StaticResource LogoutCommand}"
+                        Executed="LogoutClick"/>
+        <CommandBinding Command="{StaticResource HelpPageCommand}"
+                        Executed="HelpClick"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{StaticResource BuyTicketsCommand}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{StaticResource MyTicketsCommand}"/>
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource RoutesCommand}"/>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{StaticResource WebRoutesCommand}"/>
+        <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource TimetablesCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{StaticResource LogoutCommand}"/>
+        <KeyBinding Key="F1" Command="{StaticResource HelpPageCommand}"/>
+    </UserControl.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.8*"/>
@@ -31,26 +66,82 @@
         </Label>
 
         <Label Grid.Column="3" Grid.Row="0" Background="#191c4f"></Label>
-        <Button Name="BuyTicket" Click="BuyTicketClick" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="BuyTicket" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource BuyTicketsCommand}">
             <Image Source="../Images/invoice.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Kupovina karata</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + Q</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="MyTickets" Click="MyTicketsClick" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="MyTickets"  Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource MyTicketsCommand}">
             <Image Source="../Images/ticket.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Moje karte</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + W</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="RoutesView" Click="ClickRoutesView" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="RoutesView" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource RoutesCommand}">
             <Image Source="../Images/platforms.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Vozne linije</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + E</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="WebRoutesView" Click="ClickWebRoutesView" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="WebRoutesView" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource WebRoutesCommand}">
             <Image Source="../Images/map.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Mapa linija vožnji</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + R</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="Timetable" Click="TimetableClick" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Timetable" Click="TimetableClick" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12"  Command="{StaticResource TimetablesCommand}">
             <Image Source="../Images/timetable.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Prikaz redova vožnji</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + T</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="Logout" Click="HelpClick" Grid.Column="9" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Logout" Grid.Column="9" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource HelpPageCommand}">
             <Image Source="../Images/question.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Pomoć</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> F1</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="Help" Click="LogoutClick" Grid.Column="10" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Help" Grid.Column="10" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource LogoutCommand}">
             <Image Source="../Images/logout.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Odjava</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + Y</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
     </Grid>
 </UserControl>

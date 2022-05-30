@@ -6,6 +6,20 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="ShowAllTimetablesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="SearchTimetablesCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ShowAllTimetablesCommand}"
+                        Executed="ShowAllTimetables"/>
+        <CommandBinding Command="{StaticResource SearchTimetablesCommand}"
+                        Executed="SearchTimetables"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource ShowAllTimetablesCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource SearchTimetablesCommand}"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
@@ -81,23 +95,39 @@
             <TextBox x:Name="searchText" FontSize="15" VerticalContentAlignment="Center" Width="98" Height="19"></TextBox>
         </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left">
-            <Button x:Name="searchTimetables" Width="76" Foreground="White" Background="#191c4f" Click="SearchTimetables" Height="71" Padding="12" >
+            <Button x:Name="searchTimetables" Width="76" Foreground="White" Background="#191c4f" Height="71" Padding="12" Command="{StaticResource SearchTimetablesCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga redova vožnje</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="4">
-            <Button x:Name="showAllTimetables" Content="Svi redovi vožnje" Width="120" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="ShowAllTimetables">
+            <Button x:Name="showAllTimetables" Content="Svi redovi vožnje" Width="120" Foreground="White" Background="#191c4f" FontFamily="Arial black" Command="{StaticResource ShowAllTimetablesCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Prikaz svih redova vožnji</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> F5</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 

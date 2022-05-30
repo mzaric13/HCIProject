@@ -6,6 +6,21 @@
         xmlns:local="clr-namespace:Project.Modals"
         mc:Ignorable="d"
         Title="Potvrda akcije" Height="230" Width="400">
+
+    <Window.Resources>
+        <RoutedUICommand x:Key="YesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="NoCommand"></RoutedUICommand>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource YesCommand}"
+                        Executed="AcceptClick"/>
+        <CommandBinding Command="{StaticResource NoCommand}"
+                        Executed="DeclineClick"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{StaticResource YesCommand}"/>
+        <KeyBinding Key="Esc" Command="{StaticResource NoCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -28,7 +43,7 @@
 
         <TextBlock x:Name="Message" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" IsEnabled="False" FontSize="18" TextAlignment="Center" FontFamily="Arial black"></TextBlock>
 
-        <Button Grid.Row="3" Grid.Column="3" Click="DeclineClick" Background="IndianRed" Foreground="White">
+        <Button Grid.Row="3" Grid.Column="3" Background="IndianRed" Foreground="White" Command="{StaticResource NoCommand}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Viewbox>
@@ -41,8 +56,16 @@
                     <Setter Property="CornerRadius" Value="5"></Setter>
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Ne</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Escape</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Grid.Row="3" Grid.Column="1" Click="AcceptClick" Background="Green" Foreground="White">
+        <Button Grid.Row="3" Grid.Column="1" Background="Green" Foreground="White" Command="{StaticResource YesCommand}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Viewbox>
@@ -55,6 +78,14 @@
                     <Setter Property="CornerRadius" Value="5"></Setter>
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Yes</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Enter</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
     </Grid>
 </Window>

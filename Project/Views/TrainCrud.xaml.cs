@@ -37,6 +37,8 @@ namespace Project.Views
             set { currentTimetables = value; }
         }
 
+        public bool isMainWindowOpened = true;
+
         public Train currentTrainCell;
         public TrainCrud()
         {
@@ -148,6 +150,8 @@ namespace Project.Views
 
         public void ShowTimetables(object sender, RoutedEventArgs e)
         {
+            isMainWindowOpened = false;
+
             tableTrains.Visibility = Visibility.Hidden;
             nameTrain.Visibility = Visibility.Hidden;
             addTrain.Visibility = Visibility.Hidden;
@@ -272,12 +276,12 @@ namespace Project.Views
             }
             else
             {
-                MainWindow window = (MainWindow)Window.GetWindow(this);
                 List<Timetable> searchedTimetables = new List<Timetable>();
-                foreach (Timetable timetable in window.systemEntities.systemTimetables)
+                foreach (Timetable timetable in CurrentTimetables)
                 {
                     if (timetable.startDate.Contains(searchTextTimetable.Text) || timetable.startTime.Contains(searchTextTimetable.Text) ||
-                        timetable.endDate.Contains(searchTextTimetable.Text) || timetable.endTime.Contains(searchTextTimetable.Text))
+                        timetable.endDate.Contains(searchTextTimetable.Text) || timetable.endTime.Contains(searchTextTimetable.Text) ||
+                            timetable.Route.Id.ToString().Contains(searchTextTimetable.Text))
                     {
                         searchedTimetables.Add(timetable);
                     }
@@ -304,6 +308,8 @@ namespace Project.Views
 
         public void Back(object sender, RoutedEventArgs e)
         {
+            isMainWindowOpened = true;
+
             tableTrains.Visibility = Visibility.Visible;
             nameTrain.Visibility = Visibility.Visible;
             addTrain.Visibility = Visibility.Visible;
@@ -354,6 +360,30 @@ namespace Project.Views
                 TextBlock tb = (TextBlock)e.Column.GetCellContent(e.Row);
                 Train item = (Train)tb.DataContext;
                 currentTrainCell = item;
+            }
+        }
+
+        public void IsMainWindowOpened(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (isMainWindowOpened)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
+        }
+
+        public void IsMainWindowNotOpened(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (isMainWindowOpened)
+            {
+                e.CanExecute = false;
+            }
+            else
+            {
+                e.CanExecute = true;
             }
         }
     }

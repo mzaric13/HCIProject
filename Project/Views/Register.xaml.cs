@@ -29,12 +29,17 @@ namespace Project.Views
 
         public void RegistrationClick(object sender, RoutedEventArgs e)
         {
+            if (e.Handled)
+            {
+                return;
+            }
             if (this.name.Text.Length == 0 || this.surname.Text.Length == 0 || this.email.Text.Length == 0 ||
                 this.password.Password.Length == 0 || this.confirmPassword.Password.Length == 0
                 || (this.client.IsChecked == false && this.manager.IsChecked == false))
             {
                 Error error = new Error("Potrebno je popuniti sva polja, kako bi registracija bila uspešna.");
                 error.ShowDialog();
+                e.Handled = true;
             }
             else if (!this.password.Password.Equals(this.confirmPassword.Password))
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Modals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,8 @@ namespace Project.Views
 
         public void LogoutClick(object sender, RoutedEventArgs e)
         {
+            Success success = new Success("Uspešno ste se odjavili sa sistema!");
+            success.ShowDialog();
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.systemEntities.loggedUser = null;
             window.notLoggedIn.Visibility = Visibility.Visible;

@@ -20,9 +20,11 @@ namespace Project.Views
     /// </summary>
     public partial class NavbarNotLoggedIn : UserControl
     {
+
         public NavbarNotLoggedIn()
         {
             InitializeComponent();
+            Focusable= true;
         }
 
         public void HomeClick(object sender, RoutedEventArgs e)

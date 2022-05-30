@@ -6,6 +6,30 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="HomePageCommand"/>
+        <RoutedUICommand x:Key="LoginPageCommand"/>
+        <RoutedCommand x:Key="RegisterPageCommand"/>
+        <RoutedCommand x:Key="HelpPageCommand"/>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource HomePageCommand}"
+                        Executed="HomeClick"/>
+        <CommandBinding Command="{StaticResource LoginPageCommand}"
+                        Executed="LoginClick"/>
+        <CommandBinding Command="{StaticResource RegisterPageCommand}"
+                        Executed="RegisterClick"/>
+        <CommandBinding Command="{StaticResource HelpPageCommand}"
+                        Executed="HelpClick"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{StaticResource HomePageCommand}"/>
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource LoginPageCommand}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{StaticResource RegisterPageCommand}"/>
+        <KeyBinding Key="F1" Command="{StaticResource HelpPageCommand}"/>
+    </UserControl.InputBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.8*"/>
@@ -28,17 +52,49 @@
         </Label>
 
         <Label Grid.Column="3" Grid.Row="0" Background="#191c4f"></Label>
-        <Button Name="Home" Click="HomeClick" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Home" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource HomePageCommand}">
             <Image Source="../Images/homewhite.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Početna stranica</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + Q </TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="Login" Click="LoginClick" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Login" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource LoginPageCommand}">
             <Image Source="../Images/loginwhite.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Prijava </TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + E</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="Register" Click="RegisterClick" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Register" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource RegisterPageCommand}">
             <Image Source="../Images/personal.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Registracija </TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + W</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Name="Help" Click="HelpClick" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12">
+        <Button Name="Help" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource HelpPageCommand}">
             <Image Source="../Images/question.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Pomoć </TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> F1</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
     </Grid>
 </UserControl>

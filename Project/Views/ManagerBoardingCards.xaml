@@ -6,6 +6,26 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="ShowAllCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="MonthSearchCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="RouteSearchCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ShowAllCommand}"
+                        Executed="BoardingCardsLoaded"/>
+        <CommandBinding Command="{StaticResource MonthSearchCommand}"
+                        Executed="SearchByMonth"/>
+        <CommandBinding Command="{StaticResource RouteSearchCommand}"
+                        Executed="SearchByRoute"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource ShowAllCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource MonthSearchCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{StaticResource RouteSearchCommand}"/>
+    </UserControl.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
@@ -67,13 +87,21 @@
         </Viewbox>
 
         <Viewbox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left">
-            <Button x:Name="searchMonth" Background="#191c4f" Padding="24" Click="SearchByMonth" HorizontalContentAlignment="Left">
+            <Button x:Name="searchMonth" Background="#191c4f" Padding="24" HorizontalContentAlignment="Left" Command="{StaticResource MonthSearchCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="30"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga po mesecu</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -86,23 +114,39 @@
         </Viewbox>
 
         <Viewbox Grid.Column="7" Grid.Row="2" HorizontalAlignment="Left">
-            <Button x:Name="searchRoute"  Background="#191c4f" Padding="24" Click="SearchByRoute">
+            <Button x:Name="searchRoute"  Background="#191c4f" Padding="24" Command="{StaticResource RouteSearchCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="30"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga po vožnji</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + D</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="2">
-            <Button x:Name="showBoardingCards" Foreground="White" Background="#191c4f" Click="ShowBoardingCards" Content="Sve karte" FontFamily="Arial black" Width="113">
+            <Button x:Name="showBoardingCards" Foreground="White" Background="#191c4f" Content="Sve karte" FontFamily="Arial black" Width="113" Command="{StaticResource ShowAllCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Prikaz svih karata</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> F5</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 

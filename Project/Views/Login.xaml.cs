@@ -64,6 +64,7 @@ namespace Project.Views
                             window.notLoggedIn.Visibility = Visibility.Hidden;
                             window.manager.Visibility = Visibility.Visible;
                             window.loginPage.Visibility = Visibility.Hidden;
+                            window.boardingCarsViewManager.Visibility = Visibility.Visible;
                         }
                     }
                 }

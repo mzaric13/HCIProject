@@ -6,6 +6,16 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="LoginCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource LoginCommand}"
+                        Executed="LoginClick"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter" Command="{StaticResource LoginCommand}"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.8*"/>
@@ -45,12 +55,20 @@
         </Viewbox>
 
         <Viewbox Grid.Row="8" Grid.Column="4">
-            <Button x:Name="confirmLogin" Click="LoginClick" Content="Prijava" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="115">
+            <Button x:Name="confirmLogin" Content="Prijava" Foreground="White" FontFamily="Arial Black" Background="#191c4f" Width="115" Command="{StaticResource LoginCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Prijava</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Enter</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
     </Grid>

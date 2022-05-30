@@ -6,6 +6,48 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="ShowAllRoutesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="SearchRoutesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="AddRouteCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="BackCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="ShowAllStationsCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="SearchStationsCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="AddStationCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ShowAllRoutesCommand}"
+                        Executed="ShowAllRoutes"/>
+        <CommandBinding Command="{StaticResource AddRouteCommand}"
+                        Executed="AddRoute"
+                        CanExecute="IsMainWindowOpened"/>
+        <CommandBinding Command="{StaticResource SearchRoutesCommand}"
+                        Executed="SearchRoutes"
+                        CanExecute="IsMainWindowOpened"/>
+        <CommandBinding Command="{StaticResource BackCommand}"
+                        Executed="Back"
+                        CanExecute="IsMainWindowNotOpened"/>
+        <CommandBinding Command="{StaticResource ShowAllStationsCommand}"
+                        Executed="ShowAllStations"
+                        CanExecute="IsMainWindowNotOpened"/>
+        <CommandBinding Command="{StaticResource SearchStationsCommand}"
+                        Executed="SearchStations"
+                        CanExecute="IsMainWindowNotOpened"/>
+        <CommandBinding Command="{StaticResource AddStationCommand}"
+                        Executed="AddStation"
+                        CanExecute="IsMainWindowNotOpened"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource ShowAllRoutesCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{StaticResource AddRouteCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource SearchRoutesCommand}"/>
+        <KeyBinding Key="Left" Modifiers="Alt" Command="{StaticResource BackCommand}"/>
+        <KeyBinding Key="F5" Modifiers="Ctrl" Command="{StaticResource ShowAllStationsCommand}"/>
+        <KeyBinding Key="B" Modifiers="Ctrl" Command="{StaticResource SearchStationsCommand}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource AddStationCommand}"/>
+    </UserControl.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
@@ -83,12 +125,20 @@
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2">
-            <Button x:Name="addRoute" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Click="AddRoute">
+            <Button x:Name="addRoute" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Command="{StaticResource AddRouteCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Dodaj liniju</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + D</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -100,23 +150,39 @@
             <TextBox x:Name="searchText" FontSize="15" VerticalContentAlignment="Center" Width="98" Height="19"></TextBox>
         </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left">
-            <Button x:Name="searchRoutes" Width="76" Foreground="White" Background="#191c4f" Click="SearchRoutes" Height="71" Padding="12" >
+            <Button x:Name="searchRoutes" Width="76" Foreground="White" Background="#191c4f" Height="71" Padding="12" Command="{StaticResource SearchRoutesCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga linija</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2">
-            <Button x:Name="showAllRoutes" Content="Sve linije" Width="78" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="ShowAllRoutes">
+            <Button x:Name="showAllRoutes" Content="Sve linije" Width="78" Foreground="White" Background="#191c4f" FontFamily="Arial black" Command="{StaticResource ShowAllRoutesCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Prikaz svih linija</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> F5</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -157,12 +223,20 @@
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2">
-            <Button x:Name="addStation" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Click="AddStation" Visibility="Hidden">
+            <Button x:Name="addStation" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Visibility="Hidden" Command="{StaticResource AddStationCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Dodaj novu stanicu</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + N</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -170,33 +244,57 @@
             <TextBox x:Name="searchTextStations" FontSize="15" VerticalContentAlignment="Center" Width="98" Height="19" Visibility="Hidden"></TextBox>
         </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left">
-            <Button x:Name="searchStations" Width="76" Foreground="White" Background="#191c4f" Click="SearchStations" Height="71" Padding="12" Visibility="Hidden">
+            <Button x:Name="searchStations" Width="76" Foreground="White" Background="#191c4f" Height="71" Padding="12" Visibility="Hidden" Command="{StaticResource SearchStationsCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga stanica</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + B</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2">
-            <Button x:Name="showAllStations" Content="Sve stanice" Width="80" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="ShowAllStations" Visibility="Hidden">
+            <Button x:Name="showAllStations" Content="Sve stanice" Width="80" Foreground="White" Background="#191c4f" FontFamily="Arial black" Visibility="Hidden" Command="{StaticResource ShowAllStationsCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Prikaz svih stanica</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F5</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-            <Button x:Name="back" Content="Nazad" Width="80" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="Back" Visibility="Hidden">
+            <Button x:Name="back" Content="Nazad" Width="80" Foreground="White" Background="#191c4f" FontFamily="Arial black" Visibility="Hidden" Command="{StaticResource BackCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Nazad</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Alt + Leva strelica</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 

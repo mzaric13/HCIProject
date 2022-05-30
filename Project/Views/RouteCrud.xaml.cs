@@ -32,6 +32,8 @@ namespace Project.Views
             set { routes = value; }
         }
 
+        public bool isMainWindowOpened = true;
+
         private ObservableCollection<TrainStation> currentStations = new ObservableCollection<TrainStation>();
 
         public Route CurrentRoute;
@@ -66,13 +68,15 @@ namespace Project.Views
             TrainStation ts8 = new TrainStation(8, "Novi Sad");
             window.systemEntities.systemRoutes.Add(new Route(maxIndex + 1, ts8, ts1, new List<TrainStation> { }));
             fillRouteTable();
-            Success success = new Success("Uspešno dodata nova linija Novi Sad - Beograd. Dodajte međustanice i izmenite" +
+            Success success = new Success("Uspešno dodata nova linija Novi Sad - Beograd. Dodajte međustanice i izmenite " +
                 "početnu i krajnju stanicu, ako je to potrebno.");
             success.ShowDialog();
         }
 
         public void ShowStations(object sender, RoutedEventArgs e)
         {
+            isMainWindowOpened = false;
+
             tableRoutes.Visibility = Visibility.Hidden;
             nameRoute.Visibility = Visibility.Hidden;
             addRoute.Visibility = Visibility.Hidden;
@@ -324,6 +328,8 @@ namespace Project.Views
 
         public void Back(object sender, RoutedEventArgs e)
         {
+            isMainWindowOpened = true;
+
             tableRoutes.Visibility = Visibility.Visible;
             nameRoute.Visibility = Visibility.Visible;
             addRoute.Visibility = Visibility.Visible;
@@ -497,6 +503,30 @@ namespace Project.Views
                 TextBlock tb = (TextBlock)e.Column.GetCellContent(e.Row);
                 TrainStation item = (TrainStation)tb.DataContext;
                 CurrentStation = item;
+            }
+        }
+
+        public void IsMainWindowOpened(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (isMainWindowOpened)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
+        }
+
+        public void IsMainWindowNotOpened(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (isMainWindowOpened)
+            {
+                e.CanExecute = false;
+            }
+            else
+            {
+                e.CanExecute = true;
             }
         }
     }

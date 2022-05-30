@@ -6,6 +6,47 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="ShowAllTrainsCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="SearchTrainCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="AddTrainCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="BackCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="ShowAllTimetablesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="SearchTimetablesCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="AddTimetableCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ShowAllTrainsCommand}"
+                        Executed="TrainCrudLoaded"/>
+        <CommandBinding Command="{StaticResource AddTrainCommand}"
+                        Executed="AddTrain"
+                        CanExecute="IsMainWindowOpened"/>
+        <CommandBinding Command="{StaticResource SearchTrainCommand}"
+                        Executed="SearchTrains"
+                        CanExecute="IsMainWindowOpened"/>
+        <CommandBinding Command="{StaticResource BackCommand}"
+                        Executed="Back"
+                        CanExecute="IsMainWindowNotOpened"/>
+        <CommandBinding Command="{StaticResource ShowAllTimetablesCommand}"
+                        Executed="ShowAllTimetables"
+                        CanExecute="IsMainWindowNotOpened"/>
+        <CommandBinding Command="{StaticResource SearchTimetablesCommand}"
+                        Executed="SearchTimetables"
+                        CanExecute="IsMainWindowNotOpened"/>
+        <CommandBinding Command="{StaticResource AddTimetableCommand}"
+                        Executed="AddTimetable"
+                        CanExecute="IsMainWindowNotOpened"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource ShowAllTrainsCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{StaticResource AddTrainCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource SearchTrainCommand}"/>
+        <KeyBinding Key="Left" Modifiers="Alt" Command="{StaticResource BackCommand}"/>
+        <KeyBinding Key="F5" Modifiers="Ctrl" Command="{StaticResource ShowAllTimetablesCommand}"/>
+        <KeyBinding Key="B" Modifiers="Ctrl" Command="{StaticResource SearchTimetablesCommand}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource AddTimetableCommand}"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
@@ -84,12 +125,20 @@
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2">
-            <Button x:Name="addTrain" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Click="AddTrain">
+            <Button x:Name="addTrain" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Command="{StaticResource AddTrainCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Dodaj voz</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + D</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -97,23 +146,39 @@
             <TextBox x:Name="searchText" FontSize="15" VerticalContentAlignment="Center" Width="98" Height="19"></TextBox>
         </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left">
-            <Button x:Name="searchTrains" Width="76" Foreground="White" Background="#191c4f" Click="SearchTrains" Height="71" Padding="12" >
+            <Button x:Name="searchTrains" Width="76" Foreground="White" Background="#191c4f" Height="71" Padding="12" Command="{StaticResource SearchTrainCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga vozova</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2">
-            <Button x:Name="showAllTrains" Content="Svi vozovi" Width="76" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="ShowAllTrains">
+            <Button x:Name="showAllTrains" Content="Svi vozovi" Width="76" Foreground="White" Background="#191c4f" FontFamily="Arial black" Command="{StaticResource ShowAllTrainsCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Prikaz svih vozova</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> F5</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -157,12 +222,20 @@
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2">
-            <Button x:Name="addTimetable" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Click="AddTimetable" Visibility="Hidden">
+            <Button x:Name="addTimetable" Content="Dodaj" Width="76" Foreground="White" Background="Green" FontFamily="Arial black" Visibility="Hidden" Command="{StaticResource AddTimetableCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Dodavanj novi red vožnje </TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + N</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
@@ -170,33 +243,57 @@
             <TextBox x:Name="searchTextTimetable" FontSize="15" VerticalContentAlignment="Center" Width="98" Height="19" Visibility="Hidden"></TextBox>
         </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left">
-            <Button x:Name="searchTimetables" Width="76" Foreground="White" Background="#191c4f" Click="SearchTimetables" Height="71" Padding="12" Visibility="Hidden">
+            <Button x:Name="searchTimetables" Width="76" Foreground="White" Background="#191c4f" Height="71" Padding="12" Visibility="Hidden" Command="{StaticResource SearchTimetablesCommand}">
                 <Image Source="../Images/search_table.png" Stretch="Uniform"></Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga redova vožnji</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + B</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3">
-            <Button x:Name="showAllTimetables" Content="Svi redovi vožnje" Width="122" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="ShowAllTimetables" Visibility="Hidden">
+            <Button x:Name="showAllTimetables" Content="Svi redovi vožnje" Width="122" Foreground="White" Background="#191c4f" FontFamily="Arial black" Visibility="Hidden" Command="{StaticResource ShowAllTimetablesCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Prikaz svih redova vožnje za odabrani voz</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F5</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 
         <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-            <Button x:Name="back" Content="Nazad" Width="80" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="Back" Visibility="Hidden">
+            <Button x:Name="back" Content="Nazad" Width="80" Foreground="White" Background="#191c4f" FontFamily="Arial black" Visibility="Hidden" Command="{StaticResource BackCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Nazad</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Alt + Leva strelica</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 

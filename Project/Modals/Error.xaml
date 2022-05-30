@@ -8,6 +8,17 @@
         ResizeMode="NoResize"
         Title="Greška" Height="300" Width="600"
         Icon="../Icons/error.ico">
+    <Window.Resources>
+        <RoutedUICommand x:Key="OkCommand"></RoutedUICommand>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource OkCommand}"
+                        Executed="ErrorClick"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{StaticResource OkCommand}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -30,7 +41,7 @@
 
         <TextBlock x:Name="Message" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" IsEnabled="False" FontSize="18" TextAlignment="Center" FontFamily="Arial black"></TextBlock>
 
-        <Button Grid.Row="3" Grid.Column="2" Click="ErrorClick" Background="#191c4f" Foreground="White">
+        <Button Grid.Row="3" Grid.Column="2" Click="ErrorClick" Background="#191c4f" Foreground="White" Command="{StaticResource OkCommand}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Viewbox>
@@ -43,6 +54,14 @@
                     <Setter Property="CornerRadius" Value="5"></Setter>
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Ok</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Enter</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
     </Grid>
 </Window>

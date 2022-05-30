@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Modals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,9 @@ namespace Project.Views
         public void TrainLinesClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
+
+            window.routeCrudPage.isMainWindowOpened = true;
+
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Visible;
@@ -72,6 +76,8 @@ namespace Project.Views
             window.routeCrudPage.Visibility = Visibility.Hidden;
             window.boardingCarsViewManager.Visibility = Visibility.Hidden;
 
+            window.trainCrudPage.isMainWindowOpened = true;
+
             window.trainCrudPage.tableTrains.Visibility = Visibility.Visible;
             window.trainCrudPage.nameTrain.Visibility = Visibility.Visible;
             window.trainCrudPage.addTrain.Visibility = Visibility.Visible;
@@ -98,6 +104,7 @@ namespace Project.Views
             window.trainCrudPage.Visibility = Visibility.Hidden;
             window.timetableCrudPage.Visibility = Visibility.Visible;
             window.routeCrudPage.Visibility = Visibility.Hidden;
+            window.boardingCarsViewManager.Visibility = Visibility.Hidden;
 
             ButtonAutomationPeer peer = new ButtonAutomationPeer(window.timetableCrudPage.showAllTimetables);
             IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
@@ -106,6 +113,8 @@ namespace Project.Views
 
         public void LogoutClick(object sender, RoutedEventArgs e)
         {
+            Success success = new Success("Uspešno ste se odjavili sa sistema!");
+            success.ShowDialog();
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.systemEntities.loggedUser = null;
             window.notLoggedIn.Visibility = Visibility.Visible;

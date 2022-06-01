@@ -23,7 +23,7 @@
     <UserControl.InputBindings>
         <KeyBinding Key="F5" Command="{StaticResource ShowAllCommand}"/>
         <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource MonthSearchCommand}"/>
-        <KeyBinding Key="D" Modifiers="Ctrl" Command="{StaticResource RouteSearchCommand}"/>
+        <KeyBinding Key="H" Modifiers="Ctrl" Command="{StaticResource RouteSearchCommand}"/>
     </UserControl.InputBindings>
 
     <Grid>
@@ -125,7 +125,7 @@
                     <ToolTip>
                         <StackPanel>
                             <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga po vožnji</TextBlock>
-                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + D</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + H</TextBlock>
                         </StackPanel>
                     </ToolTip>
                 </Button.ToolTip>

@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelpView\HomeHelp.xaml.cs">
+      <DependentUpon>HomeHelp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modals\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
     <Compile Include="Views\TrainCrud.xaml.cs">
       <DependentUpon>TrainCrud.xaml</DependentUpon>
     </Compile>
+    <Page Include="HelpView\HomeHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -253,6 +260,33 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\question.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\question_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Help\boardingCardsManager.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\home.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\registration.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\routeCrud.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\timetableCrud.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\trainCrud.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

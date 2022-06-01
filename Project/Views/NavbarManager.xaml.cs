@@ -129,9 +129,28 @@ namespace Project.Views
 
         public void HelpClick(object sender, RoutedEventArgs e)
         {
-            //MainWindow window = (MainWindow)Window.GetWindow(this);
-            //help 
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Window homeHelp;
+            if (window.boardingCarsViewManager.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("boardingCardsManager.html");
+                homeHelp.Show();
+            }
+            else if (window.trainCrudPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("trainCrud.html");
+                homeHelp.Show();
+            }
+            else if (window.routeCrudPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("routeCrud.html");
+                homeHelp.Show();
+            }
+            else if (window.timetableCrudPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("timetableCrud.html");
+                homeHelp.Show();
+            }
         }
     }
 }

@@ -33,7 +33,6 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Visible;
             window.loginPage.Visibility = Visibility.Hidden;
             window.registrationPage.Visibility = Visibility.Hidden;
-            //help strana = hidden
         }
 
         public void LoginClick(object sender, RoutedEventArgs e)
@@ -42,7 +41,6 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Hidden;
             window.loginPage.Visibility = Visibility.Visible;
             window.registrationPage.Visibility= Visibility.Hidden;
-            //help strana = hidden
 
             DeleteLoginInfo(window);
 
@@ -55,7 +53,6 @@ namespace Project.Views
             window.homePage.Visibility = Visibility.Hidden;
             window.loginPage.Visibility = Visibility.Hidden;
             window.registrationPage.Visibility = Visibility.Visible;
-            //help strana = hidden
 
             DeleteRegistrationInfo(window);
         }
@@ -79,8 +76,24 @@ namespace Project.Views
 
         public void HelpClick(object sender, RoutedEventArgs e)
         {
-            //MainWindow window = (MainWindow)Window.GetWindow(this);
-            //help stranica = visible
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Window homeHelp;
+            if (window.homePage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("home.html");
+                homeHelp.Show();
+            }
+            else if (window.loginPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("login.html");
+                homeHelp.Show();
+            }
+            else if (window.registrationPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("registration.html");
+                homeHelp.Show();
+            }
+            
         }
     }
 }

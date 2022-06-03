@@ -34,6 +34,18 @@ namespace Project.Views
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.routesReviewPage.Visibility = Visibility.Visible;
+            window.routesReviewPage.routesGrid.Background.Opacity = 0;
+            window.routesReviewPage.drawSurface.Visibility = Visibility.Hidden;
+            window.routesReviewPage.labelTitle.Visibility = Visibility.Visible;
+            window.routesReviewPage.labelFrom.Visibility = Visibility.Visible;
+            window.routesReviewPage.startingStation.Visibility = Visibility.Visible;
+            window.routesReviewPage.labelTo.Visibility = Visibility.Visible;
+            window.routesReviewPage.endingStation.Visibility = Visibility.Visible;
+            window.routesReviewPage.search.Visibility = Visibility.Visible;
+            window.routesReviewPage.reset.Visibility = Visibility.Visible;
+            window.routesReviewPage.tableRoutes.Visibility = Visibility.Visible;
+            window.routesReviewPage.back.Visibility = Visibility.Hidden;
+            window.routesReviewPage.drawSurface.Children.Clear();
             window.timetableReviewPage.Visibility = Visibility.Hidden;
         }
 

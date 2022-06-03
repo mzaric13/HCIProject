@@ -15,6 +15,8 @@ namespace Project.Model
         public List<Route> systemRoutes { get; set; }
         public List<TrainStation> systemTrainStations { get; set; }
 
+        public List<TrainStation> selectedRoute { get; set; }
+
 
         public Entities()
         {
@@ -111,6 +113,8 @@ namespace Project.Model
                 tt9,
                 tt10
             };
+
+            selectedRoute = new List<TrainStation>();
 
         }
 

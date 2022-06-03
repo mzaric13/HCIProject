@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -27,6 +29,8 @@ namespace Project.Views
         ObservableCollection<Route> Routes = new ObservableCollection<Route>();
 
         ObservableCollection<TrainStation> Stations = new ObservableCollection<TrainStation>();
+
+        Route selectedRoute = null;
 
         public RoutesReview()
         {
@@ -78,7 +82,7 @@ namespace Project.Views
             var grid = (DataGrid)sender;
             foreach (var item in grid.Columns)
             {
-                if (item.Header.ToString() == "Detaljnije")
+                if (item.Header.ToString() == "Mrežni prikaz")
                 {
                     item.DisplayIndex = grid.Columns.Count - 1;
                     break;
@@ -86,30 +90,86 @@ namespace Project.Views
             }
         }
 
-        public void tableStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.Column.Header.ToString() == "Name")
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            if (drawSurface.Visibility == Visibility.Visible)
             {
-                e.Column.Header = "Stanice";
-            }
-            if (e.Column.Header.ToString() == "Id")
-            {
-                e.Column.Visibility = Visibility.Hidden;
+                foreach (var children in drawSurface.Children)
+                {
+                    Border border = (Border)children;
+                    border.Height = drawSurface.ActualHeight / 10;
+                    border.Width = routesGrid.ActualWidth / 7;
+                    Canvas.SetTop(border, (routesGrid.ActualHeight * Canvas.GetTop(border)) / e.PreviousSize.Height);
+                    Canvas.SetLeft(border, (routesGrid.ActualWidth * Canvas.GetLeft(border)) / e.PreviousSize.Width);
+                }
             }
         }
 
         public void ShowDetailsForRoute(object sender, RoutedEventArgs e)
         {
-            MainWindow window = (MainWindow)Window.GetWindow(this);
-            Route selectedRoute = ((FrameworkElement)sender).DataContext as Route;
-            ObservableCollection<TrainStation> trainStations = new ObservableCollection<TrainStation>();
-            trainStations.Add(selectedRoute.StartingStation);
-            foreach (TrainStation trainStation in selectedRoute.Stations) trainStations.Add(trainStation);
-            trainStations.Add(selectedRoute.EndingStation);
-            stations.ItemsSource = trainStations;
-            stations.Visibility = Visibility.Visible;
+            selectedRoute = ((FrameworkElement)sender).DataContext as Route;
+            ShowWebRoutes();
+        }
+
+        private void ShowWebRoutes()
+        {
+            transformWebView();
+            double gridHeight = drawSurface.ActualHeight;
+            double gridWidth = routesGrid.ActualWidth;
+            double diffHeight = gridHeight / (selectedRoute.Stations.Count + 4);
+            double diffWidth = gridWidth / (selectedRoute.Stations.Count + 4);
+            double posX = diffWidth;
+            double posY = diffHeight;
+            int number = 1;
+            CreateRectangle(selectedRoute.StartingStation, posX, posY, 0, gridHeight, gridWidth);
+            posX += diffWidth;
+            posY += diffHeight;
+            foreach (TrainStation trainStation in selectedRoute.Stations)
+            {
+                CreateRectangle(trainStation, posX, posY, number, gridHeight, gridWidth);
+                posX += diffWidth;
+                posY += diffHeight;
+                number++;
+            }
+            CreateRectangle(selectedRoute.EndingStation, posX, posY, number, gridHeight, gridWidth);
+        }
+
+        private void transformWebView()
+        {
+            routesGrid.Background.Opacity = 100;
+            labelTitle.Visibility = Visibility.Hidden;
+            labelFrom.Visibility = Visibility.Hidden;
+            startingStation.Visibility = Visibility.Hidden;
+            labelTo.Visibility = Visibility.Hidden;
+            endingStation.Visibility = Visibility.Hidden;
+            search.Visibility = Visibility.Hidden;
+            reset.Visibility = Visibility.Hidden;
             tableRoutes.Visibility = Visibility.Hidden;
+            drawSurface.Visibility = Visibility.Visible;
             back.Visibility = Visibility.Visible;
+        }
+
+        private void CreateRectangle(TrainStation trainStation, double posX, double posY, int number, double gridHeight, double gridWidth)
+        {
+            Border border = new Border();
+            border.Height = gridHeight/10;
+            border.Width = gridWidth/7;
+            border.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+            border.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Black);
+            border.BorderThickness = new Thickness(1, 1, 1, 1);
+            border.MouseMove += Border_MouseMove;
+
+            Label label = new Label();
+            int labelNum = number + 1;
+            label.Content = labelNum + ". " +  trainStation.Name;
+            label.HorizontalAlignment = HorizontalAlignment.Center;
+            label.VerticalAlignment = VerticalAlignment.Center;
+            border.Child = label;
+
+            drawSurface.Children.Insert(number, border);
+            Canvas.SetTop(border, posY);
+            Canvas.SetLeft(border, posX);
         }
 
         public void SearchRoutes(object sender, RoutedEventArgs e)
@@ -147,9 +207,54 @@ namespace Project.Views
 
         public void BackOnSearch(object sender, RoutedEventArgs e)
         {
-            stations.Visibility = Visibility.Hidden;
+            transformFromWebView();
+        }
+
+        private void transformFromWebView()
+        {
+            routesGrid.Background.Opacity = 0;
+            drawSurface.Visibility = Visibility.Hidden;
+            labelTitle.Visibility = Visibility.Visible;
+            labelFrom.Visibility = Visibility.Visible;
+            startingStation.Visibility = Visibility.Visible;
+            labelTo.Visibility = Visibility.Visible;
+            endingStation.Visibility = Visibility.Visible;
+            search.Visibility = Visibility.Visible;
+            reset.Visibility = Visibility.Visible;
             tableRoutes.Visibility = Visibility.Visible;
             back.Visibility = Visibility.Hidden;
+            drawSurface.Children.Clear();
+            selectedRoute = null;
+        }
+
+        private void Border_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Border border = sender as Border;
+                Label label = (Label)border.Child;
+                DataObject dragData = new DataObject("borderMove", border);
+                DragDrop.DoDragDrop(border, dragData, DragDropEffects.Move);
+            }
+        }
+
+        private void Border_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("borderMove"))
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void Border_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("borderMove"))
+            {
+                Border border = e.Data.GetData("borderMove") as Border;
+                Point endSpot = e.GetPosition(border);
+                Canvas.SetTop(border, Canvas.GetTop(border) + endSpot.Y);
+                Canvas.SetLeft(border, Canvas.GetLeft(border) + endSpot.X);
+            }
         }
     }
 }

@@ -14,6 +14,7 @@
         <RoutedUICommand x:Key="TimetablesCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="LogoutCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="HelpPageCommand"></RoutedUICommand>
+        <RoutedUICommand x:Key="StationsCommand"></RoutedUICommand>
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource TicketsCommand}"
@@ -28,13 +29,16 @@
                         Executed="LogoutClick"/>
         <CommandBinding Command="{StaticResource HelpPageCommand}"
                         Executed="HelpClick"/>
+        <CommandBinding Command="{StaticResource StationsCommand}"
+                        Executed="StationsClick"/>
     </UserControl.CommandBindings>
     <UserControl.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{StaticResource TicketsCommand}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{StaticResource TrainsCommand}"/>
         <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource TrainLinesCommand}"/>
         <KeyBinding Key="R" Modifiers="Ctrl" Command="{StaticResource TimetablesCommand}"/>
-        <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource LogoutCommand}"/>
+        <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource StationsCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{StaticResource LogoutCommand}"/>
         <KeyBinding Key="F1" Command="{StaticResource HelpPageCommand}"/>
     </UserControl.InputBindings>
     
@@ -49,7 +53,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -106,18 +111,31 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Name="Logout" Grid.Column="9" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource LogoutCommand}">
-            <Image Source="../Images/logout.png" Stretch="Uniform"></Image>
+
+        <Button Name="StationView" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource StationsCommand}">
+            <Image Source="../Images/map.png" Stretch="Uniform"></Image>
             <Button.ToolTip>
                 <ToolTip>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Odjava</TextBlock>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Prikaz stanica na mapi</TextBlock>
                         <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + T</TextBlock>
                     </StackPanel>
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Name="Help" Grid.Column="8" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource HelpPageCommand}">
+
+        <Button Name="Logout" Grid.Column="10" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource LogoutCommand}">
+            <Image Source="../Images/logout.png" Stretch="Uniform"></Image>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Odjava</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + Y</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+        <Button Name="Help" Grid.Column="9" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource HelpPageCommand}">
             <Image Source="../Images/question.png" Stretch="Uniform"></Image>
             <Button.ToolTip>
                 <ToolTip>

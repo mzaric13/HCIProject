@@ -111,6 +111,9 @@
     <Compile Include="Views\RouteCrud.xaml.cs">
       <DependentUpon>RouteCrud.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StationsPosition.xaml.cs">
+      <DependentUpon>StationsPosition.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TimetableCrud.xaml.cs">
       <DependentUpon>TimetableCrud.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RouteCrud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StationsPosition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -282,6 +289,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Help\routesReview.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\stationsPosition.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Help\timetableCrud.html">

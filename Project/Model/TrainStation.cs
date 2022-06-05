@@ -38,12 +38,42 @@ namespace Project.Model
             }
         }
 
+        private double x;
+        public double X
+        {
+            get { return x; }
+            set
+            {
+                if (value != x)
+                {
+                    x = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private double y;
+        public double Y
+        {
+            get { return y; }
+            set
+            {
+                if (value != y)
+                {
+                    y = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public TrainStation() { }
 
         public TrainStation(int id, string name)
         {
             Id = id;
             Name = name;
+            X = -1;
+            Y = -1;
         }
 
         public override string ToString() { 

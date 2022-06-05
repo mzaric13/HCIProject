@@ -32,6 +32,9 @@ namespace Project.Views
 
         Route selectedRoute = null;
 
+        double previousX;
+        double previousY;
+
         public RoutesReview()
         {
             InitializeComponent();
@@ -92,16 +95,44 @@ namespace Project.Views
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            List<Point> newCoords = new List<Point>();
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            if (drawSurface.Visibility == Visibility.Visible)
+            if (drawSurface.Visibility == Visibility.Visible && window.routesReviewPage.drawSurface.Visibility == Visibility.Visible)
             {
-                foreach (var children in drawSurface.Children)
+                for(int i = 0; i < drawSurface.Children.Count; i++)
                 {
-                    Border border = (Border)children;
-                    border.Height = drawSurface.ActualHeight / 10;
-                    border.Width = routesGrid.ActualWidth / 7;
-                    Canvas.SetTop(border, (routesGrid.ActualHeight * Canvas.GetTop(border)) / e.PreviousSize.Height);
-                    Canvas.SetLeft(border, (routesGrid.ActualWidth * Canvas.GetLeft(border)) / e.PreviousSize.Width);
+                    if (i % 2 == 1 || i == 0)
+                    {
+                        Border border = (Border)drawSurface.Children[i];
+                        border.Height = drawSurface.ActualHeight / 10;
+                        border.Width = routesGrid.ActualWidth / 7;
+                        Label label = border.Child as Label;
+                        label.FontSize = drawSurface.ActualHeight / 40;
+                        Canvas.SetTop(border, (routesGrid.ActualHeight * Canvas.GetTop(border)) / e.PreviousSize.Height);
+                        Canvas.SetLeft(border, (routesGrid.ActualWidth * Canvas.GetLeft(border)) / e.PreviousSize.Width);
+                        Point point = new Point();
+                        point.X = (routesGrid.ActualWidth * Canvas.GetLeft(border)) / e.PreviousSize.Width;
+                        point.Y = (routesGrid.ActualHeight * Canvas.GetTop(border)) / e.PreviousSize.Height;
+
+                        newCoords.Add(point);
+                    }
+                }
+
+                int starting_sub_num = 2;
+                for (int i = 0; i < drawSurface.Children.Count; i++)
+                {
+                    if (i % 2 == 0 && i > 0)
+                    {
+                        Line line = (Line)drawSurface.Children[i];
+                        line.X1 = newCoords[i - starting_sub_num].X;
+                        line.Y1 = newCoords[i - starting_sub_num].Y;
+
+                        line.X2 = newCoords[i - starting_sub_num + 1].X;
+                        line.Y2 = newCoords[i - starting_sub_num + 1].Y;
+
+                        starting_sub_num++;
+                    }
+                    
                 }
             }
         }
@@ -109,6 +140,11 @@ namespace Project.Views
         public void ShowDetailsForRoute(object sender, RoutedEventArgs e)
         {
             selectedRoute = ((FrameworkElement)sender).DataContext as Route;
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            if (window.systemEntities.systemTrainStations[0].X == -1)
+            {
+                setStationsCoordinates();
+            }
             ShowWebRoutes();
         }
 
@@ -117,22 +153,14 @@ namespace Project.Views
             transformWebView();
             double gridHeight = drawSurface.ActualHeight;
             double gridWidth = routesGrid.ActualWidth;
-            double diffHeight = gridHeight / (selectedRoute.Stations.Count + 4);
-            double diffWidth = gridWidth / (selectedRoute.Stations.Count + 4);
-            double posX = diffWidth;
-            double posY = diffHeight;
             int number = 1;
-            CreateRectangle(selectedRoute.StartingStation, posX, posY, 0, gridHeight, gridWidth);
-            posX += diffWidth;
-            posY += diffHeight;
+            CreateRectangle(selectedRoute.StartingStation, 0, gridHeight, gridWidth);
             foreach (TrainStation trainStation in selectedRoute.Stations)
             {
-                CreateRectangle(trainStation, posX, posY, number, gridHeight, gridWidth);
-                posX += diffWidth;
-                posY += diffHeight;
-                number++;
+                CreateRectangle(trainStation, number, gridHeight, gridWidth);
+                number += 2;
             }
-            CreateRectangle(selectedRoute.EndingStation, posX, posY, number, gridHeight, gridWidth);
+            CreateRectangle(selectedRoute.EndingStation, number, gridHeight, gridWidth);
         }
 
         private void transformWebView()
@@ -150,26 +178,52 @@ namespace Project.Views
             back.Visibility = Visibility.Visible;
         }
 
-        private void CreateRectangle(TrainStation trainStation, double posX, double posY, int number, double gridHeight, double gridWidth)
+        private void CreateRectangle(TrainStation trainStation, int number, double gridHeight, double gridWidth)
         {
             Border border = new Border();
             border.Height = gridHeight/10;
             border.Width = gridWidth/7;
-            border.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
-            border.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Black);
-            border.BorderThickness = new Thickness(1, 1, 1, 1);
-            border.MouseMove += Border_MouseMove;
-
             Label label = new Label();
-            int labelNum = number + 1;
-            label.Content = labelNum + ". " +  trainStation.Name;
+            border.Background = new SolidColorBrush(System.Windows.Media.Colors.LightBlue);
+            if (number == 0)
+            {
+                BrushConverter bc = new BrushConverter();
+                border.BorderBrush = (Brush)bc.ConvertFrom("#191c4f");
+                border.BorderThickness = new Thickness(5, 5, 5, 5);
+                label.Content = "Početak: " + trainStation.Name;
+            }
+            else
+            {
+                border.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Black);
+                border.BorderThickness = new Thickness(3, 3, 3, 3);
+                label.Content = trainStation.Name;
+            }          
+            label.FontFamily = new FontFamily("Arial black");
+            label.FontSize = gridHeight/40;
             label.HorizontalAlignment = HorizontalAlignment.Center;
             label.VerticalAlignment = VerticalAlignment.Center;
             border.Child = label;
 
             drawSurface.Children.Insert(number, border);
-            Canvas.SetTop(border, posY);
-            Canvas.SetLeft(border, posX);
+            Canvas.SetTop(border, trainStation.Y);
+            Canvas.SetLeft(border, trainStation.X);
+
+            if (number != 0)
+            {
+                Line line = new Line();
+                line.X1 = previousX;
+                line.Y1 = previousY;
+                line.X2 = trainStation.X;
+                line.Y2 = trainStation.Y;
+                line.StrokeThickness = 4;
+                SolidColorBrush brush = new SolidColorBrush();
+                brush.Color = Colors.Black;
+                line.Stroke = brush;
+                drawSurface.Children.Insert(number+1, line);
+            }
+            previousX = trainStation.X;
+            previousY = trainStation.Y;
+
         }
 
         public void SearchRoutes(object sender, RoutedEventArgs e)
@@ -227,33 +281,22 @@ namespace Project.Views
             selectedRoute = null;
         }
 
-        private void Border_MouseMove(object sender, MouseEventArgs e)
+        private void setStationsCoordinates()
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                Border border = sender as Border;
-                Label label = (Label)border.Child;
-                DataObject dragData = new DataObject("borderMove", border);
-                DragDrop.DoDragDrop(border, dragData, DragDropEffects.Move);
-            }
-        }
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            double gridHeight = window.stationsPosition.drawSurface.ActualHeight;
+            double gridWidth = window.stationsPosition.stationsGrid.ActualWidth;
+            double diffHeight = gridHeight / (window.systemEntities.systemTrainStations.Count + 2);
+            double diffWidth = gridWidth / (window.systemEntities.systemTrainStations.Count + 2);
+            double posX = diffWidth;
+            double posY = diffHeight;
 
-        private void Border_DragEnter(object sender, DragEventArgs e)
-        {
-            if (!e.Data.GetDataPresent("borderMove"))
+            foreach (TrainStation trainstation in window.systemEntities.systemTrainStations)
             {
-                e.Effects = DragDropEffects.None;
-            }
-        }
-
-        private void Border_Drop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent("borderMove"))
-            {
-                Border border = e.Data.GetData("borderMove") as Border;
-                Point endSpot = e.GetPosition(border);
-                Canvas.SetTop(border, Canvas.GetTop(border) + endSpot.Y);
-                Canvas.SetLeft(border, Canvas.GetLeft(border) + endSpot.X);
+                trainstation.X = posX;
+                trainstation.Y = posY;
+                posX += diffWidth;
+                posY += diffHeight;
             }
         }
     }

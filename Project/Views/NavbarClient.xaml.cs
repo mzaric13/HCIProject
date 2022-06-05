@@ -83,8 +83,19 @@ namespace Project.Views
 
         public void HelpClick(object sender, RoutedEventArgs e)
         {
-            //MainWindow window = (MainWindow)Window.GetWindow(this);
-            //help = visible
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Window homeHelp;
+            if (window.timetableReviewPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("timetableReview.html");
+                homeHelp.Show();
+            }
+            else if (window.routesReviewPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("routesReview.html");
+                homeHelp.Show();
+            }
+            //else if...
         }
     }
 }

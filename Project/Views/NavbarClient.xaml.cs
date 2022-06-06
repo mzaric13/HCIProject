@@ -1,4 +1,5 @@
 ﻿using Project.Modals;
+using Project.VideoView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,6 +95,23 @@ namespace Project.Views
             {
                 homeHelp = new HomeHelp("routesReview.html");
                 homeHelp.Show();
+            }
+            //else if...
+        }
+
+        public void VideoClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Window videoWindow;
+            if (window.timetableReviewPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/timetableReview.wmv");
+                videoWindow.Show();
+            }
+            else if (window.routesReviewPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/routesReview.wmv");
+                videoWindow.Show();
             }
             //else if...
         }

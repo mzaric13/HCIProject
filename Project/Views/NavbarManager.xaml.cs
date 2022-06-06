@@ -1,4 +1,5 @@
 ﻿using Project.Modals;
+using Project.VideoView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -150,6 +151,32 @@ namespace Project.Views
             {
                 homeHelp = new HomeHelp("timetableCrud.html");
                 homeHelp.Show();
+            }
+        }
+
+        public void VideoClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Window videoWindow;
+            if (window.boardingCarsViewManager.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/managerBoardingCards.wmv");
+                videoWindow.Show();
+            }
+            else if (window.trainCrudPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/trainCrud.wmv");
+                videoWindow.Show();
+            }
+            else if (window.routeCrudPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/routeCrud.wmv");
+                videoWindow.Show();
+            }
+            else if (window.timetableCrudPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/timetableCrud.wmv");
+                videoWindow.Show();
             }
         }
     }

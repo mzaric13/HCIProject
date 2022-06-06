@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.VideoView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -92,8 +93,28 @@ namespace Project.Views
             {
                 homeHelp = new HomeHelp("registration.html");
                 homeHelp.Show();
+            }       
+        }
+
+        public void VideoClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            Window videoWindow;
+            if (window.homePage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/homePage.wmv");
+                videoWindow.Show();
             }
-            
+            else if (window.registrationPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/registrationPage.wmv");
+                videoWindow.Show();
+            }
+            else if (window.loginPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/login.wmv");
+                videoWindow.Show();
+            }
         }
     }
 }

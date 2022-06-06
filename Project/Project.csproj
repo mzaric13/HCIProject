@@ -84,6 +84,9 @@
     <Compile Include="Model\TrainStation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Entities.cs" />
+    <Compile Include="VideoView\Video.xaml.cs">
+      <DependentUpon>Video.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modals\YesNoModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VideoView\Video.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -293,6 +300,17 @@
     <Content Include="Help\trainCrud.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Videos\login.wmv" />
+    <Content Include="Videos\managerBoardingCards.wmv" />
+    <Content Include="Videos\registrationPage.wmv" />
+    <Content Include="Videos\routeCrud.wmv" />
+    <Content Include="Videos\routesReview.wmv" />
+    <Content Include="Videos\timetableCrud.wmv" />
+    <Content Include="Videos\timetableReview.wmv" />
+    <Content Include="Videos\trainCrud.wmv" />
+    <Resource Include="Icons\play.ico" />
+    <Content Include="Videos\homePage.wmv" />
+    <Resource Include="Images\video.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background.jpg" />

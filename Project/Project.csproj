@@ -78,12 +78,16 @@
       <DependentUpon>YesNoModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\BoardingCard.cs" />
+    <Compile Include="Model\DataForCard.cs" />
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Timetable.cs" />
     <Compile Include="Model\Train.cs" />
     <Compile Include="Model\TrainStation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Entities.cs" />
+    <Compile Include="Views\CardBuying.xaml.cs">
+      <DependentUpon>CardBuying.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modals\YesNoModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CardBuying.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

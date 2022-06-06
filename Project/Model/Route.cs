@@ -66,6 +66,20 @@ namespace Project.Model
             }
         }
 
+        private List<int> prices;
+        public List<int> Prices
+        {
+            get { return prices; }
+            set
+            {
+                if (value != prices)
+                {
+                    prices = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public Route() { }
 
         public Route(int id, TrainStation startingStation, TrainStation endingStation, List<TrainStation> stations)

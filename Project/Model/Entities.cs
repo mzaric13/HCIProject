@@ -105,11 +105,17 @@ namespace Project.Model
             };
 
             Route r1 = new Route(1, ts1, ts8, new List<TrainStation> { ts2, ts3, ts4, ts5, ts6, ts7 });
+            r1.Prices = new List<int> { 50, 100, 150, 200, 250, 300, 350 };
             Route r2 = new Route(2, ts8, ts1, new List<TrainStation> { ts7, ts6, ts5, ts4, ts3, ts2 });
+            r2.Prices = new List<int> { 50, 100, 150, 200, 250, 300, 350 };
             Route r3 = new Route(3, ts1, ts8, new List<TrainStation> { });
+            r3.Prices = new List<int> { 300 };
             Route r4 = new Route(4, ts8, ts1, new List<TrainStation> { });
+            r4.Prices = new List<int> { 300 };
             Route r5 = new Route(5, ts8, ts10, new List<TrainStation> { ts9 });
+            r5.Prices = new List<int> { 150, 300 };
             Route r6 = new Route(6, ts10, ts8, new List<TrainStation> { ts9 });
+            r6.Prices = new List<int> { 150, 300};
 
             systemRoutes = new List<Route>
             {
@@ -121,13 +127,13 @@ namespace Project.Model
                 r6
             };
 
-            Timetable tt1 = new Timetable(1, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t1, r1);
-            Timetable tt2 = new Timetable(2, "12:00", "26.05.2022.", "14:00", "26.05.2022.", t1, r1);
+            Timetable tt1 = new Timetable(1, "12:00", "07.06.2022.", "14:00", "07.06.2022.", t1, r1);
+            Timetable tt2 = new Timetable(2, "14:00", "07.06.2022.", "16:00", "07.06.2022.", t1, r1);
             Timetable tt3 = new Timetable(3, "11:00", "27.05.2022.", "13:00", "27.05.2022.", t2, r2);
-            Timetable tt4 = new Timetable(4, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t2, r1);
+            Timetable tt4 = new Timetable(4, "12:00", "08.06.2022.", "14:00", "25.05.2022.", t2, r1);
             Timetable tt5 = new Timetable(5, "12:00", "30.05.2022.", "14:00", "30.05.2022.", t2, r1);
             Timetable tt6 = new Timetable(6, "15:00", "31.05.2022.", "17:00", "31.05.2022.", t2, r3);
-            Timetable tt7 = new Timetable(7, "20:00", "25.05.2022.", "23:30", "25.05.2022.", t5, r5);
+            Timetable tt7 = new Timetable(7, "15:00", "07.06.2022.", "15:30", "07.06.2022.", t5, r5);
             Timetable tt8 = new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022.", t6, r4);
             Timetable tt9 = new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t7, r6);
             Timetable tt10 = new Timetable(10, "15:00", "14.06.2022.", "17:30", "14.06.2022.", t3, r2);

@@ -38,5 +38,14 @@ namespace Project.Model
         {
             return name + " " + surname;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is User)
+            {
+                User other = (User)obj;
+                return email == other.email;
+            }else return false;
+        }
     }
 }

@@ -44,6 +44,8 @@ namespace Project.Views
             window.routesReviewPage.back.Visibility = Visibility.Hidden;
             window.routesReviewPage.drawSurface.Children.Clear();
             window.timetableReviewPage.Visibility = Visibility.Hidden;
+            window.cardBuyingPage.Visibility = Visibility.Hidden;
+            window.clientCardsReviewPage.Visibility = Visibility.Hidden;
         }
 
         public void BuyTicketClick(object sender, RoutedEventArgs e)
@@ -52,11 +54,16 @@ namespace Project.Views
             window.cardBuyingPage.Visibility = Visibility.Visible;
             window.timetableReviewPage.Visibility = Visibility.Hidden;
             window.routesReviewPage.Visibility= Visibility.Hidden;
+            window.clientCardsReviewPage.Visibility = Visibility.Hidden;
         }
 
         public void MyTicketsClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.clientCardsReviewPage.Visibility = Visibility.Visible;
+            window.cardBuyingPage.Visibility = Visibility.Hidden;
+            window.timetableReviewPage.Visibility = Visibility.Hidden;
+            window.routesReviewPage.Visibility = Visibility.Hidden;
         }
 
         public void TimetableClick(object sender, RoutedEventArgs e)
@@ -65,6 +72,7 @@ namespace Project.Views
             mainWindow.timetableReviewPage.Visibility = Visibility.Visible;
             mainWindow.routesReviewPage.Visibility = Visibility.Hidden;
             mainWindow.cardBuyingPage.Visibility = Visibility.Hidden;
+            mainWindow.clientCardsReviewPage.Visibility = Visibility.Hidden;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)
@@ -78,6 +86,7 @@ namespace Project.Views
             window.routesReviewPage.Visibility = Visibility.Hidden;
             window.timetableReviewPage.Visibility = Visibility.Hidden;
             window.cardBuyingPage.Visibility = Visibility.Hidden;
+            window.clientCardsReviewPage.Visibility = Visibility.Hidden;
             //sve ostale prozore u clientu staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
         }

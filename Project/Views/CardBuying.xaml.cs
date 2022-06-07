@@ -141,14 +141,6 @@ namespace Project.Views
             error.ShowDialog();
         }
 
-        public void BuyCard(object sender, RoutedEventArgs e)
-        {
-        }
-
-        public void Reserve(object sender, RoutedEventArgs e)
-        {
-        }
-
         public void tableTimetable_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "StartingTime")
@@ -186,6 +178,10 @@ namespace Project.Views
             var grid = (DataGrid)sender;
             foreach (var item in grid.Columns)
             {
+                if (item.Header.ToString() == "Količina")
+                {
+                    item.DisplayIndex = grid.Columns.Count - 1;
+                }
                 if (item.Header.ToString() == "Rezerviši")
                 {
                     item.DisplayIndex = grid.Columns.Count - 1;
@@ -195,6 +191,37 @@ namespace Project.Views
                     item.DisplayIndex = grid.Columns.Count - 1;
                 }
             }
+        }
+
+        public void BuyCard(object sender, RoutedEventArgs e)
+        {
+            DataForCard dataForCard = ((FrameworkElement)sender).DataContext as DataForCard;
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, DateTime.Now.Date.ToString(), BoardingCardState.BOUGHT);
+            window.systemEntities.systemBoardingCards.Add(boardingCard);
+            Success success = new Success("Uspešno ste kupili kartu, možete je pregledati među vašim kartama!");
+            success.Show();
+            backToNormal();
+        }
+
+        public void Reserve(object sender, RoutedEventArgs e)
+        {
+            DataForCard dataForCard = ((FrameworkElement)sender).DataContext as DataForCard;
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+           
+            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, DateTime.Now.Date.ToString(), BoardingCardState.RESERVED);
+            window.systemEntities.systemBoardingCards.Add(boardingCard);
+            Success success = new Success("Uspešno ste rezervisali kartu, možete je kupiti ili otkazati!");
+            success.Show();
+            backToNormal();
+        }
+
+        private void backToNormal()
+        {
+            timetablesTable.Visibility = Visibility.Hidden;
+            datePick.SelectedDate = null;
+            startingStation.SelectedItem = null;
+            lastStation.SelectedItem = null;
         }
     }
 }

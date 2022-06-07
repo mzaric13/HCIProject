@@ -22,6 +22,8 @@ namespace Project.Model
 
         public int Price { get; set; }
 
+        public int NumOfCards = 1;
+
         public DataForCard() { }
 
         public DataForCard(List<Timetable> timetables, string startingStation, string endingStation,string startingTime, string endingTime, string trainName, int price)

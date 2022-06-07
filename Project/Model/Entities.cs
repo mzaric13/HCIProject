@@ -152,10 +152,10 @@ namespace Project.Model
                 tt10
             };
 
-            BoardingCard bc1 = new BoardingCard(u1, tt1, "22.05.2022.", BoardingCardState.BOUGHT);
-            BoardingCard bc2 = new BoardingCard(u1, tt2, "23.05.2022.", BoardingCardState.RESERVED);
-            BoardingCard bc3 = new BoardingCard(u1, tt10, "10.06.2022.", BoardingCardState.BOUGHT);
-            BoardingCard bc4 = new BoardingCard(u1, tt10, "11.06.2022.", BoardingCardState.BOUGHT);
+            BoardingCard bc1 = new BoardingCard(u1, new List<Timetable> { tt1 }, "22.05.2022.", BoardingCardState.BOUGHT);
+            BoardingCard bc2 = new BoardingCard(u1, new List<Timetable> { tt2 }, "23.05.2022.", BoardingCardState.RESERVED);
+            BoardingCard bc3 = new BoardingCard(u1, new List<Timetable> { tt10 }, "10.06.2022.", BoardingCardState.BOUGHT);
+            BoardingCard bc4 = new BoardingCard(u1, new List<Timetable> { tt10 }, "11.06.2022.", BoardingCardState.BOUGHT);
 
             systemBoardingCards = new List<BoardingCard>
             {

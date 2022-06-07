@@ -178,10 +178,6 @@ namespace Project.Views
             var grid = (DataGrid)sender;
             foreach (var item in grid.Columns)
             {
-                if (item.Header.ToString() == "Količina")
-                {
-                    item.DisplayIndex = grid.Columns.Count - 1;
-                }
                 if (item.Header.ToString() == "Rezerviši")
                 {
                     item.DisplayIndex = grid.Columns.Count - 1;
@@ -197,7 +193,7 @@ namespace Project.Views
         {
             DataForCard dataForCard = ((FrameworkElement)sender).DataContext as DataForCard;
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, DateTime.Now.Date.ToString(), BoardingCardState.BOUGHT);
+            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, findStationByName(dataForCard.StartingStation), findStationByName(dataForCard.EndingStation), DateTime.Now.Date.ToString(), BoardingCardState.BOUGHT, dataForCard.Price);
             window.systemEntities.systemBoardingCards.Add(boardingCard);
             Success success = new Success("Uspešno ste kupili kartu, možete je pregledati među vašim kartama!");
             success.Show();
@@ -208,8 +204,7 @@ namespace Project.Views
         {
             DataForCard dataForCard = ((FrameworkElement)sender).DataContext as DataForCard;
             MainWindow window = (MainWindow)Window.GetWindow(this);
-           
-            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, DateTime.Now.Date.ToString(), BoardingCardState.RESERVED);
+            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, findStationByName(dataForCard.StartingStation), findStationByName(dataForCard.EndingStation), DateTime.Now.Date.ToString(), BoardingCardState.RESERVED, dataForCard.Price);
             window.systemEntities.systemBoardingCards.Add(boardingCard);
             Success success = new Success("Uspešno ste rezervisali kartu, možete je kupiti ili otkazati!");
             success.Show();
@@ -254,7 +249,15 @@ namespace Project.Views
                         return result;
                 }
             }
+            return null;
+        }
 
+        private TrainStation findStationByName(string stationName)
+        {
+            foreach (TrainStation trainStation in Stations)
+            {
+                if (trainStation.Name == stationName) return trainStation;
+            }
             return null;
         }
     }

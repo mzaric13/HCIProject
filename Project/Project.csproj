@@ -97,6 +97,9 @@
     <Compile Include="Views\CardBuying.xaml.cs">
       <DependentUpon>CardBuying.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ClientCardsReview.xaml.cs">
+      <DependentUpon>ClientCardsReview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CardBuying.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientCardsReview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

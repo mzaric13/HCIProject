@@ -34,10 +34,10 @@ namespace Project.Model
         {
             User = user;
             Timetable = timetables;
-            DateOfPurchase = dateOfPurchase;
-            State = state;
             StartStation = startStation;
             EndStation = endStation;
+            DateOfPurchase = dateOfPurchase;
+            State = state;
             Price = price;
         }
     }

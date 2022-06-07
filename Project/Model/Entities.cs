@@ -130,7 +130,7 @@ namespace Project.Model
             Timetable tt1 = new Timetable(1, "12:00", "08.06.2022.", "14:00", "08.06.2022.", t1, r1);
             Timetable tt2 = new Timetable(2, "14:00", "08.06.2022.", "16:00", "08.06.2022.", t1, r1);
             Timetable tt3 = new Timetable(3, "11:00", "27.05.2022.", "13:00", "27.05.2022.", t2, r2);
-            Timetable tt4 = new Timetable(4, "12:00", "08.06.2022.", "14:00", "25.05.2022.", t2, r1);
+            Timetable tt4 = new Timetable(4, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t2, r1);
             Timetable tt5 = new Timetable(5, "12:00", "30.05.2022.", "14:00", "30.05.2022.", t2, r1);
             Timetable tt6 = new Timetable(6, "15:00", "31.05.2022.", "17:00", "31.05.2022.", t2, r3);
             Timetable tt7 = new Timetable(7, "15:00", "08.06.2022.", "15:30", "08.06.2022.", t5, r5);
@@ -152,18 +152,7 @@ namespace Project.Model
                 tt10
             };
 
-            BoardingCard bc1 = new BoardingCard(u1, new List<Timetable> { tt1 }, ts1, ts8, "22.05.2022.", BoardingCardState.BOUGHT, 300);
-            BoardingCard bc2 = new BoardingCard(u1, new List<Timetable> { tt2 }, ts1, ts8, "23.05.2022.", BoardingCardState.RESERVED, 300);
-            BoardingCard bc3 = new BoardingCard(u1, new List<Timetable> { tt10 }, ts8, ts1,  "10.06.2022.", BoardingCardState.BOUGHT, 300);
-            BoardingCard bc4 = new BoardingCard(u1, new List<Timetable> { tt10 }, ts8, ts1, "11.06.2022.", BoardingCardState.BOUGHT, 300);
-
-            systemBoardingCards = new List<BoardingCard>
-            {
-                bc1,
-                bc2,
-                bc3,
-                bc4
-            };
+            systemBoardingCards = new List<BoardingCard>();
         }
 
     }

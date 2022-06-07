@@ -16,18 +16,20 @@ namespace Project.Model
     {
         public User User { get; set; }
 
-        public Timetable Timetable { get; set; }
+        public List<Timetable> Timetable { get; set; }
 
         public string DateOfPurchase { get; set; }
 
         public BoardingCardState State { get; set; }
 
+        public int Price { get; set; }
+
         public BoardingCard() { }
 
-        public BoardingCard(User user, Timetable timetable, string dateOfPurchase, BoardingCardState state)
+        public BoardingCard(User user, List<Timetable> timetables, string dateOfPurchase, BoardingCardState state)
         {
             User = user;
-            Timetable = timetable;
+            Timetable = timetables;
             DateOfPurchase = dateOfPurchase;
             State = state;
         }

@@ -27,11 +27,6 @@ namespace Project.Views
             InitializeComponent();
         }
 
-        public void ClickWebRoutesView(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         public void ClickRoutesView(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
@@ -53,7 +48,10 @@ namespace Project.Views
 
         public void BuyTicketClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.cardBuyingPage.Visibility = Visibility.Visible;
+            window.timetableReviewPage.Visibility = Visibility.Hidden;
+            window.routesReviewPage.Visibility= Visibility.Hidden;
         }
 
         public void MyTicketsClick(object sender, RoutedEventArgs e)
@@ -65,7 +63,8 @@ namespace Project.Views
         {
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
             mainWindow.timetableReviewPage.Visibility = Visibility.Visible;
-            mainWindow.routesReviewPage.Visibility= Visibility.Hidden;
+            mainWindow.routesReviewPage.Visibility = Visibility.Hidden;
+            mainWindow.cardBuyingPage.Visibility = Visibility.Hidden;
         }
 
         public void LogoutClick(object sender, RoutedEventArgs e)
@@ -78,6 +77,7 @@ namespace Project.Views
             window.client.Visibility = Visibility.Hidden;
             window.routesReviewPage.Visibility = Visibility.Hidden;
             window.timetableReviewPage.Visibility = Visibility.Hidden;
+            window.cardBuyingPage.Visibility = Visibility.Hidden;
             //sve ostale prozore u clientu staviti na hidden
             window.homePage.Visibility = Visibility.Visible;
         }

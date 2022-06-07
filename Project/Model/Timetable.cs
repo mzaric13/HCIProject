@@ -129,5 +129,14 @@ namespace Project.Model
         {
             return startDate + " " + startTime + " --> " + endDate + " " + endTime + " Voz: " + train.Operator + " " + train.Number;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Timetable)
+            {
+                Timetable timetable = (Timetable)obj;
+                return timetable.id == this.id;
+            }else return false;
+        }
     }
 }

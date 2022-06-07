@@ -10,7 +10,6 @@
         <RoutedUICommand x:Key="BuyTicketsCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="MyTicketsCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="RoutesCommand"></RoutedUICommand>
-        <RoutedUICommand x:Key="WebRoutesCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="TimetablesCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="LogoutCommand"></RoutedUICommand>
         <RoutedUICommand x:Key="HelpPageCommand"></RoutedUICommand>
@@ -23,8 +22,6 @@
                         Executed="MyTicketsClick"/>
         <CommandBinding Command="{StaticResource RoutesCommand}"
                         Executed="ClickRoutesView"/>
-        <CommandBinding Command="{StaticResource WebRoutesCommand}"
-                        Executed="ClickWebRoutesView"/>
         <CommandBinding Command="{StaticResource TimetablesCommand}"
                         Executed="TimetableClick"/>
         <CommandBinding Command="{StaticResource LogoutCommand}"
@@ -38,7 +35,6 @@
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{StaticResource BuyTicketsCommand}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{StaticResource MyTicketsCommand}"/>
         <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource RoutesCommand}"/>
-        <KeyBinding Key="R" Modifiers="Ctrl" Command="{StaticResource WebRoutesCommand}"/>
         <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource TimetablesCommand}"/>
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{StaticResource LogoutCommand}"/>
         <KeyBinding Key="F1" Command="{StaticResource HelpPageCommand}"/>
@@ -66,12 +62,12 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Background="#191c4f">
+        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Background="#191c4f">
             <Image Source="../Images/rail.png"></Image>
         </Label>
 
         <Label Grid.Column="3" Grid.Row="0" Background="#191c4f"></Label>
-        <Button Name="BuyTicket" Grid.Column="4" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource BuyTicketsCommand}">
+        <Button Name="BuyTicket" Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource BuyTicketsCommand}">
             <Image Source="../Images/invoice.png" Stretch="Uniform"></Image>
             <Button.ToolTip>
                 <ToolTip>
@@ -82,7 +78,7 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Name="MyTickets"  Grid.Column="5" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource MyTicketsCommand}">
+        <Button Name="MyTickets"  Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource MyTicketsCommand}">
             <Image Source="../Images/ticket.png" Stretch="Uniform"></Image>
             <Button.ToolTip>
                 <ToolTip>
@@ -93,24 +89,13 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Name="RoutesView" Grid.Column="6" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource RoutesCommand}">
+        <Button Name="RoutesView" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource RoutesCommand}">
             <Image Source="../Images/platforms.png" Stretch="Uniform"></Image>
             <Button.ToolTip>
                 <ToolTip>
                     <StackPanel>
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Vozne linije</TextBlock>
                         <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + E</TextBlock>
-                    </StackPanel>
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Name="WebRoutesView" Grid.Column="7" Grid.Row="0" Background="#191c4f" Padding="12" Command="{StaticResource WebRoutesCommand}">
-            <Image Source="../Images/map.png" Stretch="Uniform"></Image>
-            <Button.ToolTip>
-                <ToolTip>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Mapa linija vožnji</TextBlock>
-                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + R</TextBlock>
                     </StackPanel>
                 </ToolTip>
             </Button.ToolTip>

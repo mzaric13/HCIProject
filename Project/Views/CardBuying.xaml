@@ -6,6 +6,16 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="SearchCardsCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource SearchCardsCommand}"
+                        Executed="SearchTimetables"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource SearchCardsCommand}"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -28,7 +38,7 @@
         </Grid.ColumnDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="1">
-            <Label Content="OD:" FontSize="4" Width="25" HorizontalContentAlignment="Right"></Label>
+            <Label Content="OD:" FontSize="4" Width="25" HorizontalContentAlignment="Right" FontFamily="Arial black"></Label>
         </Viewbox>
 
         <Viewbox Grid.Row="0" Grid.Column="2">
@@ -36,7 +46,7 @@
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.Column="1">
-            <Label Content="DO:" FontSize="4" Width="25" HorizontalContentAlignment="Right"></Label>
+            <Label Content="DO:" FontSize="4" Width="25" HorizontalContentAlignment="Right" FontFamily="Arial black"></Label>
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.Column="2">
@@ -44,15 +54,15 @@
         </Viewbox>
 
         <Viewbox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2">
-            <Label Content="Datum polaska" FontSize="4" Width="55" HorizontalContentAlignment="Center"></Label>
+            <Label Content="Datum polaska" FontSize="4" Width="55" HorizontalContentAlignment="Center" FontFamily="Arial black"></Label>
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" VerticalAlignment="Center">
-            <DatePicker x:Name="datePick" Width="100" FontSize="10" Height="40"></DatePicker>
+            <DatePicker x:Name="datePick" Width="100" FontSize="10" Height="40" Loaded="datePick_Loaded"></DatePicker>
         </Viewbox>
 
         <Viewbox Grid.Row="0" Grid.Column="7" HorizontalAlignment="Left">
-            <Button x:Name="search" Content="Pretraži" Foreground="White" Background="#191c4f" Click="SearchTimetables">
+            <Button x:Name="search" Content="Pretraži" Foreground="White" Background="#191c4f" FontFamily="Arial black" Command="{StaticResource SearchCardsCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
@@ -60,6 +70,14 @@
                         <Setter Property="Width" Value="80"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18">Pretraga redova vožnje</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 

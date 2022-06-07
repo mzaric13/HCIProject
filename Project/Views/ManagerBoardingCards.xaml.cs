@@ -92,9 +92,12 @@ namespace Project.Views
                 Timetable selectedTimetable = timetables.SelectedItem as Timetable;
                 foreach (BoardingCard boardingCard in window.systemEntities.systemBoardingCards)
                 {
-                    if (boardingCard.Timetable == selectedTimetable)
+                    foreach (Timetable timetable in boardingCard.Timetable)
                     {
-                        boardingCardsForSelectedTimetable.Add(boardingCard);
+                        if (timetable == selectedTimetable)
+                        {
+                            boardingCardsForSelectedTimetable.Add(boardingCard);
+                        }
                     }
                 }
                 BoardingCards = new ObservableCollection<BoardingCard>(boardingCardsForSelectedTimetable);
@@ -120,7 +123,7 @@ namespace Project.Views
             }
             if (e.Column.Header.ToString() == "Timetable")
             {
-                e.Column.Header = "Vožnja";
+                e.Column.Visibility = Visibility.Hidden;
             }
             if (e.Column.Header.ToString() == "DateOfPurchase")
             {
@@ -129,6 +132,18 @@ namespace Project.Views
             if (e.Column.Header.ToString() == "State")
             {
                 e.Column.Visibility = Visibility.Hidden;
+            }
+            if (e.Column.Header.ToString() == "Price")
+            {
+                e.Column.Header = "Cena";
+            }
+            if (e.Column.Header.ToString() == "StartStation")
+            {
+                e.Column.Header = "Početna stanica";
+            }
+            if (e.Column.Header.ToString() == "EndStation")
+            {
+                e.Column.Header = "Krajnja stanica";
             }
         }
     }

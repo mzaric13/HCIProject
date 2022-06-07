@@ -117,6 +117,11 @@ namespace Project.Views
                 e.Column.Header = "Broj linije";
                 e.Column.IsReadOnly = true;
             }
+            if (e.Column.Header.ToString() == "Prices")
+            {
+                e.Column.Visibility = Visibility.Hidden;
+            }
+
             if (e.Column is DataGridTextColumn textColumn)
                 textColumn.Binding = new Binding(e.PropertyName) { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
 

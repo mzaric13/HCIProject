@@ -44,6 +44,7 @@ namespace Project.Views
             window.routesReviewPage.back.Visibility = Visibility.Hidden;
             window.routesReviewPage.drawSurface.Children.Clear();
             window.timetableReviewPage.Visibility = Visibility.Hidden;
+            window.cardBuyingPage.Visibility = Visibility.Hidden;
         }
 
         public void BuyTicketClick(object sender, RoutedEventArgs e)
@@ -96,7 +97,11 @@ namespace Project.Views
                 homeHelp = new HomeHelp("routesReview.html");
                 homeHelp.Show();
             }
-            //else if...
+            else if (window.cardBuyingPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("cardBuying.html");
+                homeHelp.Show();
+            }
         }
 
         public void VideoClick(object sender, RoutedEventArgs e)
@@ -113,7 +118,11 @@ namespace Project.Views
                 videoWindow = new Video("../../Videos/routesReview.wmv");
                 videoWindow.Show();
             }
-            //else if...
+            else if (window.cardBuyingPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/buyCards.wmv");
+                videoWindow.Show();
+            }
         }
     }
 }

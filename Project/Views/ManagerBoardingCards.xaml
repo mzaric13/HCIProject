@@ -54,7 +54,7 @@
         </Viewbox>
 
         <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7">
-            <DataGrid x:Name="tableBoardingCards" CanUserAddRows="False" ColumnWidth="Auto" Width="1410" Height="336" 
+            <DataGrid x:Name="tableBoardingCards" CanUserAddRows="False" ColumnWidth="*" Width="1410" Height="336" 
                       IsReadOnly="True" Loaded="BoardingCardsLoaded" AutoGeneratingColumn="tableBoardingCards_AutoGeneratingColumn" FontSize="20">
                 <DataGrid.Columns>
 

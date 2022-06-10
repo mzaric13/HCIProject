@@ -6,6 +6,16 @@
              xmlns:local="clr-namespace:Project.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="ShowCardsCommand"></RoutedUICommand>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ShowCardsCommand}"
+                        Executed="ShowCards"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource ShowCardsCommand}"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -40,7 +50,7 @@
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left">
-            <Button x:Name="search" Content="Prikaži" Foreground="White" Background="#191c4f" FontFamily="Arial black" Click="ShowCards">
+            <Button x:Name="search" Content="Prikaži" Foreground="White" Background="#191c4f" FontFamily="Arial black" Command="{StaticResource ShowCardsCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"></Setter>
@@ -48,6 +58,14 @@
                         <Setter Property="Width" Value="80"></Setter>
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Prikaz karata</TextBlock>
+                            <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + F</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Viewbox>
 

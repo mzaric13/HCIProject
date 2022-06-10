@@ -110,6 +110,11 @@ namespace Project.Views
                 homeHelp = new HomeHelp("cardBuying.html");
                 homeHelp.Show();
             }
+            else if (window.clientCardsReviewPage.Visibility == Visibility.Visible)
+            {
+                homeHelp = new HomeHelp("buyCards.html");
+                homeHelp.Show();
+            }
         }
 
         public void VideoClick(object sender, RoutedEventArgs e)
@@ -129,6 +134,11 @@ namespace Project.Views
             else if (window.cardBuyingPage.Visibility == Visibility.Visible)
             {
                 videoWindow = new Video("../../Videos/buyCards.wmv");
+                videoWindow.Show();
+            }
+            else if (window.clientCardsReviewPage.Visibility == Visibility.Visible)
+            {
+                videoWindow = new Video("../../Videos/myCards.wmv");
                 videoWindow.Show();
             }
         }

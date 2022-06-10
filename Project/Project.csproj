@@ -298,6 +298,9 @@
     <Content Include="Help\boardingCardsManager.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Help\buyCards.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Help\cardBuying.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -325,6 +328,7 @@
     <Content Include="Help\trainCrud.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Videos\myCards.wmv" />
     <Content Include="Videos\buyCards.wmv" />
     <Content Include="Videos\drag_drop_menadzer.wmv" />
     <Content Include="Videos\login.wmv" />

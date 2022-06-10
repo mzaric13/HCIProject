@@ -67,6 +67,10 @@ namespace Project.Views
             window.timetableCrudPage.Visibility = Visibility.Hidden;
             window.routeCrudPage.Visibility = Visibility.Hidden;
             window.boardingCarsViewManager.Visibility = Visibility.Visible;
+
+            ButtonAutomationPeer peer = new ButtonAutomationPeer(window.boardingCarsViewManager.showBoardingCards);
+            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            invokeProv.Invoke();
         }
 
         public void TrainsClick(object sender, RoutedEventArgs e)

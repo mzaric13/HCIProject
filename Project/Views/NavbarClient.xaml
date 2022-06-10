@@ -35,8 +35,8 @@
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{StaticResource BuyTicketsCommand}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{StaticResource MyTicketsCommand}"/>
         <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource RoutesCommand}"/>
-        <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource TimetablesCommand}"/>
-        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{StaticResource LogoutCommand}"/>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{StaticResource TimetablesCommand}"/>
+        <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource LogoutCommand}"/>
         <KeyBinding Key="F1" Command="{StaticResource HelpPageCommand}"/>
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{StaticResource VideoCommand}"/>
     </UserControl.InputBindings>
@@ -106,7 +106,7 @@
                 <ToolTip>
                     <StackPanel>
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Prikaz redova vožnji</TextBlock>
-                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + T</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + R</TextBlock>
                     </StackPanel>
                 </ToolTip>
             </Button.ToolTip>
@@ -128,7 +128,7 @@
                 <ToolTip>
                     <StackPanel>
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"> Odjava</TextBlock>
-                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + Y</TextBlock>
+                        <TextBlock FontSize="15" HorizontalAlignment="Center"> Ctrl + T</TextBlock>
                     </StackPanel>
                 </ToolTip>
             </Button.ToolTip>

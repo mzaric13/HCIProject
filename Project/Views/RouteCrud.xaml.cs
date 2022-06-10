@@ -133,12 +133,24 @@ namespace Project.Views
             yesNoModal.ShowDialog();
             if (yesNoModal.response)
             {
+                List<Timetable> timetablesForRemoving = new List<Timetable>();
                 MainWindow window = (MainWindow)Window.GetWindow(this);
                 Route route = ((FrameworkElement)sender).DataContext as Route;
                 foreach (Route r in window.systemEntities.systemRoutes)
                 {
                     if (route.Id == r.Id)
                     {
+                        foreach (Timetable timetable in window.systemEntities.systemTimetables)
+                        {
+                            if (timetable.Route.Id == route.Id)
+                            {
+                                timetablesForRemoving.Add(timetable);
+                            }
+                        }
+                        foreach (Timetable timet in timetablesForRemoving)
+                        {
+                            window.systemEntities.systemTimetables.Remove(timet);
+                        }
                         window.systemEntities.systemRoutes.Remove(r);
                         fillRouteTable();
                         break;
@@ -187,7 +199,8 @@ namespace Project.Views
                 List<Route> searchedRoutes = new List<Route>();
                 foreach (Route route in window.systemEntities.systemRoutes)
                 {
-                    if (route.StartingStation.Name.ToLower().Contains(searchText.Text.ToLower()) || route.EndingStation.Name.ToLower().Contains(searchText.Text.ToLower()))
+                    if (route.StartingStation.Name.ToLower().Contains(searchText.Text.ToLower()) || route.EndingStation.Name.ToLower().Contains(searchText.Text.ToLower()) ||
+                        route.Id.ToString().Contains(searchText.Text.ToLower())) 
                     {
                         searchedRoutes.Add(route);
                     }

@@ -87,10 +87,22 @@ namespace Project.Views
             {
                 MainWindow window = (MainWindow)Window.GetWindow(this);
                 Train train = ((FrameworkElement)sender).DataContext as Train;
+                List<Timetable> timetablesForRemoving = new List<Timetable>();
                 foreach (Train t in window.systemEntities.systemTrains)
                 {
                     if (t.Number == train.Number && t.Operator == train.Operator)
                     {
+                        foreach (Timetable timetable in window.systemEntities.systemTimetables)
+                        {
+                            if (timetable.train.Number == train.Number)
+                            {
+                                timetablesForRemoving.Add(timetable);
+                            }
+                        }
+                        foreach (Timetable timet in timetablesForRemoving)
+                        {
+                            window.systemEntities.systemTimetables.Remove(timet);
+                        }
                         window.systemEntities.systemTrains.Remove(t);
                         fillTrainTable();
                         break;

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -58,6 +60,7 @@ namespace Project.Views
                             window.notLoggedIn.Visibility = Visibility.Hidden;
                             window.client.Visibility = Visibility.Visible;
                             window.loginPage.Visibility = Visibility.Hidden;
+                            //dodaj stranicu koja ce se prvo prikazati kad se klijent login-uje
                         }
                         else if (window.systemEntities.systemUsers[this.email.Text].userType == Model.UserType.Manager)
                         {
@@ -65,6 +68,10 @@ namespace Project.Views
                             window.manager.Visibility = Visibility.Visible;
                             window.loginPage.Visibility = Visibility.Hidden;
                             window.boardingCarsViewManager.Visibility = Visibility.Visible;
+
+                            ButtonAutomationPeer peer = new ButtonAutomationPeer(window.boardingCarsViewManager.showBoardingCards);
+                            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                            invokeProv.Invoke();
                         }
                     }
                 }

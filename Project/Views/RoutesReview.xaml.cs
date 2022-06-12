@@ -70,6 +70,10 @@ namespace Project.Views
             {
                 e.Column.Visibility = Visibility.Hidden;
             }
+            if (e.Column.Header.ToString() == "Prices")
+            {
+                e.Column.Visibility = Visibility.Hidden;
+            }
         }
 
         public void ShowAllRoutes(object sender, RoutedEventArgs e)
@@ -93,15 +97,20 @@ namespace Project.Views
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            if (drawSurface.Visibility == Visibility.Visible)
+            if ((e.WidthChanged || e.HeightChanged) && e.PreviousSize.Height != 0)
             {
-                foreach (var children in drawSurface.Children)
+                foreach (TrainStation trainStation in window.systemEntities.systemTrainStations)
                 {
-                    Border border = (Border)children;
-                    border.Height = drawSurface.ActualHeight / 10;
-                    border.Width = routesGrid.ActualWidth / 7;
-                    Canvas.SetTop(border, (routesGrid.ActualHeight * Canvas.GetTop(border)) / e.PreviousSize.Height);
-                    Canvas.SetLeft(border, (routesGrid.ActualWidth * Canvas.GetLeft(border)) / e.PreviousSize.Width);
+                    trainStation.Y = (e.NewSize.Height * trainStation.Y) / e.PreviousSize.Height;
+                    trainStation.X = (e.NewSize.Width * trainStation.X) / e.PreviousSize.Width;
+                }
+                if (drawSurface.Visibility == Visibility.Visible)
+                {
+                    foreach (Ellipse ellipse in drawSurface.Children)
+                    {
+                        Canvas.SetLeft(ellipse, (e.NewSize.Width * Canvas.GetLeft(ellipse)) / e.PreviousSize.Width);
+                        Canvas.SetTop(ellipse, (e.NewSize.Height * Canvas.GetTop(ellipse)) / e.PreviousSize.Height);
+                    }
                 }
             }
         }
@@ -115,24 +124,12 @@ namespace Project.Views
         private void ShowWebRoutes()
         {
             transformWebView();
-            double gridHeight = drawSurface.ActualHeight;
-            double gridWidth = routesGrid.ActualWidth;
-            double diffHeight = gridHeight / (selectedRoute.Stations.Count + 4);
-            double diffWidth = gridWidth / (selectedRoute.Stations.Count + 4);
-            double posX = diffWidth;
-            double posY = diffHeight;
-            int number = 1;
-            CreateRectangle(selectedRoute.StartingStation, posX, posY, 0, gridHeight, gridWidth);
-            posX += diffWidth;
-            posY += diffHeight;
+            CreateCircle(selectedRoute.StartingStation, System.Windows.Media.Colors.Green);
             foreach (TrainStation trainStation in selectedRoute.Stations)
             {
-                CreateRectangle(trainStation, posX, posY, number, gridHeight, gridWidth);
-                posX += diffWidth;
-                posY += diffHeight;
-                number++;
+                CreateCircle(trainStation, System.Windows.Media.Colors.Blue);
             }
-            CreateRectangle(selectedRoute.EndingStation, posX, posY, number, gridHeight, gridWidth);
+            CreateCircle(selectedRoute.EndingStation, System.Windows.Media.Colors.Red);
         }
 
         private void transformWebView()
@@ -150,26 +147,25 @@ namespace Project.Views
             back.Visibility = Visibility.Visible;
         }
 
-        private void CreateRectangle(TrainStation trainStation, double posX, double posY, int number, double gridHeight, double gridWidth)
+        private void CreateCircle(TrainStation trainStation, Color color)
         {
-            Border border = new Border();
-            border.Height = gridHeight/10;
-            border.Width = gridWidth/7;
-            border.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
-            border.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Black);
-            border.BorderThickness = new Thickness(1, 1, 1, 1);
-            border.MouseMove += Border_MouseMove;
+            Ellipse ellipse = new Ellipse();
+            ellipse.Width = 15;
+            ellipse.Height = 15;
+            ellipse.Fill = new SolidColorBrush(color);
+            Canvas.SetLeft(ellipse, trainStation.X);
+            Canvas.SetTop(ellipse, trainStation.Y);
 
-            Label label = new Label();
-            int labelNum = number + 1;
-            label.Content = labelNum + ". " +  trainStation.Name;
-            label.HorizontalAlignment = HorizontalAlignment.Center;
-            label.VerticalAlignment = VerticalAlignment.Center;
-            border.Child = label;
+            var toolTipTextBox = new TextBox();
+            toolTipTextBox.Text = trainStation.Name;
+            toolTipTextBox.FontSize = 24;
 
-            drawSurface.Children.Insert(number, border);
-            Canvas.SetTop(border, posY);
-            Canvas.SetLeft(border, posX);
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Children.Add(toolTipTextBox);
+
+            ellipse.MouseMove += Ellipse_MouseMove;
+            ellipse.ToolTip = stackPanel;
+            drawSurface.Children.Add(ellipse);
         }
 
         public void SearchRoutes(object sender, RoutedEventArgs e)
@@ -227,33 +223,32 @@ namespace Project.Views
             selectedRoute = null;
         }
 
-        private void Border_MouseMove(object sender, MouseEventArgs e)
+        private void Ellipse_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                Border border = sender as Border;
-                Label label = (Label)border.Child;
-                DataObject dragData = new DataObject("borderMove", border);
-                DragDrop.DoDragDrop(border, dragData, DragDropEffects.Move);
+                Ellipse ellipse = sender as Ellipse;
+                DataObject dragData = new DataObject("ellipseMove", ellipse);
+                DragDrop.DoDragDrop(ellipse, dragData, DragDropEffects.Move);
             }
         }
 
-        private void Border_DragEnter(object sender, DragEventArgs e)
+        private void Ellipse_DragEnter(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent("borderMove"))
+            if (!e.Data.GetDataPresent("ellipseMove"))
             {
                 e.Effects = DragDropEffects.None;
             }
         }
 
-        private void Border_Drop(object sender, DragEventArgs e)
+        private void Ellipse_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent("borderMove"))
+            if (e.Data.GetDataPresent("ellipseMove"))
             {
-                Border border = e.Data.GetData("borderMove") as Border;
-                Point endSpot = e.GetPosition(border);
-                Canvas.SetTop(border, Canvas.GetTop(border) + endSpot.Y);
-                Canvas.SetLeft(border, Canvas.GetLeft(border) + endSpot.X);
+                Ellipse ellipse = e.Data.GetData("ellipseMove") as Ellipse;
+                Point endSpot = e.GetPosition(ellipse);
+                Canvas.SetTop(ellipse, Canvas.GetTop(ellipse) + endSpot.Y);
+                Canvas.SetLeft(ellipse, Canvas.GetLeft(ellipse) + endSpot.X);
             }
         }
     }

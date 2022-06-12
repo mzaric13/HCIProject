@@ -62,6 +62,7 @@ namespace Project.Views
         }
         public void AddRoute(object sender, RoutedEventArgs e)
         {
+            // TODO: izvadi iz entiteta stanice koordinate za bg i ns i ubaci u konstruktor
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemRoutes.Max(t => t.Id);
             TrainStation ts1 = new TrainStation(1, "Beograd");

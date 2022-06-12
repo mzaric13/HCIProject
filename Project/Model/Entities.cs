@@ -79,16 +79,16 @@ namespace Project.Model
                 t8
             };
 
-            TrainStation ts1 = new TrainStation(1, "Beograd");
-            TrainStation ts2 = new TrainStation(2, "Zemun");
-            TrainStation ts3 = new TrainStation(3, "Stara Pazova");
-            TrainStation ts4 = new TrainStation(4, "Indjija");
-            TrainStation ts5 = new TrainStation(5, "Beska");
-            TrainStation ts6 = new TrainStation(6, "Sremski Karlovci");
-            TrainStation ts7 = new TrainStation(7, "Petrovaradin");
-            TrainStation ts8 = new TrainStation(8, "Novi Sad");
-            TrainStation ts9 = new TrainStation(9, "Vrbas");
-            TrainStation ts10 = new TrainStation(10, "Subotica");
+            TrainStation ts1 = new TrainStation(1, "Beograd", 340, 120);
+            TrainStation ts2 = new TrainStation(2, "Zemun", 325, 115);
+            TrainStation ts3 = new TrainStation(3, "Stara Pazova", 310, 110);
+            TrainStation ts4 = new TrainStation(4, "Indjija", 305, 100);
+            TrainStation ts5 = new TrainStation(5, "Beska", 295, 90);
+            TrainStation ts6 = new TrainStation(6, "Sremski Karlovci", 285, 85);
+            TrainStation ts7 = new TrainStation(7, "Petrovaradin", 265, 80);
+            TrainStation ts8 = new TrainStation(8, "Novi Sad", 250, 80);
+            TrainStation ts9 = new TrainStation(9, "Vrbas", 260, 60);
+            TrainStation ts10 = new TrainStation(10, "Subotica", 230, 30);
 
             systemTrainStations = new List<TrainStation>
             {

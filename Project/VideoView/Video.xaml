@@ -1,0 +1,25 @@
+﻿<Window x:Class="Project.VideoView.Video"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.VideoView"
+        mc:Ignorable="d"
+        Title="Video demonstracija" Height="500" Width="750"
+        Icon="../Icons/play.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <MediaElement LoadedBehavior="Manual" Name="videoPlayer" />
+        <StackPanel Grid.Row="1">
+            <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="5" FontFamily="Arial black" />
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Name="btnPlay" Click="btnPlay_Click" FontFamily="Arial black" Background="#191c4f" Foreground="White">Pokreni</Button>
+                <Button Name="btnPause" Margin="5,0" Click="btnPause_Click" FontFamily="Arial black" Background="#191c4f" Foreground="White">Pauziraj</Button>
+                <Button Name="btnStop" Click="btnStop_Click" FontFamily="Arial black" Background="#191c4f" Foreground="White">Prekini</Button>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>

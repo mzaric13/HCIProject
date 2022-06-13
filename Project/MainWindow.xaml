@@ -4,9 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project"
+        xmlns:uc="clr-namespace:Project.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="BrzePruge" Height="450" Width="800"
+        Icon="Icons/rail.ico" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <uc:NavbarNotLoggedIn x:Name="notLoggedIn" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4"/>
+        <uc:NavbarClient x:Name="client" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4" Visibility="Hidden"/>
+        <uc:NavbarManager x:Name="manager" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="4" Visibility="Hidden"/>
+
+        <uc:HomePage x:Name="homePage" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3" Grid.Row="1" Visibility="Visible"/>
+        <uc:Login x:Name="loginPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:Register x:Name="registrationPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+
+        <uc:TrainCrud x:Name="trainCrudPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:TimetableCrud x:Name="timetableCrudPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:RouteCrud x:Name="routeCrudPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:ManagerBoardingCards x:Name="boardingCarsViewManager" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+
+        <uc:RoutesReview x:Name="routesReviewPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden" />
+        <uc:TimetableReview x:Name="timetableReviewPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:CardBuying x:Name="cardBuyingPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
+        <uc:ClientCardsReview x:Name="clientCardsReviewPage" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden"/>
     </Grid>
 </Window>

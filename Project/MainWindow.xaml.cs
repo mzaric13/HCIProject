@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,20 @@ namespace Project
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Entities systemEntities { get; set; }
         public MainWindow()
         {
+            systemEntities = new Entities();
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(Window_Loaded);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+            this.MoveFocus(tRequest);
+
+            this.Loaded -= Window_Loaded;
         }
     }
 }

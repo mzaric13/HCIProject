@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9037250F-1394-426E-A0A6-4ECCDB8DED70}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Project</RootNamespace>
     <AssemblyName>Project</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -34,9 +34,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Syncfusion.Licensing, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.20.1.0.58\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF.20.1.0.58\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -46,6 +61,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -55,6 +71,75 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelpView\HomeHelp.xaml.cs">
+      <DependentUpon>HomeHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modals\Error.xaml.cs">
+      <DependentUpon>Error.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modals\Success.xaml.cs">
+      <DependentUpon>Success.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modals\YesNoModal.xaml.cs">
+      <DependentUpon>YesNoModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BoardingCard.cs" />
+    <Compile Include="Model\DataForCard.cs" />
+    <Compile Include="Model\Route.cs" />
+    <Compile Include="Model\Timetable.cs" />
+    <Compile Include="Model\Train.cs" />
+    <Compile Include="Model\TrainStation.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\Entities.cs" />
+    <Compile Include="VideoView\Video.xaml.cs">
+      <DependentUpon>Video.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CardBuying.xaml.cs">
+      <DependentUpon>CardBuying.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClientCardsReview.xaml.cs">
+      <DependentUpon>ClientCardsReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagerBoardingCards.xaml.cs">
+      <DependentUpon>ManagerBoardingCards.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavbarClient.xaml.cs">
+      <DependentUpon>NavbarClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavbarManager.xaml.cs">
+      <DependentUpon>NavbarManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavbarNotLoggedIn.xaml.cs">
+      <DependentUpon>NavbarNotLoggedIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Register.xaml.cs">
+      <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoutesReview.xaml.cs">
+      <DependentUpon>RoutesReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RouteCrud.xaml.cs">
+      <DependentUpon>RouteCrud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TimetableCrud.xaml.cs">
+      <DependentUpon>TimetableCrud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TimetableReview.xaml.cs">
+      <DependentUpon>TimetableReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrainCrud.xaml.cs">
+      <DependentUpon>TrainCrud.xaml</DependentUpon>
+    </Compile>
+    <Page Include="HelpView\HomeHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +152,78 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Modals\Error.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modals\Success.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modals\YesNoModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VideoView\Video.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CardBuying.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientCardsReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagerBoardingCards.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavbarClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavbarManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavbarNotLoggedIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoutesReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RouteCrud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimetableCrud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimetableReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TrainCrud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +243,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +251,100 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\success.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\desno.png" />
+    <Resource Include="Images\loginwhite.png" />
+    <Resource Include="Images\homewhite.png" />
+    <Resource Include="Images\invoice.png" />
+    <Resource Include="Images\levo.png" />
+    <Resource Include="Images\logout.png" />
+    <Resource Include="Images\map.png" />
+    <Resource Include="Images\personal.png" />
+    <Resource Include="Images\platforms.png" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\ticket.png" />
+    <Resource Include="Images\timetable.png" />
+    <Resource Include="Images\train.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\rail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\train1.jpg" />
+    <Resource Include="Images\train2.jpg" />
+    <Resource Include="Images\train4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\rail.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\error.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search_table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\question.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\question_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Help\boardingCardsManager.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\buyCards.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\cardBuying.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\home.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\registration.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\routeCrud.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\routesReview.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\timetableCrud.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\timetableReview.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\trainCrud.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Videos\myCards.wmv" />
+    <Content Include="Videos\buyCards.wmv" />
+    <Content Include="Videos\drag_drop_menadzer.wmv" />
+    <Content Include="Videos\login.wmv" />
+    <Content Include="Videos\managerBoardingCards.wmv" />
+    <Content Include="Videos\registrationPage.wmv" />
+    <Content Include="Videos\routeCrud.wmv" />
+    <Content Include="Videos\routesReview1.wmv" />
+    <Content Include="Videos\timetableCrud.wmv" />
+    <Content Include="Videos\timetableReview.wmv" />
+    <Content Include="Videos\trainCrud.wmv" />
+    <Resource Include="Icons\play.ico" />
+    <Content Include="Videos\homePage.wmv" />
+    <Resource Include="Images\video.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

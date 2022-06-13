@@ -45,7 +45,7 @@ namespace Project.Views
 
         public void SearchTimetables(object sender, RoutedEventArgs e)
         {
-            if (startingStation.SelectedItem != null && lastStation.SelectedItem != null && datePick.SelectedDate != null)
+            if (startingStation.SelectedItem != null && lastStation.SelectedItem != null && datePick.SelectedDate != null && datePick.SelectedDate > DateTime.Now)
             {
                 if (startingStation.SelectedItem == lastStation.SelectedItem) {
                     showMessagesNoRoute();
@@ -204,11 +204,20 @@ namespace Project.Views
         {
             DataForCard dataForCard = ((FrameworkElement)sender).DataContext as DataForCard;
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, findStationByName(dataForCard.StartingStation), findStationByName(dataForCard.EndingStation), DateTime.Now.ToString("dd.MM.yyyy."), BoardingCardState.RESERVED, dataForCard.Price);
-            window.systemEntities.systemBoardingCards.Add(boardingCard);
-            Success success = new Success("Uspešno ste rezervisali kartu, možete je kupiti ili otkazati!");
-            success.Show();
-            backToNormal();
+            DateTime startTime = DateTime.ParseExact(dataForCard.Timetables.First().startDate, "dd.MM.yyyy.", CultureInfo.CurrentCulture);
+            double days = (startTime - DateTime.Now).TotalDays;
+            if (days < 1)
+            {
+                Error error = new Error("Ne možete rezervisati kartu dan pre polaska. Možete je samo kupiti.");
+                error.ShowDialog();
+            }else
+            {
+                BoardingCard boardingCard = new BoardingCard(window.systemEntities.loggedUser, dataForCard.Timetables, findStationByName(dataForCard.StartingStation), findStationByName(dataForCard.EndingStation), DateTime.Now.ToString("dd.MM.yyyy."), BoardingCardState.RESERVED, dataForCard.Price);
+                window.systemEntities.systemBoardingCards.Add(boardingCard);
+                Success success = new Success("Uspešno ste rezervisali kartu, možete je kupiti ili otkazati!");
+                success.Show();
+                backToNormal();
+            }
         }
 
         private void backToNormal()

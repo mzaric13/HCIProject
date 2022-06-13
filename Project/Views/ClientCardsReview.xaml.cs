@@ -3,6 +3,7 @@ using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,15 +90,32 @@ namespace Project.Views
         {
             ReservedCards.Clear();
             MainWindow window = (MainWindow)Window.GetWindow(this);
+            List<BoardingCard> cardsForDelete = new List<BoardingCard>();
             if (window.systemEntities.systemBoardingCards == null) return;
             foreach (BoardingCard boardingCard in window.systemEntities.systemBoardingCards)
             {
                 if (boardingCard.User == window.systemEntities.loggedUser && boardingCard.State == BoardingCardState.RESERVED)
                 {
-                    ReservedCards.Add(boardingCard);
+                    Timetable timetable = boardingCard.Timetable.First();
+                    DateTime startTime = DateTime.ParseExact(timetable.startDate, "dd.MM.yyyy.", CultureInfo.CurrentCulture);
+                    double days = (startTime - DateTime.Now).TotalDays;
+                    if (days < 1)
+                    {
+                        cardsForDelete.Add(boardingCard);
+                    }else ReservedCards.Add(boardingCard);
                 }
             }
+            deleteCards(cardsForDelete);
             reservedCards.ItemsSource = ReservedCards;
+        }
+
+        private void deleteCards(List<BoardingCard> cardsForDelete)
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            foreach (BoardingCard card in cardsForDelete)
+            {
+                window.systemEntities.systemBoardingCards.Remove(card);
+            }
         }
 
         public void ReservedCardsLoad(object sender, RoutedEventArgs e)

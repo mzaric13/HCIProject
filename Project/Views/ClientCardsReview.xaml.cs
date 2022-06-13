@@ -40,7 +40,6 @@ namespace Project.Views
             if (window.systemEntities.systemBoardingCards == null) return;
             foreach (BoardingCard boardingCard in window.systemEntities.systemBoardingCards)
             {
-                Console.WriteLine(boardingCard.Price);
                 if (boardingCard.User == window.systemEntities.loggedUser && boardingCard.State == BoardingCardState.BOUGHT)
                 {
                     BoughtCards.Add(boardingCard);
@@ -183,12 +182,18 @@ namespace Project.Views
                     fillBoughtCards();
                     reservedCards.Visibility = Visibility.Hidden;
                     boughtCards.Visibility = Visibility.Visible;
-                }else
+                }
+                else
                 {
                     fillReservedCards();
                     boughtCards.Visibility = Visibility.Hidden;
                     reservedCards.Visibility = Visibility.Visible;
                 }
+            }
+            else
+            {
+                Error error = new Error("Niste odabrali tip karte.");
+                error.ShowDialog();
             }
         }
     }

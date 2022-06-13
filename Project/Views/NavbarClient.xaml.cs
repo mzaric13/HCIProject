@@ -128,7 +128,7 @@ namespace Project.Views
             }
             else if (window.routesReviewPage.Visibility == Visibility.Visible)
             {
-                videoWindow = new Video("../../Videos/routesReview.wmv");
+                videoWindow = new Video("../../Videos/routesReview1.wmv");
                 videoWindow.Show();
             }
             else if (window.cardBuyingPage.Visibility == Visibility.Visible)

@@ -156,12 +156,14 @@ namespace Project.Views
             Canvas.SetLeft(ellipse, trainStation.X);
             Canvas.SetTop(ellipse, trainStation.Y);
 
-            var toolTipTextBox = new TextBox();
-            toolTipTextBox.Text = trainStation.Name;
-            toolTipTextBox.FontSize = 24;
+            var toolTipTextBlock = new TextBlock();
+            toolTipTextBlock.Text = trainStation.Name;
+            toolTipTextBlock.FontSize = 24;
+            toolTipTextBlock.FontFamily = new FontFamily("Arial black");
+            toolTipTextBlock.FontWeight = FontWeights.Bold;
 
             StackPanel stackPanel = new StackPanel();
-            stackPanel.Children.Add(toolTipTextBox);
+            stackPanel.Children.Add(toolTipTextBlock);
 
             ellipse.MouseMove += Ellipse_MouseMove;
             ellipse.ToolTip = stackPanel;

@@ -335,7 +335,7 @@
     <Content Include="Videos\managerBoardingCards.wmv" />
     <Content Include="Videos\registrationPage.wmv" />
     <Content Include="Videos\routeCrud.wmv" />
-    <Content Include="Videos\routesReview.wmv" />
+    <Content Include="Videos\routesReview1.wmv" />
     <Content Include="Videos\timetableCrud.wmv" />
     <Content Include="Videos\timetableReview.wmv" />
     <Content Include="Videos\trainCrud.wmv" />

@@ -37,35 +37,33 @@ namespace Project.Model
             };
 
             monthNumbers = new Dictionary<string, string>();
-            monthNumbers.Add("Januar", "01");
-            monthNumbers.Add("Februar", "02");
-            monthNumbers.Add("Mart", "03");
-            monthNumbers.Add("April", "04");
-            monthNumbers.Add("Maj", "05");
-            monthNumbers.Add("Jun", "06");
-            monthNumbers.Add("Jul", "07");
-            monthNumbers.Add("Avgust", "08");
-            monthNumbers.Add("Septembar", "09");
+            monthNumbers.Add("Januar", "1");
+            monthNumbers.Add("Februar", "2");
+            monthNumbers.Add("Mart", "3");
+            monthNumbers.Add("April", "4");
+            monthNumbers.Add("Maj", "5");
+            monthNumbers.Add("Jun", "6");
+            monthNumbers.Add("Jul", "7");
+            monthNumbers.Add("Avgust", "8");
+            monthNumbers.Add("Septembar", "9");
             monthNumbers.Add("Oktobar", "10");
             monthNumbers.Add("Novembar", "11");
             monthNumbers.Add("Decembar", "12");
 
             User u1 = new User("Marko", "Markovic", "marko@gmail.com", "sifra123", UserType.Client);
             User u2 = new User("Jovan", "Jovanovic", "jovan@gmail.com", "sifra123", UserType.Manager);
+            User u3 = new User("Pera", "Peric", "pera@gmail.com", "sifra123", UserType.Client);
             systemUsers = new Dictionary<string, User>
             {
                 { "marko@gmail.com", u1 },
-                { "jovan@gmail.com", u2 }
+                { "jovan@gmail.com", u2 },
+                { "pera@gmail.com", u3 }
             };
 
-            Train t1 = new Train(1, "BrzaPtica");
-            Train t2 = new Train(2, "BrzaPtica");
-            Train t3 = new Train(3, "BrzaPtica");
-            Train t4 = new Train(4, "BrzaPtica");
-            Train t5 = new Train(5, "SamoVozovi");
-            Train t6 = new Train(6, "SamoVozovi");
-            Train t7 = new Train(7, "SamoVozovi");
-            Train t8 = new Train(8, "SamoVozovi");
+            Train t1 = new Train(1, "Soko");
+            Train t2 = new Train(2, "Soko");
+            Train t3 = new Train(3, "RegioEkspres");
+            Train t4 = new Train(4, "RegioEkspres");
 
             systemTrains = new List<Train>
             {
@@ -73,10 +71,6 @@ namespace Project.Model
                 t2,
                 t3,
                 t4,
-                t5,
-                t6,
-                t7,
-                t8
             };
 
             TrainStation ts1 = new TrainStation(1, "Beograd", 340, 120);
@@ -127,16 +121,18 @@ namespace Project.Model
                 r6
             };
 
-            Timetable tt1 = new Timetable(1, "12:00", "08.06.2022.", "14:00", "08.06.2022.", t1, r1);
-            Timetable tt2 = new Timetable(2, "14:00", "08.06.2022.", "16:00", "08.06.2022.", t1, r1);
-            Timetable tt3 = new Timetable(3, "11:00", "27.05.2022.", "13:00", "27.05.2022.", t2, r2);
-            Timetable tt4 = new Timetable(4, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t2, r1);
-            Timetable tt5 = new Timetable(5, "12:00", "30.05.2022.", "14:00", "30.05.2022.", t2, r1);
-            Timetable tt6 = new Timetable(6, "15:00", "31.05.2022.", "17:00", "31.05.2022.", t2, r3);
-            Timetable tt7 = new Timetable(7, "15:00", "08.06.2022.", "15:30", "08.06.2022.", t5, r5);
-            Timetable tt8 = new Timetable(8, "09:00", "26.05.2022.", "11:00", "26.05.2022.", t6, r4);
-            Timetable tt9 = new Timetable(9, "12:00", "25.05.2022.", "14:00", "25.05.2022.", t7, r6);
-            Timetable tt10 = new Timetable(10, "15:00", "14.06.2022.", "17:30", "14.06.2022.", t3, r2);
+            Timetable tt1 = new Timetable(1, "12:00", "15.06.2022.", "14:00", "15.06.2022.", t3, r1);
+            Timetable tt2 = new Timetable(2, "14:00", "15.06.2022.", "16:00", "15.06.2022.", t3, r1);
+            Timetable tt3 = new Timetable(3, "11:00", "15.06.2022.", "13:00", "15.06.2022.", t4, r2);
+            Timetable tt4 = new Timetable(4, "12:00", "16.06.2022.", "14:00", "16.06.2022.", t4, r1);
+            Timetable tt5 = new Timetable(5, "14:00", "16.06.2022.", "16:00", "16.06.2022.", t4, r1);
+            Timetable tt6 = new Timetable(6, "17:00", "15.06.2022.", "17:30", "15.06.2022.", t1, r3);
+            Timetable tt7 = new Timetable(7, "13:00", "16.06.2022.", "15:00", "16.06.2022.", t3, r2);
+            Timetable tt8 = new Timetable(8, "17:00", "15.06.2022.", "17:30", "15.06.2022.", t2, r4);
+            Timetable tt9 = new Timetable(9, "14:30", "15.06.2022.", "15:30", "15.06.2022.", t3, r5);
+            Timetable tt10 = new Timetable(10, "15:30", "15.06.2022.", "16:30", "15.06.2022.", t3, r6);
+            Timetable tt11 = new Timetable(11, "14:30", "16.06.2022.", "15:30", "16.06.2022.", t3, r5);
+            Timetable tt12 = new Timetable(12, "15:30", "16.06.2022.", "16:30", "16.06.2022.", t3, r6);
 
             systemTimetables = new List<Timetable>
             {
@@ -149,10 +145,23 @@ namespace Project.Model
                 tt7,
                 tt8,
                 tt9,
-                tt10
+                tt10,
+                tt11,
+                tt12
             };
+            //public BoardingCard(User user, List<Timetable> timetables, TrainStation startStation, 
+            //TrainStation endStation, string dateOfPurchase, BoardingCardState state, int price)
 
-            systemBoardingCards = new List<BoardingCard>();
+            BoardingCard bc1 = new BoardingCard(u1, new List<Timetable>() { tt1 }, ts1, ts8, "10.06.2022.", BoardingCardState.BOUGHT, 350);
+            BoardingCard bc2 = new BoardingCard(u3, new List<Timetable>() { tt1 }, ts1, ts8, "10.06.2022.", BoardingCardState.BOUGHT, 350);
+            BoardingCard bc3 = new BoardingCard(u3, new List<Timetable>() { tt3 }, ts6, ts1, "10.06.2022.", BoardingCardState.RESERVED, 250);
+
+            systemBoardingCards = new List<BoardingCard>
+            {
+                bc1,
+                bc2,
+                bc3
+            };
         }
 
     }

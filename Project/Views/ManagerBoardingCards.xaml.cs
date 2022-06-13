@@ -3,6 +3,7 @@ using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +69,8 @@ namespace Project.Views
                 string monthNumber = window.systemEntities.monthNumbers[months.SelectedItem.ToString()];
                 foreach (BoardingCard boardingCard in window.systemEntities.systemBoardingCards)
                 {
-                    if (boardingCard.DateOfPurchase.Substring(3, 2) == monthNumber && boardingCard.State == BoardingCardState.BOUGHT)
+                    DateTime date = DateTime.ParseExact(boardingCard.DateOfPurchase, "dd.MM.yyyy.", CultureInfo.CurrentCulture);
+                    if (date.Month == int.Parse(monthNumber) && boardingCard.State == BoardingCardState.BOUGHT)
                     {
                         boardingCardsInSelectedMonth.Add(boardingCard);
                     }

@@ -65,8 +65,12 @@ namespace Project.Views
             // TODO: izvadi iz entiteta stanice koordinate za bg i ns i ubaci u konstruktor
             MainWindow window = (MainWindow)Window.GetWindow(this);
             int maxIndex = window.systemEntities.systemRoutes.Max(t => t.Id);
-            TrainStation ts1 = new TrainStation(1, "Beograd");
-            TrainStation ts8 = new TrainStation(8, "Novi Sad");
+            TrainStation ts1 = null, ts8 = null;
+            foreach (TrainStation trainStation in window.systemEntities.systemTrainStations)
+            {
+                if (trainStation.Name == "Beograd") ts1 = trainStation;
+                if (trainStation.Name == "Novi Sad") ts8 = trainStation;
+            }
             window.systemEntities.systemRoutes.Add(new Route(maxIndex + 1, ts8, ts1, new List<TrainStation> { }));
             fillRouteTable();
             Success success = new Success("Uspešno dodata nova linija Novi Sad - Beograd. Dodajte međustanice i izmenite " +
@@ -342,6 +346,14 @@ namespace Project.Views
             if (e.Column.Header.ToString() == "Name")
             {
                 e.Column.Header = "Naziv stanice";
+            }
+            if (e.Column.Header.ToString() == "X")
+            {
+                e.Column.Visibility = Visibility.Hidden;
+            }
+            if (e.Column.Header.ToString() == "Y")
+            {
+                e.Column.Visibility = Visibility.Hidden;
             }
         }
 

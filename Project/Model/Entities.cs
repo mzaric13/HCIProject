@@ -149,8 +149,6 @@ namespace Project.Model
                 tt11,
                 tt12
             };
-            //public BoardingCard(User user, List<Timetable> timetables, TrainStation startStation, 
-            //TrainStation endStation, string dateOfPurchase, BoardingCardState state, int price)
 
             BoardingCard bc1 = new BoardingCard(u1, new List<Timetable>() { tt1 }, ts1, ts8, "10.06.2022.", BoardingCardState.BOUGHT, 350);
             BoardingCard bc2 = new BoardingCard(u3, new List<Timetable>() { tt1 }, ts1, ts8, "10.06.2022.", BoardingCardState.BOUGHT, 350);

@@ -60,7 +60,7 @@ namespace Project.Views
                             window.notLoggedIn.Visibility = Visibility.Hidden;
                             window.client.Visibility = Visibility.Visible;
                             window.loginPage.Visibility = Visibility.Hidden;
-                            //dodaj stranicu koja ce se prvo prikazati kad se klijent login-uje
+                            window.timetableReviewPage.Visibility = Visibility.Visible;
                         }
                         else if (window.systemEntities.systemUsers[this.email.Text].userType == Model.UserType.Manager)
                         {

@@ -135,7 +135,7 @@ namespace Project.Views
             }
             if (e.Column.Header.ToString() == "DateOfPurchase")
             {
-                e.Column.Header = "Datum kupovine";
+                e.Column.Header = "Datum rezervacije";
             }
             if (e.Column.Header.ToString() == "Price")
             {

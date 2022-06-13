@@ -3,6 +3,7 @@ using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -85,6 +86,7 @@ namespace Project.Views
             if (e.Column.Header.ToString() == "Route")
             {
                 e.Column.Header = "Broj linije ";
+                e.Column.IsReadOnly = true;
             }
             if (e.Column.Header.ToString() == "train")
             {
@@ -246,7 +248,7 @@ namespace Project.Views
                     else
                     {
                         DateTime dummyOutput;
-                        if (DateTime.TryParse(s, out dummyOutput))
+                        if (DateTime.TryParseExact(s,@"dd.MM.yyyy.", new CultureInfo("es-ES"), System.Globalization.DateTimeStyles.None, out dummyOutput))
                         {
                             TimeSpan startTimespan = TimeSpan.Parse(CurrentTimeTable.startTime);
                             TimeSpan endTimespan = TimeSpan.Parse(CurrentTimeTable.endTime);
